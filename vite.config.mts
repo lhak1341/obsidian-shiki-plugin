@@ -4,7 +4,7 @@ import { defineConfig, type UserConfig } from 'vite';
 import { ExpressiveCodeEngine } from '@expressive-code/core';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import banner from 'vite-plugin-banner';
-import { getBuildBanner } from 'lemons-obsidian-plugin-helpers/repo-automation';
+import { getBuildBanner } from '@lemons_dev/lemons-obsidian-plugin-automation';
 import manifest from './manifest.json' with { type: 'json' };
 import { createCssVariableThemeBundle, createEcEngineConfig, EC_VIRTUAL_SETTINGS } from './packages/ec-core/src/Config';
 import { OBSIDIAN_THEME } from './packages/ec-core/src/ObsidianTheme';
