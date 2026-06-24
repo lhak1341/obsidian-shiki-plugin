@@ -25,7 +25,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			...builtInThemes,
 		};
 
-		new Setting(this.containerEl).setName('All setting changes require a reload of the highlighter').addButton(button => {
+		new Setting(this.containerEl).setName('All changes require a reload of the highlighter').addButton(button => {
 			button
 				.setCta()
 				.setButtonText('Reload Highlighter')
@@ -117,10 +117,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.onChange(async value => {
 						this.plugin.settings.customThemeFolder = value;
 						await this.plugin.saveSettings();
-					})
-					.then(textbox => {
-						textbox.inputEl.addClass('shiki-custom-theme-folder');
 					});
+				textbox.inputEl.addClass('shiki-custom-theme-folder');
 			});
 
 		new Setting(this.containerEl)
@@ -144,10 +142,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.onChange(async value => {
 						this.plugin.settings.customLanguageFolder = value;
 						await this.plugin.saveSettings();
-					})
-					.then(textbox => {
-						textbox.inputEl.addClass('shiki-custom-language-folder');
 					});
+				textbox.inputEl.addClass('shiki-custom-language-folder');
 			});
 
 		new Setting(this.containerEl)

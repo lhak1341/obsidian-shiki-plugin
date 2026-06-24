@@ -202,7 +202,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 
 				if (decorationUpdates.length > 0 && this.view.state === capturedState) {
 					// Use requestAnimationFrame to avoid "Calls to EditorView.update are not allowed while an update is in progress"
-					requestAnimationFrame(() => {
+					window.requestAnimationFrame(() => {
 						if (this.view.state === capturedState) {
 							this.view.dispatch(this.view.state.update({}));
 						}

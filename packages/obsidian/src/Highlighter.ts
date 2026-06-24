@@ -161,7 +161,7 @@ export class CodeHighlighter {
 		// Since they come directly from EC, and depend on runtime settings/theme selection, there is no other way than to attach them dynamically.
 		// Note that the static EC styles and scripts are bundled with the plugin and don't need to be loaded like this.
 		const themeStyles = await this.ec.getThemeStyles();
-		this.ecStyleElement = document.head.createEl('style', { text: themeStyles });
+		this.ecStyleElement = activeDocument.head.createEl('style', { text: themeStyles });
 	}
 
 	unloadEC(): void {
