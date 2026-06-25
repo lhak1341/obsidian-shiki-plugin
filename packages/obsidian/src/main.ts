@@ -19,6 +19,7 @@ export default class ShikiPlugin extends Plugin {
 	declare settings: Settings;
 	loadedSettings!: Settings;
 	updateCm6Plugin!: () => Promise<void>;
+	private reloading = false;
 
 	codeBlockProcessors: MarkdownPostProcessor[] = [];
 
@@ -80,19 +81,25 @@ export default class ShikiPlugin extends Plugin {
 	}
 
 	async reloadHighlighter(): Promise<void> {
-		await this.highlighter.unload();
+		if (this.reloading) return;
+		this.reloading = true;
+		try {
+			await this.highlighter.unload();
 
-		this.loadedSettings = structuredClone(this.settings);
+			this.loadedSettings = structuredClone(this.settings);
 
-		await this.highlighter.load();
+			await this.highlighter.load();
 
-		for (const [_, codeBlocks] of this.activeCodeBlocks) {
-			for (const codeBlock of codeBlocks) {
-				await codeBlock.forceRerender();
+			for (const [_, codeBlocks] of this.activeCodeBlocks) {
+				for (const codeBlock of codeBlocks) {
+					await codeBlock.forceRerender();
+				}
 			}
-		}
 
-		await this.updateCm6Plugin();
+			await this.updateCm6Plugin();
+		} finally {
+			this.reloading = false;
+		}
 	}
 
 	async registerPrismPlugin(): Promise<void> {
@@ -168,7 +175,12 @@ export default class ShikiPlugin extends Plugin {
 	}
 
 	async loadSettings(): Promise<void> {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData()) as Settings;
+		try {
+			this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData()) as Settings;
+		} catch (e) {
+			console.warn('Failed to load settings, using defaults.', e);
+			this.settings = Object.assign({}, DEFAULT_SETTINGS) as Settings;
+		}
 
 		// migrate the theme to darkTheme and lightTheme
 		if (this.settings.theme !== undefined) {

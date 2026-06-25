@@ -60,19 +60,22 @@ export class CodeHighlighter {
 		this.unloadShiki();
 	}
 
+	private async listJsonFiles(folder: string, kind: string): Promise<string[]> {
+		const normalized = normalizePath(folder);
+		if (!(await this.plugin.app.vault.adapter.exists(normalized))) {
+			new Notice(`${this.plugin.manifest.name}\nUnable to open custom ${kind} folder: ${normalized}`, 5000);
+			return [];
+		}
+		const listing = await this.plugin.app.vault.adapter.list(normalized);
+		return listing.files.filter(f => f.toLowerCase().endsWith('.json'));
+	}
+
 	async loadCustomLanguages(): Promise<void> {
 		this.customLanguages = [];
 
 		if (!this.plugin.loadedSettings.customLanguageFolder) return;
 
-		const languageFolder = normalizePath(this.plugin.loadedSettings.customLanguageFolder);
-		if (!(await this.plugin.app.vault.adapter.exists(languageFolder))) {
-			new Notice(`${this.plugin.manifest.name}\nUnable to open custom languages folder: ${languageFolder}`, 5000);
-			return;
-		}
-
-		const languageList = await this.plugin.app.vault.adapter.list(languageFolder);
-		const languageFiles = languageList.files.filter(f => f.toLowerCase().endsWith('.json'));
+		const languageFiles = await this.listJsonFiles(this.plugin.loadedSettings.customLanguageFolder, 'languages');
 
 		for (const languageFile of languageFiles) {
 			try {
@@ -98,13 +101,7 @@ export class CodeHighlighter {
 		if (!this.plugin.loadedSettings.customThemeFolder) return;
 
 		const themeFolder = normalizePath(this.plugin.loadedSettings.customThemeFolder);
-		if (!(await this.plugin.app.vault.adapter.exists(themeFolder))) {
-			new Notice(`${this.plugin.manifest.name}\nUnable to open custom themes folder: ${themeFolder}`, 5000);
-			return;
-		}
-
-		const themeList = await this.plugin.app.vault.adapter.list(themeFolder);
-		const themeFiles = themeList.files.filter(f => f.toLowerCase().endsWith('.json'));
+		const themeFiles = await this.listJsonFiles(this.plugin.loadedSettings.customThemeFolder, 'themes');
 
 		for (const themeFile of themeFiles) {
 			const baseName = themeFile.substring(`${themeFolder}/`.length);

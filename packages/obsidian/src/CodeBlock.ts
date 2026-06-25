@@ -29,7 +29,8 @@ export class CodeBlock extends MarkdownRenderChild {
 		const startLine = lines[sectionInfo.lineStart];
 
 		// regexp to match the text after the code block language
-		const regex = new RegExp('^[^`~]*?\\s*(```+|~~~+)' + this.language + ' (.*)', 'g');
+		const escapedLang = this.language.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		const regex = new RegExp('^[^`~]*?\\s*(```+|~~~+)' + escapedLang + ' (.*)', 'g');
 		const match = regex.exec(startLine);
 		if (match !== null) {
 			return match[2];

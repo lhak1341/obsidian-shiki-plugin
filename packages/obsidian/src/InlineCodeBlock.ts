@@ -23,6 +23,7 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		const highlight = await this.plugin.highlighter.getHighlightTokens(this.source, this.language);
 		const tokens = highlight?.tokens.flat(1);
 		if (!tokens?.length) {
+			this.containerEl.innerText = this.source;
 			return;
 		}
 

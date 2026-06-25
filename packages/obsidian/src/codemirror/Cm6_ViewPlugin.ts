@@ -37,6 +37,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 		class Cm6ViewPlugin {
 			decorations: DecorationSet;
 			view: EditorView;
+			private updateGeneration = 0;
 
 			constructor(view: EditorView) {
 				this.view = view;
@@ -83,12 +84,10 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 			 * @param docChanged
 			 */
 			async updateWidgets(view: EditorView, docChanged: boolean = true): Promise<void> {
+				const generation = ++this.updateGeneration;
 				let lang = '';
 				let state: SyntaxNode[] = [];
 				const decorationUpdates: DecorationUpdate[] = [];
-				// Capture the state at the time of the syntax tree traversal so we can
-				// detect if the document changed while async decoration building was in flight.
-				const capturedState = view.state;
 
 				// const t1 = performance.now();
 
@@ -96,13 +95,13 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 					enter: nodeRef => {
 						const node = nodeRef.node;
 
-						const props: Set<string> = new Set<string>(node.type.name?.split('_'));
+						const props = node.type.name?.split('_') ?? [];
 
-						if (props.has('formatting')) {
+						if (props.includes('formatting')) {
 							return;
 						}
 
-						if (props.has('inline-code')) {
+						if (props.includes('inline-code')) {
 							const content = Cm6_Util.getContent(view.state, node.from, node.to);
 
 							if (content.startsWith('{') && plugin.settings.inlineHighlighting) {
@@ -134,18 +133,18 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 							return;
 						}
 
-						if (props.has('HyperMD-codeblock') && !props.has('HyperMD-codeblock-begin') && !props.has('HyperMD-codeblock-end')) {
+						if (props.includes('HyperMD-codeblock') && !props.includes('HyperMD-codeblock-begin') && !props.includes('HyperMD-codeblock-end')) {
 							state.push(node);
 							return;
 						}
 
-						if (props.has('HyperMD-codeblock-begin')) {
+						if (props.includes('HyperMD-codeblock-begin')) {
 							const content = Cm6_Util.getContent(view.state, node.from, node.to);
 
 							lang = /```\s*(\S+)/.exec(content)?.[1] ?? '';
 						}
 
-						if (props.has('HyperMD-codeblock-end')) {
+						if (props.includes('HyperMD-codeblock-end')) {
 							if (state.length > 0 && lang !== '') {
 								const start = state[0].from;
 								const end = state[state.length - 1].to;
@@ -182,9 +181,8 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 							this.removeDecoration(node.from, node.to);
 						} else if (node.type === DecorationUpdateType.Insert) {
 							const decorations = await this.buildDecorations(node.hideTo ?? node.from, node.to, node.lang, node.content);
-							// If the document changed while we were awaiting, the positions we captured
-							// from the syntax tree are stale. Abort to avoid applying out-of-range decorations.
-							if (this.view.state !== capturedState) {
+							// If a newer update started while we were awaiting, abort — our positions are stale.
+							if (generation !== this.updateGeneration) {
 								return;
 							}
 							this.removeDecoration(node.from, node.to);
@@ -200,10 +198,10 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 					}
 				}
 
-				if (decorationUpdates.length > 0 && this.view.state === capturedState) {
+				if (decorationUpdates.length > 0 && generation === this.updateGeneration) {
 					// Use requestAnimationFrame to avoid "Calls to EditorView.update are not allowed while an update is in progress"
 					window.requestAnimationFrame(() => {
-						if (this.view.state === capturedState) {
+						if (generation === this.updateGeneration) {
 							this.view.dispatch(this.view.state.update({}));
 						}
 					});
