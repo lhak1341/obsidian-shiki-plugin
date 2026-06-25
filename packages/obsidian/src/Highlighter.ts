@@ -150,15 +150,15 @@ export class CodeHighlighter {
 			}),
 		);
 
-		if (this.ecStyleElement) {
-			this.ecStyleElement.remove();
-			this.ecStyleElement = undefined;
-		}
-
 		// Since they come directly from EC, and depend on runtime settings/theme selection, there is no other way than to attach them dynamically.
 		// Note that the static EC styles and scripts are bundled with the plugin and don't need to be loaded like this.
 		const themeStyles = await this.ec.getThemeStyles();
-		this.ecStyleElement = activeDocument.head.createEl('style', { text: themeStyles });
+
+		// Insert new style before removing old to avoid a gap where EC CSS is absent,
+		// which would cause code blocks to briefly lose wrap and other visual options.
+		const newStyleEl = activeDocument.head.createEl('style', { text: themeStyles });
+		this.ecStyleElement?.remove();
+		this.ecStyleElement = newStyleEl;
 	}
 
 	unloadEC(): void {
