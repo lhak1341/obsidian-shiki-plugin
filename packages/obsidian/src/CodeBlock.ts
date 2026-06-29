@@ -8,6 +8,7 @@ export class CodeBlock extends MarkdownRenderChild {
 	ctx: MarkdownPostProcessorContext;
 	cachedMetaString: string;
 	private renderGeneration = 0;
+	private _active = false;
 
 	constructor(plugin: ShikiPlugin, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
 		super(containerEl);
@@ -44,14 +45,14 @@ export class CodeBlock extends MarkdownRenderChild {
 	}
 
 	// Renders into a temp element and only applies to containerEl if this is still
-	// the most recently started render (generation check) and containerEl is still
-	// in the document (not detached by a reading-view re-render).
+	// the most recently started render (generation check) and this component
+	// instance has not been unloaded (guards against CSS-reload teardown races).
 	private async render(metaString: string): Promise<void> {
 		const gen = ++this.renderGeneration;
 		const tempEl = createDiv();
 		await this.plugin.highlighter.renderWithEc(this.source, this.language, metaString, tempEl);
 		if (gen !== this.renderGeneration) return;
-		if (!this.containerEl.isConnected) return;
+		if (!this._active) return;
 		this.containerEl.empty();
 		while (tempEl.firstChild) {
 			this.containerEl.appendChild(tempEl.firstChild);
@@ -78,6 +79,7 @@ export class CodeBlock extends MarkdownRenderChild {
 	}
 
 	public onload(): void {
+		this._active = true;
 		super.onload();
 
 		this.plugin.addActiveCodeBlock(this);
@@ -103,6 +105,7 @@ export class CodeBlock extends MarkdownRenderChild {
 	}
 
 	public onunload(): void {
+		this._active = false;
 		super.onunload();
 
 		this.plugin.removeActiveCodeBlock(this);
