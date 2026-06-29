@@ -64,8 +64,14 @@ export class CodeBlock extends MarkdownRenderChild {
 		// only rerender if they are different, to avoid unnecessary work
 		// since the meta string is likely to be the same most of the time
 		// and if the code block content changes obsidian will rerender for us
-		const newMetaString = this.getMetaString();
-		if (newMetaString === null) return;
+		let newMetaString = this.getMetaString();
+		if (newMetaString === null) {
+			// Section info transiently unavailable (e.g. view is re-rendering).
+			// One retry is enough: by the time the await resolves the view is stable.
+			await sleep(100);
+			newMetaString = this.getMetaString();
+			if (newMetaString === null) return;
+		}
 		if (newMetaString !== this.cachedMetaString) {
 			this.cachedMetaString = newMetaString;
 			await this.render(newMetaString);
@@ -91,13 +97,15 @@ export class CodeBlock extends MarkdownRenderChild {
 		} else {
 			// getSectionInfo not ready yet; defer render until Obsidian attaches section info.
 			// Mirrors the sleep(100) pattern used in the vault modify handler in main.ts.
+			// Retry up to 5× (500 ms total) before falling back to cachedMetaString.
 			void (async (): Promise<void> => {
-				await sleep(100);
-				// Only update cachedMetaString if section info is now available.
-				// If still null, keep whatever forceRerender may have already set.
-				const deferred = this.getMetaString();
-				if (deferred !== null) {
-					this.cachedMetaString = deferred;
+				for (let i = 0; i < 5; i++) {
+					await sleep(100);
+					const deferred = this.getMetaString();
+					if (deferred !== null) {
+						this.cachedMetaString = deferred;
+						break;
+					}
 				}
 				void this.render(this.cachedMetaString);
 			})();
