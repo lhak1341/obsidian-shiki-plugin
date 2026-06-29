@@ -28,7 +28,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 		new Setting(this.containerEl).setName('All changes require a reload of the highlighter').addButton(button => {
 			button
 				.setCta()
-				.setButtonText('Reload Highlighter')
+				.setButtonText('Reload highlighter')
 				.onClick(async () => {
 					button.setDisabled(true);
 					await this.plugin.reloadHighlighter();
@@ -37,7 +37,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 		});
 
 		new Setting(this.containerEl)
-			.setName('Inline Syntax Highlighting')
+			.setName('Inline syntax highlighting')
 			.setDesc('Enables syntax highlighting for inline code blocks via `{lang} code`.')
 			.addToggle(toggle => {
 				toggle.setValue(this.plugin.settings.inlineHighlighting).onChange(async value => {
@@ -110,7 +110,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 
 		const customThemeFolderSetting = new Setting(this.containerEl)
 			.setName('Custom themes folder location')
-			.setDesc('Folder relative to your Vault where custom JSON theme files are located.')
+			.setDesc('Folder relative to your vault where custom JSON theme files are located.')
 			.addText(textbox => {
 				textbox
 					.setValue(this.plugin.settings.customThemeFolder)
@@ -135,7 +135,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 
 		const customLanguageFolderSetting = new Setting(this.containerEl)
 			.setName('Custom languages folder location')
-			.setDesc('Folder relative to your Vault where custom JSON language files are located.')
+			.setDesc('Folder relative to your vault where custom JSON language files are located.')
 			.addText(textbox => {
 				textbox
 					.setValue(this.plugin.settings.customLanguageFolder)
@@ -147,10 +147,10 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			});
 
 		new Setting(this.containerEl)
-			.setName('Excluded Languages')
+			.setName('Excluded languages')
 			.setDesc('Configure language to exclude.')
 			.addButton(button => {
-				button.setButtonText('Add Language Rule').onClick(() => {
+				button.setButtonText('Add language rule').onClick(() => {
 					const modal = new StringSelectModal(this.plugin, this.plugin.highlighter.supportedLanguages, language => {
 						this.plugin.settings.disabledLanguages.push(language);
 						void this.plugin.saveSettings();

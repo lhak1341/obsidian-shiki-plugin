@@ -89,7 +89,7 @@ export class CodeBlock extends MarkdownRenderChild {
 		} else {
 			// getSectionInfo not ready yet; defer render until Obsidian attaches section info.
 			// Mirrors the sleep(100) pattern used in the vault modify handler in main.ts.
-			void (async () => {
+			void (async (): Promise<void> => {
 				await sleep(100);
 				// Only update cachedMetaString if section info is now available.
 				// If still null, keep whatever forceRerender may have already set.
@@ -108,6 +108,6 @@ export class CodeBlock extends MarkdownRenderChild {
 		this.plugin.removeActiveCodeBlock(this);
 
 		this.containerEl.empty();
-		this.containerEl.innerText = 'unloaded shiki code block';
+		this.containerEl.innerText = 'Unloaded shiki code block';
 	}
 }

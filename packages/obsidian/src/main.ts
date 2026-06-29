@@ -179,7 +179,7 @@ export default class ShikiPlugin extends Plugin {
 			this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData()) as Settings;
 		} catch (e) {
 			console.warn('Failed to load settings, using defaults.', e);
-			this.settings = Object.assign({}, DEFAULT_SETTINGS) as Settings;
+			this.settings = Object.assign({}, DEFAULT_SETTINGS);
 		}
 
 		// migrate the theme to darkTheme and lightTheme

@@ -156,6 +156,7 @@ export class CodeHighlighter {
 
 		// Insert new style before removing old to avoid a gap where EC CSS is absent,
 		// which would cause code blocks to briefly lose wrap and other visual options.
+		// eslint-disable-next-line obsidianmd/no-forbidden-elements
 		const newStyleEl = activeDocument.head.createEl('style', { text: themeStyles });
 		this.ecStyleElement?.remove();
 		this.ecStyleElement = newStyleEl;
