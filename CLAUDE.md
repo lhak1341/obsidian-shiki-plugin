@@ -9,3 +9,6 @@ Deploy to vault: `bun run deploy`
 
 ## Known build warnings
 `[MIXED_EXPORTS]` on `bun run deploy` is benign — Obsidian's loader reads `module.default` correctly.
+
+## Package structure
+`ec-core/` runs at both Vite build time and plugin runtime — put shared code there, not in `obsidian/`.

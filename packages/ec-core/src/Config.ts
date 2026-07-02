@@ -22,70 +22,12 @@ export interface EcConfigInput {
 	usingObsidianTheme: boolean;
 }
 
-export interface CssVariableThemeBundle {
-	theme: ThemeRegistration;
-	restoreCssVariables: (css: string) => string;
-}
-
 export const EC_VIRTUAL_SETTINGS: EcSettingsProps = {
 	preferThemeColors: true,
 	ecDefaultShowLineNumbers: false,
 	ecDefaultWrap: false,
 	ecDefaultFrame: 'auto',
 };
-
-export function createCssVariableThemeBundle(theme: ThemeRegistration): CssVariableThemeBundle {
-	const cssVarToPlaceholder = new Map<string, string>();
-	let placeholderCounter = 0;
-
-	const toPlaceholder = (value: string): string => {
-		if (!value.trim().startsWith('var(')) {
-			return value;
-		}
-
-		const existing = cssVarToPlaceholder.get(value);
-		if (existing) {
-			return existing;
-		}
-
-		const placeholder = `#${placeholderCounter.toString(16).padStart(6, '0').toUpperCase()}`;
-		placeholderCounter += 1;
-		cssVarToPlaceholder.set(value, placeholder);
-		return placeholder;
-	};
-
-	const mapThemeTokenColor = <T extends { settings?: { foreground?: string; background?: string } }>(token: T): T => {
-		if (!token.settings) {
-			return token;
-		}
-
-		return {
-			...token,
-			settings: {
-				...token.settings,
-				foreground: token.settings.foreground ? toPlaceholder(token.settings.foreground) : token.settings.foreground,
-				background: token.settings.background ? toPlaceholder(token.settings.background) : token.settings.background,
-			},
-		};
-	};
-
-	const mappedTheme: ThemeRegistration = {
-		...theme,
-		colors: Object.fromEntries(Object.entries(theme.colors ?? {}).map(([key, value]) => [key, toPlaceholder(value)])),
-		tokenColors: (theme.tokenColors ?? []).map(mapThemeTokenColor),
-	};
-
-	return {
-		theme: mappedTheme,
-		restoreCssVariables: (css: string): string => {
-			let output = css;
-			for (const [cssVar, placeholder] of cssVarToPlaceholder) {
-				output = output.replaceAll(placeholder, cssVar);
-			}
-			return output;
-		},
-	};
-}
 
 export function createEcEngineConfig(input: EcConfigInput): ExpressiveCodeEngineConfig {
 	const useThemeColors = input.settings.preferThemeColors && !input.usingObsidianTheme;

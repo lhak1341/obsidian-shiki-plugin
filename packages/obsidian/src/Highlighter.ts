@@ -9,11 +9,12 @@ import {
 	type BundledLanguage,
 	type ThemedToken,
 } from 'shiki';
-import { ThemeMapper } from 'packages/obsidian/src/themes/ThemeMapper';
+import { ThemeMapper, type ThemeContext } from 'packages/obsidian/src/themes/ThemeMapper';
 import { normalizePath, Notice } from 'obsidian';
 import { DEFAULT_SETTINGS } from 'packages/obsidian/src/settings/Settings';
 import { toDom } from 'hast-util-to-dom';
 import { createEcEngineConfig } from 'packages/ec-core/src/Config';
+import { encodeCssVarTheme } from 'packages/ec-core/src/CssVarThemeAdapter';
 
 interface CustomTheme {
 	name: string;
@@ -31,10 +32,11 @@ const LANGUAGE_SPECIAL = new Set(['plaintext', 'txt', 'text', 'plain', 'ansi']);
 
 export class CodeHighlighter {
 	plugin: ShikiPlugin;
-	themeMapper: ThemeMapper;
+	themeMapper!: ThemeMapper;
 
 	ec!: ExpressiveCodeEngine;
 	ecStyleElement: HTMLElement | undefined;
+	cssVarAdapter: ReturnType<typeof encodeCssVarTheme> | null = null;
 	supportedLanguages!: string[];
 	shiki!: Highlighter;
 	customThemes!: CustomTheme[];
@@ -42,12 +44,18 @@ export class CodeHighlighter {
 
 	constructor(plugin: ShikiPlugin) {
 		this.plugin = plugin;
-		this.themeMapper = new ThemeMapper(this.plugin);
 	}
 
 	async load(): Promise<void> {
 		await this.loadCustomThemes();
 		await this.loadCustomLanguages();
+
+		this.themeMapper = new ThemeMapper({
+			isDarkMode: this.plugin.app.isDarkMode(),
+			darkTheme: this.plugin.loadedSettings.darkTheme,
+			lightTheme: this.plugin.loadedSettings.lightTheme,
+			customThemes: this.customThemes,
+		} satisfies ThemeContext);
 
 		await this.loadEC();
 		await this.loadShiki();
@@ -94,7 +102,9 @@ export class CodeHighlighter {
 	}
 
 	async loadCustomThemes(): Promise<void> {
-		const activeTheme = this.themeMapper.getThemeIdentifier();
+		const activeTheme = this.plugin.app.isDarkMode()
+			? this.plugin.loadedSettings.darkTheme
+			: this.plugin.loadedSettings.lightTheme;
 		this.customThemes = [];
 
 		// custom themes are disabled unless users specify a folder for them in plugin settings
@@ -124,8 +134,8 @@ export class CodeHighlighter {
 		}
 
 		// if the user's set theme cannot be loaded (e.g. it was deleted), fall back to default theme
-		if (this.themeMapper.usingCustomTheme() && !this.customThemes.find(theme => theme.name === activeTheme)) {
-			// ony reset the theme that's currently broken
+		if (activeTheme.endsWith('.json') && !this.customThemes.find(theme => theme.name === activeTheme)) {
+			// only reset the theme that's currently broken
 			if (activeTheme == this.plugin.loadedSettings.darkTheme) {
 				this.plugin.settings.darkTheme = DEFAULT_SETTINGS.darkTheme;
 				this.plugin.loadedSettings.darkTheme = DEFAULT_SETTINGS.darkTheme;
@@ -141,12 +151,17 @@ export class CodeHighlighter {
 	}
 
 	async loadEC(): Promise<void> {
+		const rawTheme = await this.themeMapper.getTheme();
+		const usingObsidianTheme = this.themeMapper.usingObsidianTheme();
+
+		this.cssVarAdapter = usingObsidianTheme ? encodeCssVarTheme(rawTheme) : null;
+
 		this.ec = new ExpressiveCodeEngine(
 			createEcEngineConfig({
-				theme: await this.themeMapper.getThemeForEC(),
+				theme: this.cssVarAdapter?.theme ?? rawTheme,
 				customLanguages: this.customLanguages,
 				settings: this.plugin.loadedSettings,
-				usingObsidianTheme: this.themeMapper.usingObsidianTheme(),
+				usingObsidianTheme,
 			}),
 		);
 
@@ -197,8 +212,10 @@ export class CodeHighlighter {
 			meta,
 		});
 
+		const ast = result.renderedGroupAst;
+		this.cssVarAdapter?.decodeHast(ast);
 		container.empty();
-		container.append(toDom(this.themeMapper.fixAST(result.renderedGroupAst)));
+		container.append(toDom(ast));
 	}
 
 	async getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined> {

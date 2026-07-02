@@ -64,10 +64,6 @@ div.expressive-code {
 			z-index: unset;
 		}
 
-		& > div.copy {
-			/* Move the copy button to the bottom right */
-			inset-block-end: calc(var(--ec-brdWd) + var(--ec-uiPadInl) / 2);
-		}
 	}
 }
 

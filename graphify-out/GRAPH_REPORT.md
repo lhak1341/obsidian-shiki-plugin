@@ -1,16 +1,16 @@
-# Graph Report - obsidian-shiki-plugin  (2026-06-29)
+# Graph Report - obsidian-shiki-plugin  (2026-07-02)
 
 ## Corpus Check
-- 28 files · ~14,654 words
+- 24 files · ~13,422 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 176 nodes · 220 edges · 24 communities (17 shown, 7 thin omitted)
+- 180 nodes · 227 edges · 24 communities (17 shown, 7 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8aa01b3f`
+- Built from commit: `e43ba453`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,8 +31,8 @@
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `CodeHighlighter` - 18 edges
@@ -53,8 +53,8 @@
 ## Communities (24 total, 7 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.15
-Nodes (8): DEFAULT_SETTINGS, FrameType, Settings, ShikiSettingsTab, StringSelectModal, CustomTheme, LANGUAGE_BLACKLIST, LANGUAGE_SPECIAL
+Cohesion: 0.13
+Nodes (10): DEFAULT_SETTINGS, FrameType, Settings, ShikiSettingsTab, StringSelectModal, encodeCssVarTheme(), CustomTheme, LANGUAGE_BLACKLIST (+2 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.13
@@ -76,8 +76,8 @@ Nodes (11): BRAT, code:md (Some inline code `{jsx} <button role="button" />`.), 
 Cohesion: 0.22
 Nodes (5): Cm6_Util, DecorationUpdate, DecorationUpdateType, InsertDecoration, RemoveDecoration
 
-### Community 8 - "Community 8"
-Cohesion: 0.24
+### Community 9 - "Community 9"
+Cohesion: 0.28
 Nodes (6): createEcEngineConfig(), CssVariableThemeBundle, EC_VIRTUAL_SETTINGS, EcConfigInput, EcSettingsProps, getECTheme()
 
 ### Community 10 - "Community 10"
@@ -89,29 +89,31 @@ Cohesion: 0.33
 Nodes (5): PrismBeforeAllElementsHighlightEnv, PrismFilterHighlightApi, PrismFilterHighlightCondition, PrismFilterHighlightEnv, PrismWithFilterHighlightAll
 
 ### Community 13 - "Community 13"
-Cohesion: 0.5
-Nodes (3): ESLint, Known build warnings, obsidian-shiki-plugin
+Cohesion: 0.4
+Nodes (4): ESLint, Known build warnings, obsidian-shiki-plugin, Package structure
 
 ### Community 14 - "Community 14"
 Cohesion: 0.5
 Nodes (3): code:block1 (- list), code:c (int a = 0;), code:block3 (- nested list)
 
 ## Knowledge Gaps
-- **58 isolated node(s):** `PrismFilterHighlightEnv`, `PrismFilterHighlightCondition`, `PrismFilterHighlightApi`, `PrismBeforeAllElementsHighlightEnv`, `CustomTheme` (+53 more)
+- **59 isolated node(s):** `PrismFilterHighlightEnv`, `PrismFilterHighlightCondition`, `PrismFilterHighlightApi`, `PrismBeforeAllElementsHighlightEnv`, `CustomTheme` (+54 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `CodeHighlighter` connect `Community 1` to `Community 0`, `Community 8`?**
-  _High betweenness centrality (0.097) - this node is a cross-community bridge._
+- **Why does `CodeHighlighter` connect `Community 1` to `Community 0`?**
+  _High betweenness centrality (0.095) - this node is a cross-community bridge._
 - **Why does `ThemeMapper` connect `Community 7` to `Community 0`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Why does `ShikiPlugin` connect `Community 4` to `Community 0`?**
   _High betweenness centrality (0.055) - this node is a cross-community bridge._
 - **What connects `PrismFilterHighlightEnv`, `PrismFilterHighlightCondition`, `PrismFilterHighlightApi` to the rest of the system?**
-  _58 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _59 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
   _Cohesion score 0.13 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
