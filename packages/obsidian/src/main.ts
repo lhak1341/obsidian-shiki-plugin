@@ -16,9 +16,9 @@ export const SHIKI_INLINE_REGEX = /^\{([^\s]+)\} (.*)/i; // format: `{lang} code
 export default class ShikiPlugin extends Plugin {
 	highlighter!: CodeHighlighter;
 	activeCodeBlocks!: Map<string, (CodeBlock | InlineCodeBlock)[]>;
+	cm6Plugins!: Set<() => Promise<void>>;
 	declare settings: Settings;
 	loadedSettings!: Settings;
-	updateCm6Plugin!: () => Promise<void>;
 	private reloading = false;
 
 	codeBlockProcessors: MarkdownPostProcessor[] = [];
@@ -32,6 +32,7 @@ export default class ShikiPlugin extends Plugin {
 		await this.highlighter.load();
 
 		this.activeCodeBlocks = new Map();
+		this.cm6Plugins = new Set();
 
 		this.registerInlineCodeProcessor();
 		this.registerCodeBlockProcessors();
@@ -42,7 +43,7 @@ export default class ShikiPlugin extends Plugin {
 		// when the start line with the language changes, and we need that for the EC meta string
 		this.registerEvent(
 			this.app.vault.on('modify', async file => {
-				// sleep 0 so that the code block context is updated before we rerender
+				// sleep 100ms so Obsidian has time to update getSectionInfo() before we rerender
 				await sleep(100);
 
 				if (file instanceof TFile) {
@@ -96,7 +97,9 @@ export default class ShikiPlugin extends Plugin {
 				}
 			}
 
-			await this.updateCm6Plugin();
+			for (const update of this.cm6Plugins) {
+				await update();
+			}
 		} finally {
 			this.reloading = false;
 		}
@@ -151,6 +154,14 @@ export default class ShikiPlugin extends Plugin {
 
 	onunload(): void {
 		void this.highlighter.unload();
+	}
+
+	addCm6Plugin(cb: () => Promise<void>): void {
+		this.cm6Plugins.add(cb);
+	}
+
+	removeCm6Plugin(cb: () => Promise<void>): void {
+		this.cm6Plugins.delete(cb);
 	}
 
 	addActiveCodeBlock(codeBlock: CodeBlock | InlineCodeBlock): void {

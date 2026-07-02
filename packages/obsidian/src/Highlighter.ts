@@ -136,6 +136,7 @@ export class CodeHighlighter {
 		// if the user's set theme cannot be loaded (e.g. it was deleted), fall back to default theme
 		if (activeTheme.endsWith('.json') && !this.customThemes.find(theme => theme.name === activeTheme)) {
 			// only reset the theme that's currently broken
+			// Both copies must be updated: settings for persistence, loadedSettings for the running engine.
 			if (activeTheme == this.plugin.loadedSettings.darkTheme) {
 				this.plugin.settings.darkTheme = DEFAULT_SETTINGS.darkTheme;
 				this.plugin.loadedSettings.darkTheme = DEFAULT_SETTINGS.darkTheme;

@@ -12,3 +12,6 @@ Deploy to vault: `bun run deploy`
 
 ## Package structure
 `ec-core/` runs at both Vite build time and plugin runtime — put shared code there, not in `obsidian/`.
+
+## Settings invariant
+`loadedSettings` is the engine snapshot (cloned on startup/reload); `settings` is the persistence layer. Any setting that should take effect without a full reload must write both copies in `SettingsTab.onChange`.

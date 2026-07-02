@@ -42,6 +42,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.addToggle(toggle => {
 				toggle.setValue(this.plugin.settings.inlineHighlighting).onChange(async value => {
 					this.plugin.settings.inlineHighlighting = value;
+					this.plugin.loadedSettings.inlineHighlighting = value;
 					await this.plugin.saveSettings();
 				});
 			});

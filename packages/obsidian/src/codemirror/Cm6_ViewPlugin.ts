@@ -38,15 +38,14 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 			decorations: DecorationSet;
 			view: EditorView;
 			private updateGeneration = 0;
+			private readonly reloadCb: () => Promise<void>;
 
 			constructor(view: EditorView) {
 				this.view = view;
 				this.decorations = Decoration.none;
+				this.reloadCb = () => this.updateWidgets(this.view);
+				plugin.addCm6Plugin(this.reloadCb);
 				void this.updateWidgets(view);
-
-				plugin.updateCm6Plugin = (): Promise<void> => {
-					return this.updateWidgets(this.view);
-				};
 			}
 
 			/**
@@ -104,7 +103,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 						if (props.includes('inline-code')) {
 							const content = Cm6_Util.getContent(view.state, node.from, node.to);
 
-							if (content.startsWith('{') && plugin.settings.inlineHighlighting) {
+							if (content.startsWith('{') && plugin.loadedSettings.inlineHighlighting) {
 								const match = content.match(SHIKI_INLINE_REGEX); // format: `{lang} code`
 								if (match) {
 									const hasSelectionOverlap = Cm6_Util.checkSelectionAndRangeOverlap(view.state.selection, node.from - 1, node.to + 1);
@@ -294,6 +293,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 			 * Triggered by codemirror when the view plugin is destroyed.
 			 */
 			destroy(): void {
+				plugin.removeCm6Plugin(this.reloadCb);
 				this.decorations = Decoration.none;
 			}
 		},
