@@ -1,7 +1,6 @@
 import { type BundledTheme, bundledThemes, type ThemeRegistration } from 'shiki';
 import { OBSIDIAN_THEME } from 'packages/ec-core/src/ObsidianTheme';
-
-export const OBSIDIAN_THEME_IDENTIFIER = 'obsidian-theme';
+import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
 
 export interface ThemeContext {
 	isDarkMode: boolean;

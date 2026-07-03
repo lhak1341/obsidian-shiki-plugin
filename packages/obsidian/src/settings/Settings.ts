@@ -1,4 +1,4 @@
-import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/themes/ThemeMapper';
+import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
 
 export enum FrameType {
 	Code = 'code',

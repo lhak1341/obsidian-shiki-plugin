@@ -2,7 +2,7 @@ import { PluginSettingTab, Setting, Platform, Notice, normalizePath } from 'obsi
 import type ShikiPlugin from 'packages/obsidian/src/main';
 import { StringSelectModal } from 'packages/obsidian/src/settings/StringSelectModal';
 import { bundledThemesInfo } from 'shiki';
-import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/themes/ThemeMapper';
+import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
 import { FrameType } from 'packages/obsidian/src/settings/Settings';
 
 export class ShikiSettingsTab extends PluginSettingTab {
