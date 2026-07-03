@@ -1,19 +1,9 @@
-import { ExpressiveCodeEngine } from '@expressive-code/core';
-import {
-	bundledLanguages,
-	createHighlighter,
-	type LanguageRegistration,
-	type Highlighter,
-	type TokensResult,
-	type BundledLanguage,
-	type ThemedToken,
-} from 'shiki';
+import { type LanguageRegistration, type TokensResult, type ThemedToken } from 'shiki';
 import { ThemeMapper, type ThemeContext } from 'packages/obsidian/src/themes/ThemeMapper';
 import { normalizePath, Notice } from 'obsidian';
 import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/Settings';
-import { toDom } from 'hast-util-to-dom';
-import { createEcEngineConfig } from 'packages/ec-core/src/Config';
-import { encodeCssVarTheme } from 'packages/ec-core/src/CssVarThemeAdapter';
+import { EcRenderer } from 'packages/obsidian/src/EcRenderer';
+import { ShikiRenderer } from 'packages/obsidian/src/ShikiRenderer';
 
 interface HighlighterHost {
 	isDarkMode(): boolean;
@@ -36,45 +26,42 @@ interface CustomTheme {
 // some languages break obsidian's `registerMarkdownCodeBlockProcessor`, so we blacklist them
 const LANGUAGE_BLACKLIST = new Set(['c++', 'c#', 'f#', 'mermaid']);
 
-// some languages are considered "special" by shiki.isSpecialLang
-const LANGUAGE_SPECIAL = new Set(['plaintext', 'txt', 'text', 'plain', 'ansi']);
-
 export class CodeHighlighter {
 	host: HighlighterHost;
-	themeMapper!: ThemeMapper;
+	private ecRenderer: EcRenderer;
+	private shikiRenderer: ShikiRenderer;
 
-	ec!: ExpressiveCodeEngine;
-	ecStyleElement: HTMLElement | undefined;
-	cssVarAdapter: ReturnType<typeof encodeCssVarTheme> | null = null;
-	supportedLanguages!: string[];
-	shiki!: Highlighter;
 	customThemes!: CustomTheme[];
 	customLanguages!: LanguageRegistration[];
 
 	constructor(host: HighlighterHost) {
 		this.host = host;
+		this.ecRenderer = new EcRenderer();
+		this.shikiRenderer = new ShikiRenderer();
+	}
+
+	get supportedLanguages(): string[] {
+		return this.shikiRenderer.supportedLanguages;
 	}
 
 	async load(): Promise<void> {
 		await this.loadCustomThemes();
 		await this.loadCustomLanguages();
 
-		this.themeMapper = new ThemeMapper({
+		const themeMapper = new ThemeMapper({
 			isDarkMode: this.host.isDarkMode(),
 			darkTheme: this.host.loadedSettings.darkTheme,
 			lightTheme: this.host.loadedSettings.lightTheme,
 			customThemes: this.customThemes,
 		} satisfies ThemeContext);
 
-		await this.loadEC();
-		await this.loadShiki();
-
-		this.supportedLanguages = [...Object.keys(bundledLanguages), ...LANGUAGE_SPECIAL, ...this.customLanguages.map(i => i.name)];
+		await this.ecRenderer.load(themeMapper, this.customLanguages, this.host.loadedSettings);
+		await this.shikiRenderer.load(themeMapper, this.customLanguages);
 	}
 
 	async unload(): Promise<void> {
-		this.unloadEC();
-		this.unloadShiki();
+		this.ecRenderer.unload();
+		this.shikiRenderer.unload();
 	}
 
 	private async listJsonFiles(folder: string, kind: string): Promise<string[]> {
@@ -154,113 +141,31 @@ export class CodeHighlighter {
 		this.customThemes.sort((a, b) => a.displayName.localeCompare(b.displayName));
 	}
 
-	async loadEC(): Promise<void> {
-		const rawTheme = await this.themeMapper.getTheme();
-		const usingObsidianTheme = this.themeMapper.usingObsidianTheme();
-
-		this.cssVarAdapter = usingObsidianTheme ? encodeCssVarTheme(rawTheme) : null;
-
-		this.ec = new ExpressiveCodeEngine(
-			createEcEngineConfig({
-				theme: this.cssVarAdapter?.theme ?? rawTheme,
-				customLanguages: this.customLanguages,
-				settings: this.host.loadedSettings,
-				usingObsidianTheme,
-			}),
-		);
-
-		// Since they come directly from EC, and depend on runtime settings/theme selection, there is no other way than to attach them dynamically.
-		// Note that the static EC styles and scripts are bundled with the plugin and don't need to be loaded like this.
-		const themeStyles = await this.ec.getThemeStyles();
-
-		// Insert new style before removing old to avoid a gap where EC CSS is absent,
-		// which would cause code blocks to briefly lose wrap and other visual options.
-		// eslint-disable-next-line obsidianmd/no-forbidden-elements
-		const newStyleEl = activeDocument.head.createEl('style', { text: themeStyles });
-		this.ecStyleElement?.remove();
-		this.ecStyleElement = newStyleEl;
-	}
-
-	unloadEC(): void {
-		if (this.ecStyleElement) {
-			this.ecStyleElement.remove();
-			this.ecStyleElement = undefined;
-		}
-	}
-
-	async loadShiki(): Promise<void> {
-		this.shiki = await createHighlighter({
-			themes: [await this.themeMapper.getTheme()],
-			langs: this.customLanguages,
-		});
-	}
-
-	unloadShiki(): void {
-		this.shiki.dispose();
-	}
-
 	/**
 	 * All languages that are safe to use with Obsidian's `registerMarkdownCodeBlockProcessor`.
 	 */
 	obsidianSafeLanguageNames(): string[] {
-		return this.supportedLanguages.filter(lang => !LANGUAGE_BLACKLIST.has(lang) && !this.host.loadedSettings.disabledLanguages.includes(lang));
+		return this.shikiRenderer.supportedLanguages.filter(
+			lang => !LANGUAGE_BLACKLIST.has(lang) && !this.host.loadedSettings.disabledLanguages.includes(lang),
+		);
 	}
 
-	/**
-	 * Highlights code with EC and renders it to the passed container element.
-	 */
 	async renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
-		const result = await this.ec.render({
-			code,
-			language,
-			meta,
-		});
-
-		const ast = result.renderedGroupAst;
-		this.cssVarAdapter?.decodeHast(ast);
-		container.empty();
-		container.append(toDom(ast));
+		return this.ecRenderer.render(code, language, meta, container);
 	}
 
 	async getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined> {
 		if (!this.obsidianSafeLanguageNames().includes(lang)) {
 			return undefined;
 		}
-		// load bundled language when needed
-		if (!this.shiki.getLoadedLanguages().includes(lang)) {
-			await this.shiki.loadLanguage(lang as BundledLanguage);
-		}
-		return this.shiki.codeToTokens(code, {
-			lang: lang as BundledLanguage,
-			theme: this.themeMapper.getThemeIdentifier(),
-		});
+		return this.shikiRenderer.tokenize(code, lang);
 	}
 
 	renderTokens(tokens: ThemedToken[], parent: HTMLElement): void {
-		for (const token of tokens) {
-			this.tokenToSpan(token, parent);
-		}
-	}
-
-	tokenToSpan(token: ThemedToken, parent: HTMLElement): void {
-		const tokenStyle = this.getTokenStyle(token);
-		parent.createSpan({
-			text: token.content,
-			cls: tokenStyle.classes.join(' '),
-			attr: { style: tokenStyle.style },
-		});
+		this.shikiRenderer.renderTokens(tokens, parent);
 	}
 
 	getTokenStyle(token: ThemedToken): { style: string; classes: string[] } {
-		const fontStyle = token.fontStyle ?? 0;
-
-		return {
-			style: `color: ${token.color}`,
-			classes: [
-				(fontStyle & 1) !== 0 ? 'shiki-italic' : undefined,
-				(fontStyle & 2) !== 0 ? 'shiki-bold' : undefined,
-				(fontStyle & 4) !== 0 ? 'shiki-ul' : undefined,
-			].filter(Boolean) as string[],
-		};
+		return this.shikiRenderer.getTokenStyle(token);
 	}
 }
