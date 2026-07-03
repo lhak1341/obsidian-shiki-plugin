@@ -17,7 +17,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 	display(): void {
 		this.containerEl.empty();
 
-		const customThemes = Object.fromEntries(this.plugin.highlighter.customThemes.map(theme => [theme.name, `${theme.displayName} (${theme.type})`]));
+		const customThemes = Object.fromEntries(this.plugin.getCustomThemes().map(theme => [theme.name, `${theme.displayName} (${theme.type})`]));
 		const builtInThemes = Object.fromEntries(bundledThemesInfo.map(theme => [theme.id, `${theme.displayName} (${theme.type})`]));
 		const themes = {
 			[OBSIDIAN_THEME_IDENTIFIER]: 'Obsidian built-in (both)',
@@ -152,7 +152,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setDesc('Configure language to exclude.')
 			.addButton(button => {
 				button.setButtonText('Add language rule').onClick(() => {
-					const modal = new StringSelectModal(this.plugin, this.plugin.highlighter.supportedLanguages, language => {
+					const modal = new StringSelectModal(this.app, this.plugin.getSupportedLanguages(), language => {
 						this.plugin.settings.disabledLanguages.push(language);
 						void this.plugin.saveSettings();
 						this.display();
@@ -182,7 +182,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.onClick(async () => {
 						const themeFolder = normalizePath(this.plugin.settings.customThemeFolder);
 						if (await this.app.vault.adapter.exists(themeFolder)) {
-							this.plugin.app.openWithDefaultApp(themeFolder);
+							this.app.openWithDefaultApp(themeFolder);
 						} else {
 							new Notice(`Unable to open custom themes folder: ${themeFolder}`, 5000);
 						}
@@ -196,7 +196,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.onClick(async () => {
 						const languageFolder = normalizePath(this.plugin.settings.customLanguageFolder);
 						if (await this.app.vault.adapter.exists(languageFolder)) {
-							this.plugin.app.openWithDefaultApp(languageFolder);
+							this.app.openWithDefaultApp(languageFolder);
 						} else {
 							new Notice(`Unable to open custom languages folder: ${languageFolder}`, 5000);
 						}

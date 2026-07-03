@@ -205,6 +205,46 @@ export default class ShikiPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 
+	// HighlighterHost implementation
+	isDarkMode(): boolean {
+		return this.app.isDarkMode();
+	}
+
+	vaultExists(path: string): Promise<boolean> {
+		return this.app.vault.adapter.exists(path);
+	}
+
+	vaultList(path: string): Promise<{ files: string[] }> {
+		return this.app.vault.adapter.list(path);
+	}
+
+	vaultRead(path: string): Promise<string> {
+		return this.app.vault.adapter.read(path);
+	}
+
+	get pluginName(): string {
+		return this.manifest.name;
+	}
+
+	async resetTheme(which: 'dark' | 'light'): Promise<void> {
+		if (which === 'dark') {
+			this.settings.darkTheme = DEFAULT_SETTINGS.darkTheme;
+			this.loadedSettings.darkTheme = DEFAULT_SETTINGS.darkTheme;
+		} else {
+			this.settings.lightTheme = DEFAULT_SETTINGS.lightTheme;
+			this.loadedSettings.lightTheme = DEFAULT_SETTINGS.lightTheme;
+		}
+		await this.saveSettings();
+	}
+
+	getCustomThemes(): CodeHighlighter['customThemes'] {
+		return this.highlighter.customThemes;
+	}
+
+	getSupportedLanguages(): string[] {
+		return this.highlighter.supportedLanguages;
+	}
+
 	renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
 		return this.highlighter.renderWithEc(code, language, meta, container);
 	}

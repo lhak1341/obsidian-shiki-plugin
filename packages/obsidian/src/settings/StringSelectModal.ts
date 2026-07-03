@@ -1,12 +1,11 @@
-import { FuzzySuggestModal } from 'obsidian';
-import type ShikiPlugin from 'packages/obsidian/src/main';
+import { App, FuzzySuggestModal } from 'obsidian';
 
 export class StringSelectModal extends FuzzySuggestModal<string> {
 	items: string[];
 	onSelect: (item: string) => void;
 
-	constructor(plugin: ShikiPlugin, items: string[], onSelect: (item: string) => void) {
-		super(plugin.app);
+	constructor(app: App, items: string[], onSelect: (item: string) => void) {
+		super(app);
 
 		this.items = items;
 		this.onSelect = onSelect;

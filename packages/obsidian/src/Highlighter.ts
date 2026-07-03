@@ -1,5 +1,4 @@
 import { ExpressiveCodeEngine } from '@expressive-code/core';
-import type ShikiPlugin from 'packages/obsidian/src/main';
 import {
 	bundledLanguages,
 	createHighlighter,
@@ -11,10 +10,20 @@ import {
 } from 'shiki';
 import { ThemeMapper, type ThemeContext } from 'packages/obsidian/src/themes/ThemeMapper';
 import { normalizePath, Notice } from 'obsidian';
-import { DEFAULT_SETTINGS } from 'packages/obsidian/src/settings/Settings';
+import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/Settings';
 import { toDom } from 'hast-util-to-dom';
 import { createEcEngineConfig } from 'packages/ec-core/src/Config';
 import { encodeCssVarTheme } from 'packages/ec-core/src/CssVarThemeAdapter';
+
+interface HighlighterHost {
+	isDarkMode(): boolean;
+	vaultExists(path: string): Promise<boolean>;
+	vaultList(path: string): Promise<{ files: string[] }>;
+	vaultRead(path: string): Promise<string>;
+	readonly pluginName: string;
+	readonly loadedSettings: Settings;
+	resetTheme(which: 'dark' | 'light'): Promise<void>;
+}
 
 interface CustomTheme {
 	name: string;
@@ -31,7 +40,7 @@ const LANGUAGE_BLACKLIST = new Set(['c++', 'c#', 'f#', 'mermaid']);
 const LANGUAGE_SPECIAL = new Set(['plaintext', 'txt', 'text', 'plain', 'ansi']);
 
 export class CodeHighlighter {
-	plugin: ShikiPlugin;
+	host: HighlighterHost;
 	themeMapper!: ThemeMapper;
 
 	ec!: ExpressiveCodeEngine;
@@ -42,8 +51,8 @@ export class CodeHighlighter {
 	customThemes!: CustomTheme[];
 	customLanguages!: LanguageRegistration[];
 
-	constructor(plugin: ShikiPlugin) {
-		this.plugin = plugin;
+	constructor(host: HighlighterHost) {
+		this.host = host;
 	}
 
 	async load(): Promise<void> {
@@ -51,9 +60,9 @@ export class CodeHighlighter {
 		await this.loadCustomLanguages();
 
 		this.themeMapper = new ThemeMapper({
-			isDarkMode: this.plugin.app.isDarkMode(),
-			darkTheme: this.plugin.loadedSettings.darkTheme,
-			lightTheme: this.plugin.loadedSettings.lightTheme,
+			isDarkMode: this.host.isDarkMode(),
+			darkTheme: this.host.loadedSettings.darkTheme,
+			lightTheme: this.host.loadedSettings.lightTheme,
 			customThemes: this.customThemes,
 		} satisfies ThemeContext);
 
@@ -70,24 +79,24 @@ export class CodeHighlighter {
 
 	private async listJsonFiles(folder: string, kind: string): Promise<string[]> {
 		const normalized = normalizePath(folder);
-		if (!(await this.plugin.app.vault.adapter.exists(normalized))) {
-			new Notice(`${this.plugin.manifest.name}\nUnable to open custom ${kind} folder: ${normalized}`, 5000);
+		if (!(await this.host.vaultExists(normalized))) {
+			new Notice(`${this.host.pluginName}\nUnable to open custom ${kind} folder: ${normalized}`, 5000);
 			return [];
 		}
-		const listing = await this.plugin.app.vault.adapter.list(normalized);
+		const listing = await this.host.vaultList(normalized);
 		return listing.files.filter(f => f.toLowerCase().endsWith('.json'));
 	}
 
 	async loadCustomLanguages(): Promise<void> {
 		this.customLanguages = [];
 
-		if (!this.plugin.loadedSettings.customLanguageFolder) return;
+		if (!this.host.loadedSettings.customLanguageFolder) return;
 
-		const languageFiles = await this.listJsonFiles(this.plugin.loadedSettings.customLanguageFolder, 'languages');
+		const languageFiles = await this.listJsonFiles(this.host.loadedSettings.customLanguageFolder, 'languages');
 
 		for (const languageFile of languageFiles) {
 			try {
-				const language = JSON.parse(await this.plugin.app.vault.adapter.read(languageFile)) as LanguageRegistration;
+				const language = JSON.parse(await this.host.vaultRead(languageFile)) as LanguageRegistration;
 				// validate that language file JSON can be parsed and contains at a minimum a scopeName
 				if (!language.name) {
 					throw Error('Invalid JSON language file is missing a name property.');
@@ -95,28 +104,28 @@ export class CodeHighlighter {
 
 				this.customLanguages.push(language);
 			} catch (e) {
-				new Notice(`${this.plugin.manifest.name}\nUnable to load custom language: ${languageFile}`, 5000);
+				new Notice(`${this.host.pluginName}\nUnable to load custom language: ${languageFile}`, 5000);
 				console.warn(`Unable to load custom language: ${languageFile}`, e);
 			}
 		}
 	}
 
 	async loadCustomThemes(): Promise<void> {
-		const activeTheme = this.plugin.app.isDarkMode()
-			? this.plugin.loadedSettings.darkTheme
-			: this.plugin.loadedSettings.lightTheme;
+		const activeTheme = this.host.isDarkMode()
+			? this.host.loadedSettings.darkTheme
+			: this.host.loadedSettings.lightTheme;
 		this.customThemes = [];
 
 		// custom themes are disabled unless users specify a folder for them in plugin settings
-		if (!this.plugin.loadedSettings.customThemeFolder) return;
+		if (!this.host.loadedSettings.customThemeFolder) return;
 
-		const themeFolder = normalizePath(this.plugin.loadedSettings.customThemeFolder);
-		const themeFiles = await this.listJsonFiles(this.plugin.loadedSettings.customThemeFolder, 'themes');
+		const themeFolder = normalizePath(this.host.loadedSettings.customThemeFolder);
+		const themeFiles = await this.listJsonFiles(this.host.loadedSettings.customThemeFolder, 'themes');
 
 		for (const themeFile of themeFiles) {
 			const baseName = themeFile.substring(`${themeFolder}/`.length);
 			try {
-				const theme = JSON.parse(await this.plugin.app.vault.adapter.read(themeFile)) as CustomTheme;
+				const theme = JSON.parse(await this.host.vaultRead(themeFile)) as CustomTheme;
 				// validate that theme file JSON can be parsed and contains colors at a minimum
 				if (!theme.colors && !theme.tokenColors) {
 					throw Error('Invalid JSON theme file.');
@@ -128,24 +137,18 @@ export class CodeHighlighter {
 
 				this.customThemes.push(theme);
 			} catch (e) {
-				new Notice(`${this.plugin.manifest.name}\nUnable to load custom theme: ${themeFile}`, 5000);
+				new Notice(`${this.host.pluginName}\nUnable to load custom theme: ${themeFile}`, 5000);
 				console.warn(`Unable to load custom theme: ${themeFile}`, e);
 			}
 		}
 
 		// if the user's set theme cannot be loaded (e.g. it was deleted), fall back to default theme
 		if (activeTheme.endsWith('.json') && !this.customThemes.find(theme => theme.name === activeTheme)) {
-			// only reset the theme that's currently broken
-			// Both copies must be updated: settings for persistence, loadedSettings for the running engine.
-			if (activeTheme == this.plugin.loadedSettings.darkTheme) {
-				this.plugin.settings.darkTheme = DEFAULT_SETTINGS.darkTheme;
-				this.plugin.loadedSettings.darkTheme = DEFAULT_SETTINGS.darkTheme;
-			} else if (activeTheme == this.plugin.loadedSettings.lightTheme) {
-				this.plugin.settings.lightTheme = DEFAULT_SETTINGS.lightTheme;
-				this.plugin.loadedSettings.lightTheme = DEFAULT_SETTINGS.lightTheme;
+			if (activeTheme === this.host.loadedSettings.darkTheme) {
+				await this.host.resetTheme('dark');
+			} else if (activeTheme === this.host.loadedSettings.lightTheme) {
+				await this.host.resetTheme('light');
 			}
-
-			await this.plugin.saveSettings();
 		}
 
 		this.customThemes.sort((a, b) => a.displayName.localeCompare(b.displayName));
@@ -161,7 +164,7 @@ export class CodeHighlighter {
 			createEcEngineConfig({
 				theme: this.cssVarAdapter?.theme ?? rawTheme,
 				customLanguages: this.customLanguages,
-				settings: this.plugin.loadedSettings,
+				settings: this.host.loadedSettings,
 				usingObsidianTheme,
 			}),
 		);
@@ -200,7 +203,7 @@ export class CodeHighlighter {
 	 * All languages that are safe to use with Obsidian's `registerMarkdownCodeBlockProcessor`.
 	 */
 	obsidianSafeLanguageNames(): string[] {
-		return this.supportedLanguages.filter(lang => !LANGUAGE_BLACKLIST.has(lang) && !this.plugin.loadedSettings.disabledLanguages.includes(lang));
+		return this.supportedLanguages.filter(lang => !LANGUAGE_BLACKLIST.has(lang) && !this.host.loadedSettings.disabledLanguages.includes(lang));
 	}
 
 	/**
