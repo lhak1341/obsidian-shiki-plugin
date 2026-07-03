@@ -8,24 +8,23 @@ import { ShikiSettingsTab } from 'packages/obsidian/src/settings/SettingsTab';
 import { filterHighlightAllPlugin, type PrismWithFilterHighlightAll } from 'packages/obsidian/src/PrismPlugin';
 import { CodeHighlighter } from 'packages/obsidian/src/Highlighter';
 import { InlineCodeBlock } from 'packages/obsidian/src/InlineCodeBlock';
+import { SettingsStore } from 'packages/obsidian/src/settings/SettingsStore';
 
 import 'packages/obsidian/src/styles.css';
 import 'virtual:ec-styles.css';
 import 'virtual:ec-runtime';
 
 export default class ShikiPlugin extends Plugin {
+	store!: SettingsStore;
 	highlighter!: CodeHighlighter;
 	activeCodeBlocks!: Map<string, (CodeBlock | InlineCodeBlock)[]>;
 	cm6Plugins!: Set<() => Promise<void>>;
-	declare settings: Settings;
-	loadedSettings!: Settings;
 	private reloading = false;
 
 	codeBlockProcessors: MarkdownPostProcessor[] = [];
 
 	async onload(): Promise<void> {
 		await this.loadSettings();
-		this.loadedSettings = structuredClone(this.settings);
 		this.addSettingTab(new ShikiSettingsTab(this));
 
 		this.highlighter = new CodeHighlighter(this);
@@ -87,7 +86,7 @@ export default class ShikiPlugin extends Plugin {
 		try {
 			await this.highlighter.unload();
 
-			this.loadedSettings = structuredClone(this.settings);
+			this.store.flush();
 
 			await this.highlighter.load();
 
@@ -186,23 +185,22 @@ export default class ShikiPlugin extends Plugin {
 	}
 
 	async loadSettings(): Promise<void> {
+		let loaded: Settings;
 		try {
-			this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData()) as Settings;
+			loaded = Object.assign({}, DEFAULT_SETTINGS, await this.loadData()) as Settings;
 		} catch (e) {
 			console.warn('Failed to load settings, using defaults.', e);
-			this.settings = Object.assign({}, DEFAULT_SETTINGS);
+			loaded = Object.assign({}, DEFAULT_SETTINGS);
 		}
 
 		// migrate the theme to darkTheme and lightTheme
-		if (this.settings.theme !== undefined) {
-			this.settings.darkTheme = this.settings.theme;
-			this.settings.lightTheme = this.settings.theme;
-			this.settings.theme = undefined;
+		if (loaded.theme !== undefined) {
+			loaded.darkTheme = loaded.theme;
+			loaded.lightTheme = loaded.theme;
+			loaded.theme = undefined;
 		}
-	}
 
-	async saveSettings(): Promise<void> {
-		await this.saveData(this.settings);
+		this.store = new SettingsStore(loaded, () => this.saveData(this.store.persisted));
 	}
 
 	// HighlighterHost implementation
@@ -226,15 +224,13 @@ export default class ShikiPlugin extends Plugin {
 		return this.manifest.name;
 	}
 
+	get loadedSettings(): Settings {
+		return this.store.snapshot as Settings;
+	}
+
 	async resetTheme(which: 'dark' | 'light'): Promise<void> {
-		if (which === 'dark') {
-			this.settings.darkTheme = DEFAULT_SETTINGS.darkTheme;
-			this.loadedSettings.darkTheme = DEFAULT_SETTINGS.darkTheme;
-		} else {
-			this.settings.lightTheme = DEFAULT_SETTINGS.lightTheme;
-			this.loadedSettings.lightTheme = DEFAULT_SETTINGS.lightTheme;
-		}
-		await this.saveSettings();
+		const key = which === 'dark' ? ('darkTheme' as const) : ('lightTheme' as const);
+		await this.store.setLive(key, DEFAULT_SETTINGS[key]);
 	}
 
 	getCustomThemes(): CodeHighlighter['customThemes'] {
@@ -262,6 +258,6 @@ export default class ShikiPlugin extends Plugin {
 	}
 
 	get inlineHighlighting(): boolean {
-		return this.loadedSettings.inlineHighlighting;
+		return this.store.snapshot.inlineHighlighting;
 	}
 }

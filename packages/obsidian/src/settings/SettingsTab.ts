@@ -40,10 +40,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setName('Inline syntax highlighting')
 			.setDesc('Enables syntax highlighting for inline code blocks via `{lang} code`.')
 			.addToggle(toggle => {
-				toggle.setValue(this.plugin.settings.inlineHighlighting).onChange(async value => {
-					this.plugin.settings.inlineHighlighting = value;
-					this.plugin.loadedSettings.inlineHighlighting = value;
-					await this.plugin.saveSettings();
+				toggle.setValue(this.plugin.store.persisted.inlineHighlighting).onChange(async value => {
+					await this.plugin.store.setLive('inlineHighlighting', value);
 				});
 			});
 
@@ -53,9 +51,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setName('Show line numbers')
 			.setDesc('Controls whether line numbers are shown by default.')
 			.addToggle(toggle => {
-				toggle.setValue(this.plugin.settings.ecDefaultShowLineNumbers).onChange(async value => {
-					this.plugin.settings.ecDefaultShowLineNumbers = value;
-					await this.plugin.saveSettings();
+				toggle.setValue(this.plugin.store.persisted.ecDefaultShowLineNumbers).onChange(async value => {
+					await this.plugin.store.set('ecDefaultShowLineNumbers', value);
 				});
 			});
 
@@ -63,9 +60,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setName('Wrap')
 			.setDesc('Controls whether code block lines wrap by default.')
 			.addToggle(toggle => {
-				toggle.setValue(this.plugin.settings.ecDefaultWrap).onChange(async value => {
-					this.plugin.settings.ecDefaultWrap = value;
-					await this.plugin.saveSettings();
+				toggle.setValue(this.plugin.store.persisted.ecDefaultWrap).onChange(async value => {
+					await this.plugin.store.set('ecDefaultWrap', value);
 				});
 			});
 
@@ -79,9 +75,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					[FrameType.None]: 'None',
 					[FrameType.Auto]: 'Auto',
 				});
-				dropdown.setValue(this.plugin.settings.ecDefaultFrame).onChange(async value => {
-					this.plugin.settings.ecDefaultFrame = value as FrameType;
-					await this.plugin.saveSettings();
+				dropdown.setValue(this.plugin.store.persisted.ecDefaultFrame).onChange(async value => {
+					await this.plugin.store.set('ecDefaultFrame', value as FrameType);
 				});
 			});
 
@@ -92,9 +87,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setDesc("The theme for code blocks when Obsidian's base color scheme is dark.")
 			.addDropdown(dropdown => {
 				dropdown.addOptions(themes);
-				dropdown.setValue(this.plugin.settings.darkTheme).onChange(async value => {
-					this.plugin.settings.darkTheme = value;
-					await this.plugin.saveSettings();
+				dropdown.setValue(this.plugin.store.persisted.darkTheme).onChange(async value => {
+					await this.plugin.store.set('darkTheme', value);
 				});
 			});
 
@@ -103,9 +97,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setDesc("The theme for code blocks when Obsidian's base color scheme is light.")
 			.addDropdown(dropdown => {
 				dropdown.addOptions(themes);
-				dropdown.setValue(this.plugin.settings.lightTheme).onChange(async value => {
-					this.plugin.settings.lightTheme = value;
-					await this.plugin.saveSettings();
+				dropdown.setValue(this.plugin.store.persisted.lightTheme).onChange(async value => {
+					await this.plugin.store.set('lightTheme', value);
 				});
 			});
 
@@ -114,10 +107,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setDesc('Folder relative to your vault where custom JSON theme files are located.')
 			.addText(textbox => {
 				textbox
-					.setValue(this.plugin.settings.customThemeFolder)
+					.setValue(this.plugin.store.persisted.customThemeFolder)
 					.onChange(async value => {
-						this.plugin.settings.customThemeFolder = value;
-						await this.plugin.saveSettings();
+						await this.plugin.store.set('customThemeFolder', value);
 					});
 				textbox.inputEl.addClass('shiki-custom-theme-folder');
 			});
@@ -126,9 +118,8 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setName('Prefer theme colors')
 			.setDesc('When enabled the plugin will prefer theme colors over CSS variables for things like the code block background.')
 			.addToggle(toggle => {
-				toggle.setValue(this.plugin.settings.preferThemeColors).onChange(async value => {
-					this.plugin.settings.preferThemeColors = value;
-					await this.plugin.saveSettings();
+				toggle.setValue(this.plugin.store.persisted.preferThemeColors).onChange(async value => {
+					await this.plugin.store.set('preferThemeColors', value);
 				});
 			});
 
@@ -139,10 +130,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setDesc('Folder relative to your vault where custom JSON language files are located.')
 			.addText(textbox => {
 				textbox
-					.setValue(this.plugin.settings.customLanguageFolder)
+					.setValue(this.plugin.store.persisted.customLanguageFolder)
 					.onChange(async value => {
-						this.plugin.settings.customLanguageFolder = value;
-						await this.plugin.saveSettings();
+						await this.plugin.store.set('customLanguageFolder', value);
 					});
 				textbox.inputEl.addClass('shiki-custom-language-folder');
 			});
@@ -153,22 +143,20 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.addButton(button => {
 				button.setButtonText('Add language rule').onClick(() => {
 					const modal = new StringSelectModal(this.app, this.plugin.getSupportedLanguages(), language => {
-						this.plugin.settings.disabledLanguages.push(language);
-						void this.plugin.saveSettings();
+						void this.plugin.store.set('disabledLanguages', [...this.plugin.store.persisted.disabledLanguages, language]);
 						this.display();
 					});
 					modal.open();
 				});
 			});
 
-		for (const language of this.plugin.settings.disabledLanguages) {
+		for (const language of this.plugin.store.persisted.disabledLanguages) {
 			new Setting(this.containerEl).setName(language).addButton(button => {
 				button
 					.setIcon('trash')
 					.setWarning()
 					.onClick(() => {
-						this.plugin.settings.disabledLanguages = this.plugin.settings.disabledLanguages.filter(x => x !== language);
-						void this.plugin.saveSettings();
+						void this.plugin.store.set('disabledLanguages', this.plugin.store.persisted.disabledLanguages.filter(x => x !== language));
 						this.display();
 					});
 			});
@@ -180,7 +168,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.setIcon('folder-open')
 					.setTooltip('Open custom themes folder')
 					.onClick(async () => {
-						const themeFolder = normalizePath(this.plugin.settings.customThemeFolder);
+						const themeFolder = normalizePath(this.plugin.store.persisted.customThemeFolder);
 						if (await this.app.vault.adapter.exists(themeFolder)) {
 							this.app.openWithDefaultApp(themeFolder);
 						} else {
@@ -194,7 +182,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.setIcon('folder-open')
 					.setTooltip('Open custom languages folder')
 					.onClick(async () => {
-						const languageFolder = normalizePath(this.plugin.settings.customLanguageFolder);
+						const languageFolder = normalizePath(this.plugin.store.persisted.customLanguageFolder);
 						if (await this.app.vault.adapter.exists(languageFolder)) {
 							this.app.openWithDefaultApp(languageFolder);
 						} else {
