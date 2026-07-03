@@ -1,8 +1,13 @@
 import { type MarkdownPostProcessorContext, MarkdownRenderChild } from 'obsidian';
-import type ShikiPlugin from 'packages/obsidian/src/main';
+
+export interface CodeBlockHost {
+	renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void>;
+	addActiveCodeBlock(block: CodeBlock): void;
+	removeActiveCodeBlock(block: CodeBlock): void;
+}
 
 export class CodeBlock extends MarkdownRenderChild {
-	plugin: ShikiPlugin;
+	host: CodeBlockHost;
 	source: string;
 	language: string;
 	ctx: MarkdownPostProcessorContext;
@@ -10,10 +15,10 @@ export class CodeBlock extends MarkdownRenderChild {
 	private renderGeneration = 0;
 	private _active = false;
 
-	constructor(plugin: ShikiPlugin, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
+	constructor(host: CodeBlockHost, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
 		super(containerEl);
 
-		this.plugin = plugin;
+		this.host = host;
 		this.source = source;
 		this.language = language;
 		this.ctx = ctx;
@@ -50,7 +55,7 @@ export class CodeBlock extends MarkdownRenderChild {
 	private async render(metaString: string): Promise<void> {
 		const gen = ++this.renderGeneration;
 		const tempEl = createDiv();
-		await this.plugin.highlighter.renderWithEc(this.source, this.language, metaString, tempEl);
+		await this.host.renderWithEc(this.source, this.language, metaString, tempEl);
 		if (gen !== this.renderGeneration) return;
 		if (!this._active) return;
 		this.containerEl.empty();
@@ -88,7 +93,7 @@ export class CodeBlock extends MarkdownRenderChild {
 		this._active = true;
 		super.onload();
 
-		this.plugin.addActiveCodeBlock(this);
+		this.host.addActiveCodeBlock(this);
 
 		const metaString = this.getMetaString();
 		if (metaString !== null) {
@@ -116,7 +121,7 @@ export class CodeBlock extends MarkdownRenderChild {
 		this._active = false;
 		super.onunload();
 
-		this.plugin.removeActiveCodeBlock(this);
+		this.host.removeActiveCodeBlock(this);
 
 		this.containerEl.empty();
 		this.containerEl.innerText = 'Unloaded shiki code block';

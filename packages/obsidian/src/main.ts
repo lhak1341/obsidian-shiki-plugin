@@ -1,4 +1,6 @@
 import { debounce, loadPrism, Plugin, TFile, type MarkdownPostProcessor } from 'obsidian';
+import type { ThemedToken, TokensResult } from 'shiki';
+import { SHIKI_INLINE_REGEX } from 'packages/obsidian/src/constants';
 import { CodeBlock } from 'packages/obsidian/src/CodeBlock';
 import { createCm6Plugin } from 'packages/obsidian/src/codemirror/Cm6_ViewPlugin';
 import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/Settings';
@@ -10,8 +12,6 @@ import { InlineCodeBlock } from 'packages/obsidian/src/InlineCodeBlock';
 import 'packages/obsidian/src/styles.css';
 import 'virtual:ec-styles.css';
 import 'virtual:ec-runtime';
-
-export const SHIKI_INLINE_REGEX = /^\{([^\s]+)\} (.*)/i; // format: `{lang} code`
 
 export default class ShikiPlugin extends Plugin {
 	highlighter!: CodeHighlighter;
@@ -203,5 +203,25 @@ export default class ShikiPlugin extends Plugin {
 
 	async saveSettings(): Promise<void> {
 		await this.saveData(this.settings);
+	}
+
+	renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
+		return this.highlighter.renderWithEc(code, language, meta, container);
+	}
+
+	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined> {
+		return this.highlighter.getHighlightTokens(code, lang);
+	}
+
+	renderTokens(tokens: ThemedToken[], container: HTMLElement): void {
+		this.highlighter.renderTokens(tokens, container);
+	}
+
+	getTokenStyle(token: ThemedToken): { style: string; classes: string[] } {
+		return this.highlighter.getTokenStyle(token);
+	}
+
+	get inlineHighlighting(): boolean {
+		return this.loadedSettings.inlineHighlighting;
 	}
 }

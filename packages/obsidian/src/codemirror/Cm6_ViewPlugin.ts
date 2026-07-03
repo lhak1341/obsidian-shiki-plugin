@@ -1,12 +1,19 @@
-import type ShikiPlugin from 'packages/obsidian/src/main';
-import { SHIKI_INLINE_REGEX } from 'packages/obsidian/src/main';
 import { Decoration, type DecorationSet, type EditorView, ViewPlugin, type ViewUpdate } from '@codemirror/view';
 import { type EditorState, type Range } from '@codemirror/state';
 import { type SyntaxNode } from '@lezer/common';
 import { syntaxTree } from '@codemirror/language';
 import { Cm6_Util } from 'packages/obsidian/src/codemirror/Cm6_Util';
-import { type ThemedToken } from 'shiki';
+import { type ThemedToken, type TokensResult } from 'shiki';
 import { editorLivePreviewField } from 'obsidian';
+import { SHIKI_INLINE_REGEX } from 'packages/obsidian/src/constants';
+
+export interface Cm6ViewPluginHost {
+	readonly inlineHighlighting: boolean;
+	addCm6Plugin(cb: () => Promise<void>): void;
+	removeCm6Plugin(cb: () => Promise<void>): void;
+	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined>;
+	getTokenStyle(token: ThemedToken): { style: string; classes: string[] };
+}
 
 enum DecorationUpdateType {
 	Insert,
@@ -32,7 +39,7 @@ interface RemoveDecoration {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- not an easily named type
-export function createCm6Plugin(plugin: ShikiPlugin) {
+export function createCm6Plugin(host: Cm6ViewPluginHost) {
 	return ViewPlugin.fromClass(
 		class Cm6ViewPlugin {
 			decorations: DecorationSet;
@@ -44,7 +51,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 				this.view = view;
 				this.decorations = Decoration.none;
 				this.reloadCb = () => this.updateWidgets(this.view);
-				plugin.addCm6Plugin(this.reloadCb);
+				host.addCm6Plugin(this.reloadCb);
 				void this.updateWidgets(view);
 			}
 
@@ -103,7 +110,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 						if (props.includes('inline-code')) {
 							const content = Cm6_Util.getContent(view.state, node.from, node.to);
 
-							if (content.startsWith('{') && plugin.loadedSettings.inlineHighlighting) {
+							if (content.startsWith('{') && host.inlineHighlighting) {
 								const match = content.match(SHIKI_INLINE_REGEX); // format: `{lang} code`
 								if (match) {
 									const hasSelectionOverlap = Cm6_Util.checkSelectionAndRangeOverlap(view.state.selection, node.from - 1, node.to + 1);
@@ -260,7 +267,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 					return [];
 				}
 
-				const highlight = await plugin.highlighter.getHighlightTokens(content, language.toLowerCase());
+				const highlight = await host.getHighlightTokens(content, language.toLowerCase());
 
 				if (!highlight) {
 					return [];
@@ -274,7 +281,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 					const token = tokens[i];
 					const nextToken: ThemedToken | undefined = tokens[i + 1];
 
-					const tokenStyle = plugin.highlighter.getTokenStyle(token);
+					const tokenStyle = host.getTokenStyle(token);
 
 					decorations.push(
 						Decoration.mark({
@@ -293,7 +300,7 @@ export function createCm6Plugin(plugin: ShikiPlugin) {
 			 * Triggered by codemirror when the view plugin is destroyed.
 			 */
 			destroy(): void {
-				plugin.removeCm6Plugin(this.reloadCb);
+				host.removeCm6Plugin(this.reloadCb);
 				this.decorations = Decoration.none;
 			}
 		},
