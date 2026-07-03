@@ -15,13 +15,13 @@ interface HighlighterHost {
 	readonly lightTheme: string;
 	readonly customThemeFolder: string;
 	readonly customLanguageFolder: string;
-	readonly disabledLanguages: string[];
+	readonly disabledLanguages: readonly string[];
 	readonly ecSettings: EcSettingsProps;
 	resetTheme(which: 'dark' | 'light'): Promise<void>;
 	refreshSettings(): void;
 }
 
-interface CustomTheme {
+export interface CustomTheme {
 	name: string;
 	displayName: string;
 	type: string;
@@ -29,16 +29,16 @@ interface CustomTheme {
 	tokenColors?: Record<string, unknown>[];
 }
 
-// some languages break obsidian's `registerMarkdownCodeBlockProcessor`, so we blacklist them
-const LANGUAGE_BLACKLIST = new Set(['c++', 'c#', 'f#', 'mermaid']);
+// some languages break obsidian's `registerMarkdownCodeBlockProcessor`
+const LANGUAGE_DENYLIST = new Set(['c++', 'c#', 'f#', 'mermaid']);
 
 export class CodeHighlighter {
-	host: HighlighterHost;
+	private readonly host: HighlighterHost;
 	private ecRenderer: EcRenderer;
 	private shikiRenderer: ShikiRenderer;
 
-	customThemes!: CustomTheme[];
-	customLanguages!: LanguageRegistration[];
+	private customThemes!: CustomTheme[];
+	private customLanguages!: LanguageRegistration[];
 
 	constructor(host: HighlighterHost) {
 		this.host = host;
@@ -48,6 +48,10 @@ export class CodeHighlighter {
 
 	get supportedLanguages(): string[] {
 		return this.shikiRenderer.supportedLanguages;
+	}
+
+	getCustomThemes(): CustomTheme[] {
+		return this.customThemes;
 	}
 
 	async load(): Promise<void> {
@@ -141,12 +145,12 @@ export class CodeHighlighter {
 			}
 		}
 
-		// if the user's set theme cannot be loaded (e.g. it was deleted), fall back to default theme
-		if (activeTheme.endsWith('.json') && !this.customThemes.find(theme => theme.name === activeTheme)) {
-			if (activeTheme === this.host.darkTheme) {
-				await this.host.resetTheme('dark');
-			} else if (activeTheme === this.host.lightTheme) {
-				await this.host.resetTheme('light');
+		// if either mode's custom theme cannot be loaded (e.g. it was deleted), fall back to default.
+		// check both modes so a mode-switch after the folder is emptied doesn't crash on load.
+		for (const mode of ['dark', 'light'] as const) {
+			const themeId = mode === 'dark' ? this.host.darkTheme : this.host.lightTheme;
+			if (themeId.endsWith('.json') && !this.customThemes.find(t => t.name === themeId)) {
+				await this.host.resetTheme(mode);
 			}
 		}
 
@@ -158,7 +162,7 @@ export class CodeHighlighter {
 	 */
 	obsidianSafeLanguageNames(): string[] {
 		return this.shikiRenderer.supportedLanguages.filter(
-			lang => !LANGUAGE_BLACKLIST.has(lang) && !this.host.disabledLanguages.includes(lang),
+			lang => !LANGUAGE_DENYLIST.has(lang) && !this.host.disabledLanguages.includes(lang),
 		);
 	}
 

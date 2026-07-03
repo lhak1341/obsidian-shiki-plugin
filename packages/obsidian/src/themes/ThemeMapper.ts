@@ -22,7 +22,13 @@ export class ThemeMapper {
 		if (this.usingCustomTheme()) {
 			return this.ctx.customThemes.find(theme => theme.name === activeTheme) as ThemeRegistration;
 		} else if (!this.usingObsidianTheme()) {
-			return (await bundledThemes[activeTheme as BundledTheme]()).default;
+			const loader = bundledThemes[activeTheme as BundledTheme];
+			if (!loader) {
+				// bundled theme was renamed or removed in a shiki upgrade; fall back safely
+				console.warn(`Shiki bundled theme "${activeTheme}" not found, falling back to Obsidian theme`);
+				return OBSIDIAN_THEME;
+			}
+			return (await loader()).default;
 		}
 
 		return OBSIDIAN_THEME;

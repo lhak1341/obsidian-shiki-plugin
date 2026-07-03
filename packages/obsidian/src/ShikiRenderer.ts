@@ -15,10 +15,12 @@ const LANGUAGE_SPECIAL = new Set(['plaintext', 'txt', 'text', 'plain', 'ansi']);
 export class ShikiRenderer {
 	private shiki!: Highlighter;
 	private themeMapper!: ThemeMapper;
+	private loadingLanguages = new Map<string, Promise<void>>();
 	supportedLanguages!: string[];
 
 	async load(themeMapper: ThemeMapper, customLanguages: LanguageRegistration[]): Promise<void> {
 		this.themeMapper = themeMapper;
+		this.loadingLanguages = new Map();
 		this.shiki = await createHighlighter({
 			themes: [await themeMapper.getTheme()],
 			langs: customLanguages,
@@ -28,16 +30,33 @@ export class ShikiRenderer {
 
 	unload(): void {
 		this.shiki.dispose();
+		this.loadingLanguages.clear();
 	}
 
 	async tokenize(code: string, lang: string): Promise<TokensResult | undefined> {
 		if (!this.shiki.getLoadedLanguages().includes(lang)) {
-			await this.shiki.loadLanguage(lang as BundledLanguage);
+			let loading = this.loadingLanguages.get(lang);
+			if (!loading) {
+				loading = this.shiki.loadLanguage(lang as BundledLanguage)
+					.finally(() => this.loadingLanguages.delete(lang));
+				this.loadingLanguages.set(lang, loading);
+			}
+			try {
+				await loading;
+			} catch (e) {
+				console.warn(`Shiki: failed to load language "${lang}"`, e);
+				return undefined;
+			}
 		}
-		return this.shiki.codeToTokens(code, {
-			lang: lang as BundledLanguage,
-			theme: this.themeMapper.getThemeIdentifier(),
-		});
+		try {
+			return this.shiki.codeToTokens(code, {
+				lang: lang as BundledLanguage,
+				theme: this.themeMapper.getThemeIdentifier(),
+			});
+		} catch (e) {
+			console.warn(`Shiki: failed to tokenize code in "${lang}"`, e);
+			return undefined;
+		}
 	}
 
 	renderTokens(tokens: ThemedToken[], parent: HTMLElement): void {

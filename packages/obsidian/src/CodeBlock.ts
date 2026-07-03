@@ -7,11 +7,11 @@ export interface CodeBlockHost {
 }
 
 export class CodeBlock extends MarkdownRenderChild {
-	host: CodeBlockHost;
-	source: string;
-	language: string;
-	ctx: MarkdownPostProcessorContext;
-	cachedMetaString: string;
+	private readonly host: CodeBlockHost;
+	private readonly source: string;
+	private readonly language: string;
+	private readonly ctx: MarkdownPostProcessorContext;
+	private cachedMetaString: string;
 	private renderGeneration = 0;
 	private _active = false;
 
@@ -24,6 +24,8 @@ export class CodeBlock extends MarkdownRenderChild {
 		this.ctx = ctx;
 		this.cachedMetaString = '';
 	}
+
+	get sourcePath(): string { return this.ctx.sourcePath; }
 
 	// Returns null when getSectionInfo is not yet available or stale (element detached).
 	private getMetaString(): string | null {

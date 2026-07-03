@@ -9,10 +9,12 @@ export interface InlineCodeBlockHost {
 }
 
 export class InlineCodeBlock extends MarkdownRenderChild {
-	host: InlineCodeBlockHost;
-	source: string;
-	language: string;
-	ctx: MarkdownPostProcessorContext;
+	private readonly host: InlineCodeBlockHost;
+	private readonly source: string;
+	private readonly language: string;
+	private readonly ctx: MarkdownPostProcessorContext;
+	private renderGeneration = 0;
+	private _active = false;
 
 	constructor(host: InlineCodeBlockHost, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
 		super(containerEl);
@@ -23,11 +25,18 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this.ctx = ctx;
 	}
 
+	get sourcePath(): string { return this.ctx.sourcePath; }
+
 	private async render(): Promise<void> {
+		const gen = ++this.renderGeneration;
+
+		const highlight = await this.host.getHighlightTokens(this.source, this.language);
+		if (gen !== this.renderGeneration) return;
+		if (!this._active) return;
+
 		this.containerEl.empty();
 		this.containerEl.classList.add('shiki-inline');
 
-		const highlight = await this.host.getHighlightTokens(this.source, this.language);
 		const tokens = highlight?.tokens.flat(1);
 		if (!tokens?.length) {
 			this.containerEl.innerText = this.source;
@@ -37,15 +46,12 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this.host.renderTokens(tokens, this.containerEl);
 	}
 
-	public async rerenderOnNoteChange(): Promise<void> {
-		// noop for inline code blocks
-	}
-
 	public async forceRerender(): Promise<void> {
 		await this.render();
 	}
 
 	public onload(): void {
+		this._active = true;
 		super.onload();
 
 		this.host.addActiveCodeBlock(this);
@@ -54,6 +60,7 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 	}
 
 	public onunload(): void {
+		this._active = false;
 		super.onunload();
 
 		this.host.removeActiveCodeBlock(this);

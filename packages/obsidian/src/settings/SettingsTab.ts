@@ -25,7 +25,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			...builtInThemes,
 		};
 
-		new Setting(this.containerEl).setName('All changes require a reload of the highlighter').addButton(button => {
+		new Setting(this.containerEl).setName('Most changes require a reload of the highlighter').addButton(button => {
 			button
 				.setCta()
 				.setButtonText('Reload highlighter')
@@ -38,7 +38,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 
 		new Setting(this.containerEl)
 			.setName('Inline syntax highlighting')
-			.setDesc('Enables syntax highlighting for inline code blocks via `{lang} code`.')
+			.setDesc('Enables syntax highlighting for inline code blocks via `{lang} code`. Takes effect immediately.')
 			.addToggle(toggle => {
 				toggle.setValue(this.plugin.store.persisted.inlineHighlighting).onChange(async value => {
 					await this.plugin.store.setLive('inlineHighlighting', value);

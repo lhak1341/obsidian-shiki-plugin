@@ -8,11 +8,18 @@ import { type LanguageRegistration, type ThemeRegistration } from 'shiki';
 // eslint-disable-next-line no-relative-import-paths/no-relative-import-paths -- needed for vite to load this correctly
 import { getECTheme } from './ECTheme';
 
+export enum FrameType {
+	Code = 'code',
+	Terminal = 'terminal',
+	None = 'none',
+	Auto = 'auto',
+}
+
 export interface EcSettingsProps {
 	preferThemeColors: boolean;
 	ecDefaultShowLineNumbers: boolean;
 	ecDefaultWrap: boolean;
-	ecDefaultFrame: 'code' | 'terminal' | 'none' | 'auto';
+	ecDefaultFrame: FrameType;
 }
 
 export interface EcConfigInput {
@@ -26,7 +33,7 @@ export const EC_VIRTUAL_SETTINGS: EcSettingsProps = {
 	preferThemeColors: true,
 	ecDefaultShowLineNumbers: false,
 	ecDefaultWrap: false,
-	ecDefaultFrame: 'auto',
+	ecDefaultFrame: FrameType.Auto,
 };
 
 export function createEcEngineConfig(input: EcConfigInput): ExpressiveCodeEngineConfig {

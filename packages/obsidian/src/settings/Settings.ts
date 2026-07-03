@@ -1,15 +1,10 @@
 import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
-import type { EcSettingsProps } from 'packages/ec-core/src/Config';
+import { type EcSettingsProps, FrameType } from 'packages/ec-core/src/Config';
 
-export enum FrameType {
-	Code = 'code',
-	Terminal = 'terminal',
-	None = 'none',
-	Auto = 'auto',
-}
+export { FrameType };
 
 export interface Settings {
-	disabledLanguages: string[];
+	disabledLanguages: readonly string[];
 	customThemeFolder: string;
 	customLanguageFolder: string;
 	/**

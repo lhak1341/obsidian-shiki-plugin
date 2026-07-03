@@ -82,7 +82,7 @@
       "source_file": "eslint.config.mjs",
       "source_location": "L1",
       "id": "eslint_config_mjs",
-      "community": 15,
+      "community": 20,
       "norm_label": "eslint.config.mjs"
     },
     {
@@ -91,7 +91,7 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_shikirenderer_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "shikirenderer.ts"
     },
     {
@@ -100,7 +100,7 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L13",
       "id": "src_shikirenderer_language_special",
-      "community": 1,
+      "community": 2,
       "norm_label": "language_special"
     },
     {
@@ -109,61 +109,61 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L15",
       "id": "src_shikirenderer_shikirenderer",
-      "community": 8,
+      "community": 11,
       "norm_label": "shikirenderer"
     },
     {
       "label": ".load()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
-      "source_location": "L20",
+      "source_location": "L21",
       "id": "src_shikirenderer_shikirenderer_load",
-      "community": 8,
+      "community": 11,
       "norm_label": ".load()"
     },
     {
       "label": ".unload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
-      "source_location": "L29",
+      "source_location": "L31",
       "id": "src_shikirenderer_shikirenderer_unload",
-      "community": 8,
+      "community": 11,
       "norm_label": ".unload()"
     },
     {
       "label": ".tokenize()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
-      "source_location": "L33",
+      "source_location": "L36",
       "id": "src_shikirenderer_shikirenderer_tokenize",
-      "community": 8,
+      "community": 11,
       "norm_label": ".tokenize()"
     },
     {
       "label": ".renderTokens()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
-      "source_location": "L43",
+      "source_location": "L62",
       "id": "src_shikirenderer_shikirenderer_rendertokens",
-      "community": 8,
+      "community": 11,
       "norm_label": ".rendertokens()"
     },
     {
       "label": ".tokenToSpan()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
-      "source_location": "L49",
+      "source_location": "L68",
       "id": "src_shikirenderer_shikirenderer_tokentospan",
-      "community": 8,
+      "community": 11,
       "norm_label": ".tokentospan()"
     },
     {
       "label": ".getTokenStyle()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
-      "source_location": "L58",
+      "source_location": "L77",
       "id": "src_shikirenderer_shikirenderer_gettokenstyle",
-      "community": 8,
+      "community": 11,
       "norm_label": ".gettokenstyle()"
     },
     {
@@ -172,7 +172,7 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_main_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "main.ts"
     },
     {
@@ -469,7 +469,7 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_codeblock_ts",
-      "community": 6,
+      "community": 7,
       "norm_label": "codeblock.ts"
     },
     {
@@ -478,7 +478,7 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L3",
       "id": "src_codeblock_codeblockhost",
-      "community": 6,
+      "community": 7,
       "norm_label": "codeblockhost"
     },
     {
@@ -487,7 +487,7 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L9",
       "id": "src_codeblock_codeblock",
-      "community": 6,
+      "community": 7,
       "norm_label": "codeblock"
     },
     {
@@ -496,61 +496,70 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L18",
       "id": "src_codeblock_codeblock_constructor",
-      "community": 6,
+      "community": 7,
       "norm_label": ".constructor()"
+    },
+    {
+      "label": ".sourcePath()",
+      "file_type": "code",
+      "source_file": "packages/obsidian/src/CodeBlock.ts",
+      "source_location": "L28",
+      "id": "src_codeblock_codeblock_sourcepath",
+      "community": 7,
+      "norm_label": ".sourcepath()"
     },
     {
       "label": ".getMetaString()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/CodeBlock.ts",
-      "source_location": "L29",
+      "source_location": "L31",
       "id": "src_codeblock_codeblock_getmetastring",
-      "community": 6,
+      "community": 7,
       "norm_label": ".getmetastring()"
     },
     {
       "label": ".render()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/CodeBlock.ts",
-      "source_location": "L55",
+      "source_location": "L57",
       "id": "src_codeblock_codeblock_render",
-      "community": 6,
+      "community": 7,
       "norm_label": ".render()"
     },
     {
       "label": ".rerenderOnNoteChange()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/CodeBlock.ts",
-      "source_location": "L67",
+      "source_location": "L69",
       "id": "src_codeblock_codeblock_rerenderonnotechange",
-      "community": 6,
+      "community": 7,
       "norm_label": ".rerenderonnotechange()"
     },
     {
       "label": ".forceRerender()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/CodeBlock.ts",
-      "source_location": "L86",
+      "source_location": "L88",
       "id": "src_codeblock_codeblock_forcererender",
-      "community": 6,
+      "community": 7,
       "norm_label": ".forcererender()"
     },
     {
       "label": ".onload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/CodeBlock.ts",
-      "source_location": "L92",
+      "source_location": "L94",
       "id": "src_codeblock_codeblock_onload",
-      "community": 6,
+      "community": 7,
       "norm_label": ".onload()"
     },
     {
       "label": ".onunload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/CodeBlock.ts",
-      "source_location": "L120",
+      "source_location": "L122",
       "id": "src_codeblock_codeblock_onunload",
-      "community": 6,
+      "community": 7,
       "norm_label": ".onunload()"
     },
     {
@@ -559,7 +568,7 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_prismplugin_ts",
-      "community": 10,
+      "community": 1,
       "norm_label": "prismplugin.ts"
     },
     {
@@ -568,7 +577,7 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L7",
       "id": "src_prismplugin_prismfilterhighlightenv",
-      "community": 10,
+      "community": 1,
       "norm_label": "prismfilterhighlightenv"
     },
     {
@@ -577,7 +586,7 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L12",
       "id": "src_prismplugin_prismfilterhighlightcondition",
-      "community": 10,
+      "community": 1,
       "norm_label": "prismfilterhighlightcondition"
     },
     {
@@ -586,7 +595,7 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L14",
       "id": "src_prismplugin_prismfilterhighlightapi",
-      "community": 10,
+      "community": 1,
       "norm_label": "prismfilterhighlightapi"
     },
     {
@@ -595,7 +604,7 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L24",
       "id": "src_prismplugin_prismbeforeallelementshighlightenv",
-      "community": 10,
+      "community": 1,
       "norm_label": "prismbeforeallelementshighlightenv"
     },
     {
@@ -604,7 +613,7 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L28",
       "id": "src_prismplugin_prismwithfilterhighlightall",
-      "community": 10,
+      "community": 1,
       "norm_label": "prismwithfilterhighlightall"
     },
     {
@@ -622,7 +631,7 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_ecrenderer_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "ecrenderer.ts"
     },
     {
@@ -631,7 +640,7 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L8",
       "id": "src_ecrenderer_ecrenderer",
-      "community": 1,
+      "community": 2,
       "norm_label": "ecrenderer"
     },
     {
@@ -640,7 +649,7 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L13",
       "id": "src_ecrenderer_ecrenderer_load",
-      "community": 1,
+      "community": 2,
       "norm_label": ".load()"
     },
     {
@@ -649,7 +658,7 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L40",
       "id": "src_ecrenderer_ecrenderer_unload",
-      "community": 1,
+      "community": 2,
       "norm_label": ".unload()"
     },
     {
@@ -658,7 +667,7 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L47",
       "id": "src_ecrenderer_ecrenderer_render",
-      "community": 1,
+      "community": 2,
       "norm_label": ".render()"
     },
     {
@@ -667,7 +676,7 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_highlighter_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "highlighter.ts"
     },
     {
@@ -676,7 +685,7 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L8",
       "id": "src_highlighter_highlighterhost",
-      "community": 1,
+      "community": 2,
       "norm_label": "highlighterhost"
     },
     {
@@ -685,17 +694,17 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L24",
       "id": "src_highlighter_customtheme",
-      "community": 1,
+      "community": 2,
       "norm_label": "customtheme"
     },
     {
-      "label": "LANGUAGE_BLACKLIST",
+      "label": "LANGUAGE_DENYLIST",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L33",
-      "id": "src_highlighter_language_blacklist",
-      "community": 1,
-      "norm_label": "language_blacklist"
+      "id": "src_highlighter_language_denylist",
+      "community": 2,
+      "norm_label": "language_denylist"
     },
     {
       "label": "CodeHighlighter",
@@ -703,7 +712,7 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L35",
       "id": "src_highlighter_codehighlighter",
-      "community": 5,
+      "community": 6,
       "norm_label": "codehighlighter"
     },
     {
@@ -712,7 +721,7 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L43",
       "id": "src_highlighter_codehighlighter_constructor",
-      "community": 5,
+      "community": 6,
       "norm_label": ".constructor()"
     },
     {
@@ -721,106 +730,115 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L49",
       "id": "src_highlighter_codehighlighter_supportedlanguages",
-      "community": 5,
+      "community": 6,
       "norm_label": ".supportedlanguages()"
+    },
+    {
+      "label": ".getCustomThemes()",
+      "file_type": "code",
+      "source_file": "packages/obsidian/src/Highlighter.ts",
+      "source_location": "L53",
+      "id": "src_highlighter_codehighlighter_getcustomthemes",
+      "community": 6,
+      "norm_label": ".getcustomthemes()"
     },
     {
       "label": ".load()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L53",
+      "source_location": "L57",
       "id": "src_highlighter_codehighlighter_load",
-      "community": 5,
+      "community": 6,
       "norm_label": ".load()"
     },
     {
       "label": ".reload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L68",
+      "source_location": "L72",
       "id": "src_highlighter_codehighlighter_reload",
-      "community": 5,
+      "community": 6,
       "norm_label": ".reload()"
     },
     {
       "label": ".unload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L74",
+      "source_location": "L78",
       "id": "src_highlighter_codehighlighter_unload",
-      "community": 5,
+      "community": 6,
       "norm_label": ".unload()"
     },
     {
       "label": ".listJsonFiles()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L79",
+      "source_location": "L83",
       "id": "src_highlighter_codehighlighter_listjsonfiles",
-      "community": 5,
+      "community": 6,
       "norm_label": ".listjsonfiles()"
     },
     {
       "label": ".loadCustomLanguages()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L89",
+      "source_location": "L93",
       "id": "src_highlighter_codehighlighter_loadcustomlanguages",
-      "community": 5,
+      "community": 6,
       "norm_label": ".loadcustomlanguages()"
     },
     {
       "label": ".loadCustomThemes()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L112",
+      "source_location": "L116",
       "id": "src_highlighter_codehighlighter_loadcustomthemes",
-      "community": 5,
+      "community": 6,
       "norm_label": ".loadcustomthemes()"
     },
     {
       "label": ".obsidianSafeLanguageNames()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L159",
+      "source_location": "L163",
       "id": "src_highlighter_codehighlighter_obsidiansafelanguagenames",
-      "community": 5,
+      "community": 6,
       "norm_label": ".obsidiansafelanguagenames()"
     },
     {
       "label": ".renderWithEc()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L165",
+      "source_location": "L169",
       "id": "src_highlighter_codehighlighter_renderwithec",
-      "community": 5,
+      "community": 6,
       "norm_label": ".renderwithec()"
     },
     {
       "label": ".getHighlightTokens()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L169",
+      "source_location": "L173",
       "id": "src_highlighter_codehighlighter_gethighlighttokens",
-      "community": 5,
+      "community": 6,
       "norm_label": ".gethighlighttokens()"
     },
     {
       "label": ".renderTokens()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L176",
+      "source_location": "L180",
       "id": "src_highlighter_codehighlighter_rendertokens",
-      "community": 5,
+      "community": 6,
       "norm_label": ".rendertokens()"
     },
     {
       "label": ".getTokenStyle()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/Highlighter.ts",
-      "source_location": "L180",
+      "source_location": "L184",
       "id": "src_highlighter_codehighlighter_gettokenstyle",
-      "community": 5,
+      "community": 6,
       "norm_label": ".gettokenstyle()"
     },
     {
@@ -829,7 +847,7 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_inlinecodeblock_ts",
-      "community": 7,
+      "community": 8,
       "norm_label": "inlinecodeblock.ts"
     },
     {
@@ -838,7 +856,7 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L4",
       "id": "src_inlinecodeblock_inlinecodeblockhost",
-      "community": 7,
+      "community": 8,
       "norm_label": "inlinecodeblockhost"
     },
     {
@@ -847,61 +865,61 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L11",
       "id": "src_inlinecodeblock_inlinecodeblock",
-      "community": 7,
+      "community": 8,
       "norm_label": "inlinecodeblock"
     },
     {
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L17",
+      "source_location": "L19",
       "id": "src_inlinecodeblock_inlinecodeblock_constructor",
-      "community": 7,
+      "community": 8,
       "norm_label": ".constructor()"
+    },
+    {
+      "label": ".sourcePath()",
+      "file_type": "code",
+      "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
+      "source_location": "L28",
+      "id": "src_inlinecodeblock_inlinecodeblock_sourcepath",
+      "community": 8,
+      "norm_label": ".sourcepath()"
     },
     {
       "label": ".render()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L26",
+      "source_location": "L30",
       "id": "src_inlinecodeblock_inlinecodeblock_render",
-      "community": 7,
+      "community": 8,
       "norm_label": ".render()"
-    },
-    {
-      "label": ".rerenderOnNoteChange()",
-      "file_type": "code",
-      "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L40",
-      "id": "src_inlinecodeblock_inlinecodeblock_rerenderonnotechange",
-      "community": 7,
-      "norm_label": ".rerenderonnotechange()"
     },
     {
       "label": ".forceRerender()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L44",
+      "source_location": "L49",
       "id": "src_inlinecodeblock_inlinecodeblock_forcererender",
-      "community": 7,
+      "community": 8,
       "norm_label": ".forcererender()"
     },
     {
       "label": ".onload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L48",
+      "source_location": "L53",
       "id": "src_inlinecodeblock_inlinecodeblock_onload",
-      "community": 7,
+      "community": 8,
       "norm_label": ".onload()"
     },
     {
       "label": ".onunload()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L56",
+      "source_location": "L62",
       "id": "src_inlinecodeblock_inlinecodeblock_onunload",
-      "community": 7,
+      "community": 8,
       "norm_label": ".onunload()"
     },
     {
@@ -910,7 +928,7 @@
       "source_file": "packages/obsidian/src/constants.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_constants_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "constants.ts"
     },
     {
@@ -919,7 +937,7 @@
       "source_file": "packages/obsidian/src/vite-virtual-modules.d.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_vite_virtual_modules_d_ts",
-      "community": 16,
+      "community": 21,
       "norm_label": "vite-virtual-modules.d.ts"
     },
     {
@@ -928,7 +946,7 @@
       "source_file": "packages/obsidian/src/obsidian-ex.d.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_obsidian_ex_d_ts",
-      "community": 14,
+      "community": 18,
       "norm_label": "obsidian-ex.d.ts"
     },
     {
@@ -937,7 +955,7 @@
       "source_file": "packages/obsidian/src/obsidian-ex.d.ts",
       "source_location": "L4",
       "id": "src_obsidian_ex_d_app",
-      "community": 14,
+      "community": 18,
       "norm_label": "app"
     },
     {
@@ -946,7 +964,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_settings_settingsstore_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "settingsstore.ts"
     },
     {
@@ -955,7 +973,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L3",
       "id": "settings_settingsstore_settingsstore",
-      "community": 2,
+      "community": 1,
       "norm_label": "settingsstore"
     },
     {
@@ -964,7 +982,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L8",
       "id": "settings_settingsstore_settingsstore_constructor",
-      "community": 2,
+      "community": 1,
       "norm_label": ".constructor()"
     },
     {
@@ -973,7 +991,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L14",
       "id": "settings_settingsstore_settingsstore_persisted",
-      "community": 2,
+      "community": 1,
       "norm_label": ".persisted()"
     },
     {
@@ -982,7 +1000,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L18",
       "id": "settings_settingsstore_settingsstore_snapshot",
-      "community": 2,
+      "community": 1,
       "norm_label": ".snapshot()"
     },
     {
@@ -991,7 +1009,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L22",
       "id": "settings_settingsstore_settingsstore_set",
-      "community": 2,
+      "community": 1,
       "norm_label": ".set()"
     },
     {
@@ -1000,7 +1018,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L27",
       "id": "settings_settingsstore_settingsstore_setlive",
-      "community": 2,
+      "community": 1,
       "norm_label": ".setlive()"
     },
     {
@@ -1009,7 +1027,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L33",
       "id": "settings_settingsstore_settingsstore_flush",
-      "community": 2,
+      "community": 1,
       "norm_label": ".flush()"
     },
     {
@@ -1018,7 +1036,7 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_settings_stringselectmodal_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "stringselectmodal.ts"
     },
     {
@@ -1027,7 +1045,7 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L3",
       "id": "settings_stringselectmodal_stringselectmodal",
-      "community": 2,
+      "community": 1,
       "norm_label": "stringselectmodal"
     },
     {
@@ -1036,7 +1054,7 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L7",
       "id": "settings_stringselectmodal_stringselectmodal_constructor",
-      "community": 2,
+      "community": 1,
       "norm_label": ".constructor()"
     },
     {
@@ -1045,7 +1063,7 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L14",
       "id": "settings_stringselectmodal_stringselectmodal_getitemtext",
-      "community": 2,
+      "community": 1,
       "norm_label": ".getitemtext()"
     },
     {
@@ -1054,7 +1072,7 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L18",
       "id": "settings_stringselectmodal_stringselectmodal_getitems",
-      "community": 2,
+      "community": 1,
       "norm_label": ".getitems()"
     },
     {
@@ -1063,7 +1081,7 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L22",
       "id": "settings_stringselectmodal_stringselectmodal_onchooseitem",
-      "community": 2,
+      "community": 1,
       "norm_label": ".onchooseitem()"
     },
     {
@@ -1072,34 +1090,25 @@
       "source_file": "packages/obsidian/src/settings/Settings.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_settings_settings_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "settings.ts"
-    },
-    {
-      "label": "FrameType",
-      "file_type": "code",
-      "source_file": "packages/obsidian/src/settings/Settings.ts",
-      "source_location": "L4",
-      "id": "settings_settings_frametype",
-      "community": 2,
-      "norm_label": "frametype"
     },
     {
       "label": "Settings",
       "file_type": "code",
       "source_file": "packages/obsidian/src/settings/Settings.ts",
-      "source_location": "L11",
+      "source_location": "L6",
       "id": "settings_settings_settings",
-      "community": 2,
+      "community": 1,
       "norm_label": "settings"
     },
     {
       "label": "DEFAULT_SETTINGS",
       "file_type": "code",
       "source_file": "packages/obsidian/src/settings/Settings.ts",
-      "source_location": "L28",
+      "source_location": "L23",
       "id": "settings_settings_default_settings",
-      "community": 2,
+      "community": 1,
       "norm_label": "default_settings"
     },
     {
@@ -1108,7 +1117,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_settings_settingstab_ts",
-      "community": 2,
+      "community": 1,
       "norm_label": "settingstab.ts"
     },
     {
@@ -1117,7 +1126,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L8",
       "id": "settings_settingstab_shikisettingstab",
-      "community": 2,
+      "community": 1,
       "norm_label": "shikisettingstab"
     },
     {
@@ -1126,7 +1135,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L11",
       "id": "settings_settingstab_shikisettingstab_constructor",
-      "community": 2,
+      "community": 1,
       "norm_label": ".constructor()"
     },
     {
@@ -1135,7 +1144,7 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L17",
       "id": "settings_settingstab_shikisettingstab_display",
-      "community": 2,
+      "community": 1,
       "norm_label": ".display()"
     },
     {
@@ -1144,7 +1153,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_codemirror_cm6_decorationbuilder_ts",
-      "community": 9,
+      "community": 12,
       "norm_label": "cm6_decorationbuilder.ts"
     },
     {
@@ -1153,7 +1162,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts",
       "source_location": "L5",
       "id": "codemirror_cm6_decorationbuilder_highlightablerange",
-      "community": 9,
+      "community": 12,
       "norm_label": "highlightablerange"
     },
     {
@@ -1162,7 +1171,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts",
       "source_location": "L14",
       "id": "codemirror_cm6_decorationbuilder_builddecorationset",
-      "community": 9,
+      "community": 12,
       "norm_label": "builddecorationset()"
     },
     {
@@ -1171,7 +1180,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "community": 9,
+      "community": 12,
       "norm_label": "cm6_viewplugin.ts"
     },
     {
@@ -1180,7 +1189,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L10",
       "id": "codemirror_cm6_viewplugin_cm6viewpluginhost",
-      "community": 9,
+      "community": 12,
       "norm_label": "cm6viewpluginhost"
     },
     {
@@ -1189,7 +1198,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L18",
       "id": "codemirror_cm6_viewplugin_checkselectionoverlap",
-      "community": 9,
+      "community": 12,
       "norm_label": "checkselectionoverlap()"
     },
     {
@@ -1198,7 +1207,7 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L26",
       "id": "codemirror_cm6_viewplugin_createcm6plugin",
-      "community": 9,
+      "community": 12,
       "norm_label": "createcm6plugin()"
     },
     {
@@ -1207,7 +1216,7 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L1",
       "id": "packages_obsidian_src_themes_thememapper_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "thememapper.ts"
     },
     {
@@ -1216,7 +1225,7 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L5",
       "id": "themes_thememapper_themecontext",
-      "community": 1,
+      "community": 2,
       "norm_label": "themecontext"
     },
     {
@@ -1225,7 +1234,7 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L12",
       "id": "themes_thememapper_thememapper",
-      "community": 1,
+      "community": 2,
       "norm_label": "thememapper"
     },
     {
@@ -1234,7 +1243,7 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L15",
       "id": "themes_thememapper_thememapper_constructor",
-      "community": 1,
+      "community": 2,
       "norm_label": ".constructor()"
     },
     {
@@ -1243,34 +1252,34 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L19",
       "id": "themes_thememapper_thememapper_gettheme",
-      "community": 1,
+      "community": 2,
       "norm_label": ".gettheme()"
     },
     {
       "label": ".getThemeIdentifier()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
-      "source_location": "L31",
+      "source_location": "L37",
       "id": "themes_thememapper_thememapper_getthemeidentifier",
-      "community": 1,
+      "community": 2,
       "norm_label": ".getthemeidentifier()"
     },
     {
       "label": ".usingObsidianTheme()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
-      "source_location": "L35",
+      "source_location": "L41",
       "id": "themes_thememapper_thememapper_usingobsidiantheme",
-      "community": 1,
+      "community": 2,
       "norm_label": ".usingobsidiantheme()"
     },
     {
       "label": ".usingCustomTheme()",
       "file_type": "code",
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
-      "source_location": "L39",
+      "source_location": "L45",
       "id": "themes_thememapper_thememapper_usingcustomtheme",
-      "community": 1,
+      "community": 2,
       "norm_label": ".usingcustomtheme()"
     },
     {
@@ -1279,7 +1288,7 @@
       "source_file": "packages/ec-core/src/ECTheme.ts",
       "source_location": "L1",
       "id": "packages_ec_core_src_ectheme_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "ectheme.ts"
     },
     {
@@ -1288,7 +1297,7 @@
       "source_file": "packages/ec-core/src/ECTheme.ts",
       "source_location": "L3",
       "id": "src_ectheme_getectheme",
-      "community": 1,
+      "community": 2,
       "norm_label": "getectheme()"
     },
     {
@@ -1297,7 +1306,7 @@
       "source_file": "packages/ec-core/src/ObsidianTheme.ts",
       "source_location": "L1",
       "id": "packages_ec_core_src_obsidiantheme_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "obsidiantheme.ts"
     },
     {
@@ -1306,43 +1315,52 @@
       "source_file": "packages/ec-core/src/Config.ts",
       "source_location": "L1",
       "id": "packages_ec_core_src_config_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "config.ts"
+    },
+    {
+      "label": "FrameType",
+      "file_type": "code",
+      "source_file": "packages/ec-core/src/Config.ts",
+      "source_location": "L11",
+      "id": "src_config_frametype",
+      "community": 2,
+      "norm_label": "frametype"
     },
     {
       "label": "EcSettingsProps",
       "file_type": "code",
       "source_file": "packages/ec-core/src/Config.ts",
-      "source_location": "L11",
+      "source_location": "L18",
       "id": "src_config_ecsettingsprops",
-      "community": 2,
+      "community": 1,
       "norm_label": "ecsettingsprops"
     },
     {
       "label": "EcConfigInput",
       "file_type": "code",
       "source_file": "packages/ec-core/src/Config.ts",
-      "source_location": "L18",
+      "source_location": "L25",
       "id": "src_config_ecconfiginput",
-      "community": 1,
+      "community": 2,
       "norm_label": "ecconfiginput"
     },
     {
       "label": "EC_VIRTUAL_SETTINGS",
       "file_type": "code",
       "source_file": "packages/ec-core/src/Config.ts",
-      "source_location": "L25",
+      "source_location": "L32",
       "id": "src_config_ec_virtual_settings",
-      "community": 1,
+      "community": 2,
       "norm_label": "ec_virtual_settings"
     },
     {
       "label": "createEcEngineConfig()",
       "file_type": "code",
       "source_file": "packages/ec-core/src/Config.ts",
-      "source_location": "L32",
+      "source_location": "L39",
       "id": "src_config_createecengineconfig",
-      "community": 1,
+      "community": 2,
       "norm_label": "createecengineconfig()"
     },
     {
@@ -1351,7 +1369,7 @@
       "source_file": "packages/ec-core/src/CssVarThemeAdapter.ts",
       "source_location": "L1",
       "id": "packages_ec_core_src_cssvarthemeadapter_ts",
-      "community": 1,
+      "community": 2,
       "norm_label": "cssvarthemeadapter.ts"
     },
     {
@@ -1360,8 +1378,530 @@
       "source_file": "packages/ec-core/src/CssVarThemeAdapter.ts",
       "source_location": "L4",
       "id": "src_cssvarthemeadapter_encodecssvartheme",
-      "community": 1,
+      "community": 2,
       "norm_label": "encodecssvartheme()"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme_md",
+      "community": 3,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Shiki Highlighter",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "community": 3,
+      "norm_label": "shiki highlighter"
+    },
+    {
+      "label": "Comparison",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L11",
+      "id": "obsidian_shiki_plugin_readme_comparison",
+      "community": 3,
+      "norm_label": "comparison"
+    },
+    {
+      "label": "Usage",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L21",
+      "id": "obsidian_shiki_plugin_readme_usage",
+      "community": 3,
+      "norm_label": "usage"
+    },
+    {
+      "label": "Inline Highlighting",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L25",
+      "id": "obsidian_shiki_plugin_readme_inline_highlighting",
+      "community": 3,
+      "norm_label": "inline highlighting"
+    },
+    {
+      "label": "code:md (Some inline code `{jsx} <button role=\"button\" />`.)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L29",
+      "id": "obsidian_shiki_plugin_readme_codeblock_1",
+      "community": 3,
+      "norm_label": "code:md (some inline code `{jsx} <button role=\"button\" />`.)"
+    },
+    {
+      "label": "Custom Themes",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L35",
+      "id": "obsidian_shiki_plugin_readme_custom_themes",
+      "community": 3,
+      "norm_label": "custom themes"
+    },
+    {
+      "label": "Code Block Configuration",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L39",
+      "id": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "community": 3,
+      "norm_label": "code block configuration"
+    },
+    {
+      "label": "code:`md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L43",
+      "id": "obsidian_shiki_plugin_readme_codeblock_2",
+      "community": 3,
+      "norm_label": "code:`md"
+    },
+    {
+      "label": "code:block3",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L46",
+      "id": "obsidian_shiki_plugin_readme_codeblock_3",
+      "community": 3,
+      "norm_label": "code:block3"
+    },
+    {
+      "label": "Line Numbers",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L51",
+      "id": "obsidian_shiki_plugin_readme_line_numbers",
+      "community": 3,
+      "norm_label": "line numbers"
+    },
+    {
+      "label": "code:`md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L55",
+      "id": "obsidian_shiki_plugin_readme_codeblock_4",
+      "community": 3,
+      "norm_label": "code:`md"
+    },
+    {
+      "label": "code:block5",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L58",
+      "id": "obsidian_shiki_plugin_readme_codeblock_5",
+      "community": 3,
+      "norm_label": "code:block5"
+    },
+    {
+      "label": "Title",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L61",
+      "id": "obsidian_shiki_plugin_readme_title",
+      "community": 3,
+      "norm_label": "title"
+    },
+    {
+      "label": "code:`md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L65",
+      "id": "obsidian_shiki_plugin_readme_codeblock_6",
+      "community": 3,
+      "norm_label": "code:`md"
+    },
+    {
+      "label": "code:block7",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L68",
+      "id": "obsidian_shiki_plugin_readme_codeblock_7",
+      "community": 3,
+      "norm_label": "code:block7"
+    },
+    {
+      "label": "Line Highlighting",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L71",
+      "id": "obsidian_shiki_plugin_readme_line_highlighting",
+      "community": 3,
+      "norm_label": "line highlighting"
+    },
+    {
+      "label": "code:`md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L76",
+      "id": "obsidian_shiki_plugin_readme_codeblock_8",
+      "community": 3,
+      "norm_label": "code:`md"
+    },
+    {
+      "label": "code:block9",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L79",
+      "id": "obsidian_shiki_plugin_readme_codeblock_9",
+      "community": 3,
+      "norm_label": "code:block9"
+    },
+    {
+      "label": "Diff Highlighting",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L82",
+      "id": "obsidian_shiki_plugin_readme_diff_highlighting",
+      "community": 3,
+      "norm_label": "diff highlighting"
+    },
+    {
+      "label": "code:`md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L88",
+      "id": "obsidian_shiki_plugin_readme_codeblock_10",
+      "community": 3,
+      "norm_label": "code:`md"
+    },
+    {
+      "label": "code:block11",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L91",
+      "id": "obsidian_shiki_plugin_readme_codeblock_11",
+      "community": 3,
+      "norm_label": "code:block11"
+    },
+    {
+      "label": "License",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L96",
+      "id": "obsidian_shiki_plugin_readme_license",
+      "community": 3,
+      "norm_label": "license"
+    },
+    {
+      "label": "Installation",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L100",
+      "id": "obsidian_shiki_plugin_readme_installation",
+      "community": 3,
+      "norm_label": "installation"
+    },
+    {
+      "label": "Obsidian Marketplace (Recommended)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L102",
+      "id": "obsidian_shiki_plugin_readme_obsidian_marketplace_recommended",
+      "community": 3,
+      "norm_label": "obsidian marketplace (recommended)"
+    },
+    {
+      "label": "BRAT",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L109",
+      "id": "obsidian_shiki_plugin_readme_brat",
+      "community": 3,
+      "norm_label": "brat"
+    },
+    {
+      "label": "Credits",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L116",
+      "id": "obsidian_shiki_plugin_readme_credits",
+      "community": 3,
+      "norm_label": "credits"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "id": "claude_md",
+      "community": 9,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "obsidian-shiki-plugin",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "id": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "community": 9,
+      "norm_label": "obsidian-shiki-plugin"
+    },
+    {
+      "label": "ESLint",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L7",
+      "id": "obsidian_shiki_plugin_claude_eslint",
+      "community": 9,
+      "norm_label": "eslint"
+    },
+    {
+      "label": "Known build warnings",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L10",
+      "id": "obsidian_shiki_plugin_claude_known_build_warnings",
+      "community": 9,
+      "norm_label": "known build warnings"
+    },
+    {
+      "label": "Package structure",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L13",
+      "id": "obsidian_shiki_plugin_claude_package_structure",
+      "community": 9,
+      "norm_label": "package structure"
+    },
+    {
+      "label": "Settings",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L16",
+      "id": "obsidian_shiki_plugin_claude_settings",
+      "community": 9,
+      "norm_label": "settings"
+    },
+    {
+      "label": "Testing",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L19",
+      "id": "obsidian_shiki_plugin_claude_testing",
+      "community": 9,
+      "norm_label": "testing"
+    },
+    {
+      "label": "Narrow host interfaces",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L23",
+      "id": "obsidian_shiki_plugin_claude_narrow_host_interfaces",
+      "community": 9,
+      "norm_label": "narrow host interfaces"
+    },
+    {
+      "label": "Highlighter structure",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L26",
+      "id": "obsidian_shiki_plugin_claude_highlighter_structure",
+      "community": 9,
+      "norm_label": "highlighter structure"
+    },
+    {
+      "label": "ec-core constraint",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L29",
+      "id": "obsidian_shiki_plugin_claude_ec_core_constraint",
+      "community": 9,
+      "norm_label": "ec-core constraint"
+    },
+    {
+      "label": "Slides.md",
+      "file_type": "document",
+      "source_file": "exampleVault/Slides.md",
+      "source_location": "L1",
+      "id": "examplevault_slides_md",
+      "community": 15,
+      "norm_label": "slides.md"
+    },
+    {
+      "label": "Highlighting",
+      "file_type": "document",
+      "source_file": "exampleVault/Slides.md",
+      "source_location": "L1",
+      "id": "examplevault_slides_highlighting",
+      "community": 15,
+      "norm_label": "highlighting"
+    },
+    {
+      "label": "code:rs (pub fn add(a: usize, b: usize) -> usize {)",
+      "file_type": "document",
+      "source_file": "exampleVault/Slides.md",
+      "source_location": "L3",
+      "id": "examplevault_slides_codeblock_1",
+      "community": 15,
+      "norm_label": "code:rs (pub fn add(a: usize, b: usize) -> usize {)"
+    },
+    {
+      "label": "Untitled.md",
+      "file_type": "document",
+      "source_file": "exampleVault/Untitled.md",
+      "source_location": "L1",
+      "id": "examplevault_untitled_md",
+      "community": 19,
+      "norm_label": "untitled.md"
+    },
+    {
+      "label": "code:yaml (test: a)",
+      "file_type": "document",
+      "source_file": "exampleVault/Untitled.md",
+      "source_location": "L1",
+      "id": "examplevault_untitled_codeblock_1",
+      "community": 19,
+      "norm_label": "code:yaml (test: a)"
+    },
+    {
+      "label": "List.md",
+      "file_type": "document",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L1",
+      "id": "examplevault_list_md",
+      "community": 14,
+      "norm_label": "list.md"
+    },
+    {
+      "label": "code:block1 (- list)",
+      "file_type": "document",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L4",
+      "id": "examplevault_list_codeblock_1",
+      "community": 14,
+      "norm_label": "code:block1 (- list)"
+    },
+    {
+      "label": "code:c (int a = 0;)",
+      "file_type": "document",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L12",
+      "id": "examplevault_list_codeblock_2",
+      "community": 14,
+      "norm_label": "code:c (int a = 0;)"
+    },
+    {
+      "label": "code:block3 (- nested list)",
+      "file_type": "document",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L20",
+      "id": "examplevault_list_codeblock_3",
+      "community": 14,
+      "norm_label": "code:block3 (- nested list)"
+    },
+    {
+      "label": "index.md",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L1",
+      "id": "examplevault_index_md",
+      "community": 10,
+      "norm_label": "index.md"
+    },
+    {
+      "label": "code:ts (export class Parser<const SType extends STypeBase> {)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L7",
+      "id": "examplevault_index_codeblock_1",
+      "community": 10,
+      "norm_label": "code:ts (export class parser<const stype extends stypebase> {)"
+    },
+    {
+      "label": "code:css (input:is([data-task=\"\u5f0f\"], [data-task=\"\u5f0f\"] > *):checked::afte)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L42",
+      "id": "examplevault_index_codeblock_2",
+      "community": 10,
+      "norm_label": "code:css (input:is([data-task=\"\u5f0f\"], [data-task=\"\u5f0f\"] > *):checked::afte)"
+    },
+    {
+      "label": "code:css (input:is([data-task=\"\u5f0f\"], [data-task=\"\u5f0f\"] > *):checked::afte)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L63",
+      "id": "examplevault_index_codeblock_3",
+      "community": 10,
+      "norm_label": "code:css (input:is([data-task=\"\u5f0f\"], [data-task=\"\u5f0f\"] > *):checked::afte)"
+    },
+    {
+      "label": "code:bash (echo \"Hello\")",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L86",
+      "id": "examplevault_index_codeblock_4",
+      "community": 10,
+      "norm_label": "code:bash (echo \"hello\")"
+    },
+    {
+      "label": "code:diff (+ this line will be marked as inserted)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L90",
+      "id": "examplevault_index_codeblock_5",
+      "community": 10,
+      "norm_label": "code:diff (+ this line will be marked as inserted)"
+    },
+    {
+      "label": "code:custom-odin (package main)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L107",
+      "id": "examplevault_index_codeblock_6",
+      "community": 10,
+      "norm_label": "code:custom-odin (package main)"
+    },
+    {
+      "label": "code:cpp (#include <foo>)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L132",
+      "id": "examplevault_index_codeblock_7",
+      "community": 10,
+      "norm_label": "code:cpp (#include <foo>)"
+    },
+    {
+      "label": "code:SQL (SELECT)",
+      "file_type": "document",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L143",
+      "id": "examplevault_index_codeblock_8",
+      "community": 10,
+      "norm_label": "code:sql (select)"
+    },
+    {
+      "label": "LANGUAGE_BLACKLIST",
+      "file_type": "code",
+      "source_file": "packages/obsidian/src/Highlighter.ts",
+      "source_location": "L33",
+      "community": 2,
+      "norm_label": "language_blacklist",
+      "id": "src_highlighter_language_blacklist"
+    },
+    {
+      "label": ".rerenderOnNoteChange()",
+      "file_type": "code",
+      "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
+      "source_location": "L40",
+      "community": 8,
+      "norm_label": ".rerenderonnotechange()",
+      "id": "src_inlinecodeblock_inlinecodeblock_rerenderonnotechange"
+    },
+    {
+      "label": "FrameType",
+      "file_type": "code",
+      "source_file": "packages/obsidian/src/settings/Settings.ts",
+      "source_location": "L4",
+      "community": 1,
+      "norm_label": "frametype",
+      "id": "settings_settings_frametype"
     },
     {
       "label": "getECTheme",
@@ -1372,9 +1912,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "ectheme_getectheme",
-      "community": 4,
-      "norm_label": "getectheme"
+      "community": 5,
+      "norm_label": "getectheme",
+      "id": "ectheme_getectheme"
     },
     {
       "label": "OBSIDIAN_THEME",
@@ -1385,9 +1925,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "obsidiantheme_obsidian_theme",
-      "community": 4,
-      "norm_label": "obsidian_theme"
+      "community": 5,
+      "norm_label": "obsidian_theme",
+      "id": "obsidiantheme_obsidian_theme"
     },
     {
       "label": "EcSettingsProps",
@@ -1398,9 +1938,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "config_ecsettingsprops",
-      "community": 4,
-      "norm_label": "ecsettingsprops"
+      "community": 5,
+      "norm_label": "ecsettingsprops",
+      "id": "config_ecsettingsprops"
     },
     {
       "label": "EcConfigInput",
@@ -1411,9 +1951,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "config_ecconfiginput",
-      "community": 4,
-      "norm_label": "ecconfiginput"
+      "community": 5,
+      "norm_label": "ecconfiginput",
+      "id": "config_ecconfiginput"
     },
     {
       "label": "EC_VIRTUAL_SETTINGS",
@@ -1424,9 +1964,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "config_ec_virtual_settings",
-      "community": 4,
-      "norm_label": "ec_virtual_settings"
+      "community": 5,
+      "norm_label": "ec_virtual_settings",
+      "id": "config_ec_virtual_settings"
     },
     {
       "label": "createEcEngineConfig",
@@ -1437,9 +1977,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "config_createecengineconfig",
-      "community": 4,
-      "norm_label": "createecengineconfig"
+      "community": 5,
+      "norm_label": "createecengineconfig",
+      "id": "config_createecengineconfig"
     },
     {
       "label": "encodeCssVarTheme",
@@ -1450,9 +1990,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "cssvarthemeadapter_encodecssvartheme",
-      "community": 4,
-      "norm_label": "encodecssvartheme"
+      "community": 5,
+      "norm_label": "encodecssvartheme",
+      "id": "cssvarthemeadapter_encodecssvartheme"
     },
     {
       "label": "SHIKI_INLINE_REGEX",
@@ -1463,9 +2003,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "constants_shiki_inline_regex",
-      "community": 17,
-      "norm_label": "shiki_inline_regex"
+      "community": 22,
+      "norm_label": "shiki_inline_regex",
+      "id": "constants_shiki_inline_regex"
     },
     {
       "label": "OBSIDIAN_THEME_IDENTIFIER",
@@ -1476,9 +2016,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "constants_obsidian_theme_identifier",
-      "community": 4,
-      "norm_label": "obsidian_theme_identifier"
+      "community": 5,
+      "norm_label": "obsidian_theme_identifier",
+      "id": "constants_obsidian_theme_identifier"
     },
     {
       "label": "SettingsStore",
@@ -1489,9 +2029,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "settingsstore_settingsstore",
-      "community": 4,
-      "norm_label": "settingsstore"
+      "community": 5,
+      "norm_label": "settingsstore",
+      "id": "settingsstore_settingsstore"
     },
     {
       "label": "StringSelectModal",
@@ -1502,9 +2042,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "stringselectmodal_stringselectmodal",
-      "community": 4,
-      "norm_label": "stringselectmodal"
+      "community": 5,
+      "norm_label": "stringselectmodal",
+      "id": "stringselectmodal_stringselectmodal"
     },
     {
       "label": "FrameType",
@@ -1515,9 +2055,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "settings_frametype",
-      "community": 4,
-      "norm_label": "frametype"
+      "community": 5,
+      "norm_label": "frametype",
+      "id": "settings_frametype"
     },
     {
       "label": "Settings",
@@ -1528,9 +2068,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "settings_settings",
-      "community": 4,
-      "norm_label": "settings"
+      "community": 5,
+      "norm_label": "settings",
+      "id": "settings_settings"
     },
     {
       "label": "DEFAULT_SETTINGS",
@@ -1541,9 +2081,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "settings_default_settings",
-      "community": 4,
-      "norm_label": "default_settings"
+      "community": 5,
+      "norm_label": "default_settings",
+      "id": "settings_default_settings"
     },
     {
       "label": "ShikiSettingsTab",
@@ -1554,9 +2094,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "settingstab_shikisettingstab",
-      "community": 4,
-      "norm_label": "shikisettingstab"
+      "community": 5,
+      "norm_label": "shikisettingstab",
+      "id": "settingstab_shikisettingstab"
     },
     {
       "label": "ThemeContext",
@@ -1567,9 +2107,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "thememapper_themecontext",
-      "community": 4,
-      "norm_label": "themecontext"
+      "community": 5,
+      "norm_label": "themecontext",
+      "id": "thememapper_themecontext"
     },
     {
       "label": "ThemeMapper",
@@ -1580,9 +2120,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "thememapper_thememapper",
-      "community": 4,
-      "norm_label": "thememapper"
+      "community": 5,
+      "norm_label": "thememapper",
+      "id": "thememapper_thememapper"
     },
     {
       "label": "HighlightableRange",
@@ -1593,9 +2133,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "cm6_decorationbuilder_highlightablerange",
-      "community": 18,
-      "norm_label": "highlightablerange"
+      "community": 23,
+      "norm_label": "highlightablerange",
+      "id": "cm6_decorationbuilder_highlightablerange"
     },
     {
       "label": "buildDecorationSet",
@@ -1606,9 +2146,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "cm6_decorationbuilder_builddecorationset",
-      "community": 19,
-      "norm_label": "builddecorationset"
+      "community": 24,
+      "norm_label": "builddecorationset",
+      "id": "cm6_decorationbuilder_builddecorationset"
     },
     {
       "label": "defineConfig",
@@ -1619,9 +2159,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "eslint_config_default",
-      "community": 20,
-      "norm_label": "defineconfig"
+      "community": 25,
+      "norm_label": "defineconfig",
+      "id": "eslint_config_default"
     },
     {
       "label": "App",
@@ -1632,9 +2172,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "obsidian_ex_d_app",
-      "community": 21,
-      "norm_label": "app"
+      "community": 26,
+      "norm_label": "app",
+      "id": "obsidian_ex_d_app"
     },
     {
       "label": "Cm6ViewPluginHost",
@@ -1645,9 +2185,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "cm6_viewplugin_cm6viewpluginhost",
-      "community": 3,
-      "norm_label": "cm6viewpluginhost"
+      "community": 4,
+      "norm_label": "cm6viewpluginhost",
+      "id": "cm6_viewplugin_cm6viewpluginhost"
     },
     {
       "label": "createCm6Plugin",
@@ -1658,9 +2198,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "cm6_viewplugin_createcm6plugin",
-      "community": 3,
-      "norm_label": "createcm6plugin"
+      "community": 4,
+      "norm_label": "createcm6plugin",
+      "id": "cm6_viewplugin_createcm6plugin"
     },
     {
       "label": "ShikiRenderer",
@@ -1671,9 +2211,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "shikirenderer_shikirenderer",
-      "community": 3,
-      "norm_label": "shikirenderer"
+      "community": 4,
+      "norm_label": "shikirenderer",
+      "id": "shikirenderer_shikirenderer"
     },
     {
       "label": "ShikiPlugin",
@@ -1684,9 +2224,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "main_shikiplugin",
-      "community": 3,
-      "norm_label": "shikiplugin"
+      "community": 4,
+      "norm_label": "shikiplugin",
+      "id": "main_shikiplugin"
     },
     {
       "label": "CodeBlockHost",
@@ -1697,9 +2237,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "codeblock_codeblockhost",
-      "community": 3,
-      "norm_label": "codeblockhost"
+      "community": 4,
+      "norm_label": "codeblockhost",
+      "id": "codeblock_codeblockhost"
     },
     {
       "label": "CodeBlock",
@@ -1710,9 +2250,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "codeblock_codeblock",
-      "community": 3,
-      "norm_label": "codeblock"
+      "community": 4,
+      "norm_label": "codeblock",
+      "id": "codeblock_codeblock"
     },
     {
       "label": "filterHighlightAllPlugin",
@@ -1723,9 +2263,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "prismplugin_filterhighlightallplugin",
-      "community": 3,
-      "norm_label": "filterhighlightallplugin"
+      "community": 4,
+      "norm_label": "filterhighlightallplugin",
+      "id": "prismplugin_filterhighlightallplugin"
     },
     {
       "label": "EcRenderer",
@@ -1736,9 +2276,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "ecrenderer_ecrenderer",
-      "community": 3,
-      "norm_label": "ecrenderer"
+      "community": 4,
+      "norm_label": "ecrenderer",
+      "id": "ecrenderer_ecrenderer"
     },
     {
       "label": "HighlighterHost",
@@ -1749,9 +2289,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "highlighter_highlighterhost",
-      "community": 3,
-      "norm_label": "highlighterhost"
+      "community": 4,
+      "norm_label": "highlighterhost",
+      "id": "highlighter_highlighterhost"
     },
     {
       "label": "CodeHighlighter",
@@ -1762,9 +2302,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "highlighter_codehighlighter",
-      "community": 3,
-      "norm_label": "codehighlighter"
+      "community": 4,
+      "norm_label": "codehighlighter",
+      "id": "highlighter_codehighlighter"
     },
     {
       "label": "InlineCodeBlockHost",
@@ -1775,9 +2315,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "inlinecodeblock_inlinecodeblockhost",
-      "community": 3,
-      "norm_label": "inlinecodeblockhost"
+      "community": 4,
+      "norm_label": "inlinecodeblockhost",
+      "id": "inlinecodeblock_inlinecodeblockhost"
     },
     {
       "label": "InlineCodeBlock",
@@ -1788,9 +2328,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "inlinecodeblock_inlinecodeblock",
-      "community": 3,
-      "norm_label": "inlinecodeblock"
+      "community": 4,
+      "norm_label": "inlinecodeblock",
+      "id": "inlinecodeblock_inlinecodeblock"
     },
     {
       "label": "Plugin README",
@@ -1801,9 +2341,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_readme",
-      "community": 3,
-      "norm_label": "plugin readme"
+      "community": 4,
+      "norm_label": "plugin readme",
+      "id": "readme_readme"
     },
     {
       "label": "Inline Highlighting Feature",
@@ -1814,9 +2354,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_inline_highlighting",
-      "community": 3,
-      "norm_label": "inline highlighting feature"
+      "community": 4,
+      "norm_label": "inline highlighting feature",
+      "id": "readme_inline_highlighting"
     },
     {
       "label": "Custom Themes Feature",
@@ -1827,9 +2367,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_custom_themes",
-      "community": 3,
-      "norm_label": "custom themes feature"
+      "community": 4,
+      "norm_label": "custom themes feature",
+      "id": "readme_custom_themes"
     },
     {
       "label": "Code Block Configuration",
@@ -1840,9 +2380,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_code_block_configuration",
-      "community": 3,
-      "norm_label": "code block configuration"
+      "community": 4,
+      "norm_label": "code block configuration",
+      "id": "readme_code_block_configuration"
     },
     {
       "label": "Narrow Host Interfaces Pattern",
@@ -1853,9 +2393,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_narrow_host_interfaces",
-      "community": 3,
-      "norm_label": "narrow host interfaces pattern"
+      "community": 4,
+      "norm_label": "narrow host interfaces pattern",
+      "id": "claude_narrow_host_interfaces"
     },
     {
       "label": "SettingsStore Management",
@@ -1866,9 +2406,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_settings_management",
-      "community": 3,
-      "norm_label": "settingsstore management"
+      "community": 4,
+      "norm_label": "settingsstore management",
+      "id": "claude_settings_management"
     },
     {
       "label": "Highlighter Structure",
@@ -1879,9 +2419,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_highlighter_structure",
-      "community": 3,
-      "norm_label": "highlighter structure"
+      "community": 4,
+      "norm_label": "highlighter structure",
+      "id": "claude_highlighter_structure"
     },
     {
       "label": "EC Core Constraint",
@@ -1892,9 +2432,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_ec_core_constraint",
-      "community": 3,
-      "norm_label": "ec core constraint"
+      "community": 4,
+      "norm_label": "ec core constraint",
+      "id": "claude_ec_core_constraint"
     },
     {
       "label": "Slides Presentation",
@@ -1905,9 +2445,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "slides_slides",
-      "community": 3,
-      "norm_label": "slides presentation"
+      "community": 4,
+      "norm_label": "slides presentation",
+      "id": "slides_slides"
     },
     {
       "label": "Untitled Vault Note",
@@ -1918,9 +2458,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "untitled_untitled",
-      "community": 3,
-      "norm_label": "untitled vault note"
+      "community": 4,
+      "norm_label": "untitled vault note",
+      "id": "untitled_untitled"
     },
     {
       "label": "List Testing Note",
@@ -1931,9 +2471,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "list_list",
-      "community": 3,
-      "norm_label": "list testing note"
+      "community": 4,
+      "norm_label": "list testing note",
+      "id": "list_list"
     },
     {
       "label": "Vault Index Note",
@@ -1944,9 +2484,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "index_index",
-      "community": 3,
-      "norm_label": "vault index note"
+      "community": 4,
+      "norm_label": "vault index note",
+      "id": "index_index"
     },
     {
       "label": "Expressive Code Feature Demonstration Screenshot",
@@ -1957,9 +2497,9 @@
       "captured_at": null,
       "author": null,
       "contributor": "sailkite",
-      "id": "exampleimage_screenshot",
-      "community": 11,
-      "norm_label": "expressive code feature demonstration screenshot"
+      "community": 13,
+      "norm_label": "expressive code feature demonstration screenshot",
+      "id": "exampleimage_screenshot"
     },
     {
       "label": "Custom Code Block Title",
@@ -1971,9 +2511,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Allows users to add a custom descriptive tab/header (e.g. 'Some CSS by sailKite') above the code block for better organization and context.",
-      "id": "exampleimage_custom_title",
-      "community": 11,
-      "norm_label": "custom code block title"
+      "community": 13,
+      "norm_label": "custom code block title",
+      "id": "exampleimage_custom_title"
     },
     {
       "label": "Line Numbering",
@@ -1985,9 +2525,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Renders sequential line numbers along the left margin to make referencing specific lines of code easier.",
-      "id": "exampleimage_line_numbers",
-      "community": 11,
-      "norm_label": "line numbering"
+      "community": 13,
+      "norm_label": "line numbering",
+      "id": "exampleimage_line_numbers"
     },
     {
       "label": "Line Highlighting",
@@ -1999,9 +2539,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Highlights key lines of code (line 2 in the example) with a distinct background color to guide user attention.",
-      "id": "exampleimage_line_highlighting",
-      "community": 11,
-      "norm_label": "line highlighting"
+      "community": 13,
+      "norm_label": "line highlighting",
+      "id": "exampleimage_line_highlighting"
     },
     {
       "label": "Diff Highlighting",
@@ -2013,9 +2553,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Colors inserted lines green with '+' prefix and deleted lines red with '-' prefix to show code revisions visually.",
-      "id": "exampleimage_diff_highlighting",
-      "community": 11,
-      "norm_label": "diff highlighting"
+      "community": 13,
+      "norm_label": "diff highlighting",
+      "id": "exampleimage_diff_highlighting"
     },
     {
       "label": "CSS Custom Task List Icons",
@@ -2027,9 +2567,9 @@
       "author": null,
       "contributor": "sailkite",
       "rationale": "Styling rules to customize task list checkmarks utilizing -webkit-mask properties for custom Chinese task statuses '\u5f0d' and '\u5b57'.",
-      "id": "exampleimage_css_task_list_icons",
-      "community": 11,
-      "norm_label": "css custom task list icons"
+      "community": 13,
+      "norm_label": "css custom task list icons",
+      "id": "exampleimage_css_task_list_icons"
     },
     {
       "label": "exampleImageObsidian.png",
@@ -2040,9 +2580,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "exampleimageobsidian_image",
-      "community": 12,
-      "norm_label": "exampleimageobsidian.png"
+      "community": 16,
+      "norm_label": "exampleimageobsidian.png",
+      "id": "exampleimageobsidian_image"
     },
     {
       "label": "Default Obsidian Syntax Highlighting",
@@ -2054,9 +2594,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Demonstrates the visual quality of Obsidian's default syntax highlighting to act as a comparison baseline in the README.",
-      "id": "exampleimageobsidian_default_syntax_highlighting",
-      "community": 12,
-      "norm_label": "default obsidian syntax highlighting"
+      "community": 16,
+      "norm_label": "default obsidian syntax highlighting",
+      "id": "exampleimageobsidian_default_syntax_highlighting"
     },
     {
       "label": "Custom Task Checkbox CSS",
@@ -2068,9 +2608,9 @@
       "author": null,
       "contributor": null,
       "rationale": "The CSS rules shown define custom styling for checked task checkboxes in Obsidian targeting the symbols '\u5f0f' and '\u5b57' using a gradient text mask.",
-      "id": "exampleimageobsidian_custom_checkbox_css",
-      "community": 12,
-      "norm_label": "custom task checkbox css"
+      "community": 16,
+      "norm_label": "custom task checkbox css",
+      "id": "exampleimageobsidian_custom_checkbox_css"
     },
     {
       "label": "exampleImagePlain.png",
@@ -2081,9 +2621,9 @@
       "captured_at": null,
       "author": null,
       "contributor": "sailkite",
-      "id": "exampleimageplain_image",
-      "community": 13,
-      "norm_label": "exampleimageplain.png"
+      "community": 17,
+      "norm_label": "exampleimageplain.png",
+      "id": "exampleimageplain_image"
     },
     {
       "label": "Shiki Syntax Highlighting",
@@ -2095,9 +2635,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Demonstrates the visual quality of the syntax highlighting provided by the Shiki plugin, which features accurate token classification and thematic coloring (Dracula-based) for complex CSS selectors.",
-      "id": "exampleimageplain_shiki_syntax_highlighting",
-      "community": 13,
-      "norm_label": "shiki syntax highlighting"
+      "community": 17,
+      "norm_label": "shiki syntax highlighting",
+      "id": "exampleimageplain_shiki_syntax_highlighting"
     },
     {
       "label": "Custom Task Checkbox CSS",
@@ -2109,9 +2649,9 @@
       "author": null,
       "contributor": null,
       "rationale": "The CSS rules shown define custom styling for checked task checkboxes in Obsidian targeting the symbols '\u5f0f' and '\u5b57' using a gradient text mask.",
-      "id": "exampleimageplain_custom_checkbox_css",
-      "community": 13,
-      "norm_label": "custom task checkbox css"
+      "community": 17,
+      "norm_label": "custom task checkbox css",
+      "id": "exampleimageplain_custom_checkbox_css"
     }
   ],
   "links": [
@@ -2122,9 +2662,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_shikirenderer_ts",
-      "target": "packages_obsidian_src_themes_thememapper_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_themes_thememapper_ts"
     },
     {
       "relation": "imports",
@@ -2133,9 +2673,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_shikirenderer_ts",
-      "target": "themes_thememapper_thememapper",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper"
     },
     {
       "relation": "contains",
@@ -2143,9 +2683,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_shikirenderer_ts",
-      "target": "src_shikirenderer_language_special",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_language_special"
     },
     {
       "relation": "contains",
@@ -2153,9 +2693,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_shikirenderer_ts",
-      "target": "src_shikirenderer_shikirenderer",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer"
     },
     {
       "relation": "imports_from",
@@ -2164,9 +2704,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "packages_obsidian_src_shikirenderer_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_shikirenderer_ts"
     },
     {
       "relation": "method",
@@ -2174,9 +2714,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer",
-      "target": "src_shikirenderer_shikirenderer_load",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_load"
     },
     {
       "relation": "method",
@@ -2184,9 +2724,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer",
-      "target": "src_shikirenderer_shikirenderer_unload",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_unload"
     },
     {
       "relation": "method",
@@ -2194,9 +2734,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer",
-      "target": "src_shikirenderer_shikirenderer_tokenize",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_tokenize"
     },
     {
       "relation": "method",
@@ -2204,9 +2744,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer",
-      "target": "src_shikirenderer_shikirenderer_rendertokens",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_rendertokens"
     },
     {
       "relation": "method",
@@ -2214,9 +2754,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer",
-      "target": "src_shikirenderer_shikirenderer_tokentospan",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_tokentospan"
     },
     {
       "relation": "method",
@@ -2224,9 +2764,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L58",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer",
-      "target": "src_shikirenderer_shikirenderer_gettokenstyle",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_gettokenstyle"
     },
     {
       "relation": "imports",
@@ -2235,9 +2775,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_shikirenderer_shikirenderer",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer"
     },
     {
       "relation": "calls",
@@ -2246,9 +2786,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer_rendertokens",
-      "target": "src_shikirenderer_shikirenderer_tokentospan",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_tokentospan"
     },
     {
       "relation": "calls",
@@ -2257,9 +2797,9 @@
       "source_file": "packages/obsidian/src/ShikiRenderer.ts",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_shikirenderer_shikirenderer_tokentospan",
-      "target": "src_shikirenderer_shikirenderer_gettokenstyle",
-      "confidence_score": 1.0
+      "target": "src_shikirenderer_shikirenderer_gettokenstyle"
     },
     {
       "relation": "imports_from",
@@ -2268,9 +2808,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_constants_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_constants_ts"
     },
     {
       "relation": "imports_from",
@@ -2279,9 +2819,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_codeblock_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_codeblock_ts"
     },
     {
       "relation": "imports",
@@ -2290,9 +2830,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_codeblock_codeblock",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock"
     },
     {
       "relation": "imports_from",
@@ -2301,9 +2841,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_codemirror_cm6_viewplugin_ts"
     },
     {
       "relation": "imports",
@@ -2312,9 +2852,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "codemirror_cm6_viewplugin_createcm6plugin",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_viewplugin_createcm6plugin"
     },
     {
       "relation": "imports_from",
@@ -2323,9 +2863,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_settings_settings_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_settings_settings_ts"
     },
     {
       "relation": "imports",
@@ -2334,9 +2874,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "settings_settings_default_settings",
-      "confidence_score": 1.0
+      "target": "settings_settings_default_settings"
     },
     {
       "relation": "imports",
@@ -2345,9 +2885,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "settings_settings_settings",
-      "confidence_score": 1.0
+      "target": "settings_settings_settings"
     },
     {
       "relation": "imports_from",
@@ -2356,9 +2896,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "packages_obsidian_src_main_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_main_ts"
     },
     {
       "relation": "imports",
@@ -2367,9 +2907,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "settings_settingstab_shikisettingstab",
-      "confidence_score": 1.0
+      "target": "settings_settingstab_shikisettingstab"
     },
     {
       "relation": "imports_from",
@@ -2378,9 +2918,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_prismplugin_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_prismplugin_ts"
     },
     {
       "relation": "imports",
@@ -2389,9 +2929,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_prismplugin_filterhighlightallplugin",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_filterhighlightallplugin"
     },
     {
       "relation": "imports",
@@ -2400,9 +2940,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_prismplugin_prismwithfilterhighlightall",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_prismwithfilterhighlightall"
     },
     {
       "relation": "imports_from",
@@ -2411,9 +2951,20 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_highlighter_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_highlighter_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/main.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_obsidian_src_main_ts",
+      "target": "src_highlighter_codehighlighter"
     },
     {
       "relation": "imports",
@@ -2423,7 +2974,7 @@
       "source_location": "L9",
       "weight": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_highlighter_codehighlighter",
+      "target": "src_highlighter_customtheme",
       "confidence_score": 1.0
     },
     {
@@ -2433,9 +2984,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_ec_core_src_config_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_config_ts"
     },
     {
       "relation": "imports",
@@ -2444,9 +2995,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_config_ecsettingsprops",
-      "confidence_score": 1.0
+      "target": "src_config_ecsettingsprops"
     },
     {
       "relation": "imports_from",
@@ -2455,9 +3006,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_inlinecodeblock_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_inlinecodeblock_ts"
     },
     {
       "relation": "imports",
@@ -2466,9 +3017,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_inlinecodeblock_inlinecodeblock",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock"
     },
     {
       "relation": "imports_from",
@@ -2477,9 +3028,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "packages_obsidian_src_settings_settingsstore_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_settings_settingsstore_ts"
     },
     {
       "relation": "imports",
@@ -2488,9 +3039,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "settings_settingsstore_settingsstore",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore"
     },
     {
       "relation": "contains",
@@ -2498,9 +3049,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_main_ts",
-      "target": "src_main_shikiplugin",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin"
     },
     {
       "relation": "method",
@@ -2508,9 +3059,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_onload",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_onload"
     },
     {
       "relation": "method",
@@ -2518,9 +3069,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L84",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_reloadhighlighter",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_reloadhighlighter"
     },
     {
       "relation": "method",
@@ -2528,9 +3079,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_registerprismplugin",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_registerprismplugin"
     },
     {
       "relation": "method",
@@ -2538,9 +3089,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_registercodeblockprocessors",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_registercodeblockprocessors"
     },
     {
       "relation": "method",
@@ -2548,9 +3099,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L135",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_registerinlinecodeprocessor",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_registerinlinecodeprocessor"
     },
     {
       "relation": "method",
@@ -2558,9 +3109,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L151",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_onunload",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_onunload"
     },
     {
       "relation": "method",
@@ -2568,9 +3119,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L155",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_addcm6plugin",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_addcm6plugin"
     },
     {
       "relation": "method",
@@ -2578,9 +3129,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L159",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_removecm6plugin",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_removecm6plugin"
     },
     {
       "relation": "method",
@@ -2588,9 +3139,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L163",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_addactivecodeblock",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_addactivecodeblock"
     },
     {
       "relation": "method",
@@ -2598,9 +3149,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L173",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_removeactivecodeblock",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_removeactivecodeblock"
     },
     {
       "relation": "method",
@@ -2608,9 +3159,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L184",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_loadsettings",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_loadsettings"
     },
     {
       "relation": "method",
@@ -2618,9 +3169,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L204",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_isdarkmode",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_isdarkmode"
     },
     {
       "relation": "method",
@@ -2628,9 +3179,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L208",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_vaultexists",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_vaultexists"
     },
     {
       "relation": "method",
@@ -2638,9 +3189,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L212",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_vaultlist",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_vaultlist"
     },
     {
       "relation": "method",
@@ -2648,9 +3199,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_vaultread",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_vaultread"
     },
     {
       "relation": "method",
@@ -2658,9 +3209,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L220",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_pluginname",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_pluginname"
     },
     {
       "relation": "method",
@@ -2668,9 +3219,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L224",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_darktheme",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_darktheme"
     },
     {
       "relation": "method",
@@ -2678,9 +3229,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L225",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_lighttheme",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_lighttheme"
     },
     {
       "relation": "method",
@@ -2688,9 +3239,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L226",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_customthemefolder",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_customthemefolder"
     },
     {
       "relation": "method",
@@ -2698,9 +3249,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L227",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_customlanguagefolder",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_customlanguagefolder"
     },
     {
       "relation": "method",
@@ -2708,9 +3259,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_disabledlanguages",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_disabledlanguages"
     },
     {
       "relation": "method",
@@ -2718,9 +3269,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L229",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_ecsettings",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_ecsettings"
     },
     {
       "relation": "method",
@@ -2728,9 +3279,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L238",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_refreshsettings",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_refreshsettings"
     },
     {
       "relation": "method",
@@ -2738,9 +3289,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L242",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_resettheme",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_resettheme"
     },
     {
       "relation": "method",
@@ -2748,9 +3299,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L247",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_getcustomthemes",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_getcustomthemes"
     },
     {
       "relation": "method",
@@ -2758,9 +3309,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L251",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_getsupportedlanguages",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_getsupportedlanguages"
     },
     {
       "relation": "method",
@@ -2768,9 +3319,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_renderwithec",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_renderwithec"
     },
     {
       "relation": "method",
@@ -2778,9 +3329,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L259",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_gethighlighttokens",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_gethighlighttokens"
     },
     {
       "relation": "method",
@@ -2788,9 +3339,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_rendertokens",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_rendertokens"
     },
     {
       "relation": "method",
@@ -2798,9 +3349,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L267",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_gettokenstyle",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_gettokenstyle"
     },
     {
       "relation": "method",
@@ -2808,9 +3359,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L271",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin",
-      "target": "src_main_shikiplugin_inlinehighlighting",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_inlinehighlighting"
     },
     {
       "relation": "calls",
@@ -2819,9 +3370,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin_onload",
-      "target": "src_main_shikiplugin_loadsettings",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_loadsettings"
     },
     {
       "relation": "calls",
@@ -2830,9 +3381,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin_onload",
-      "target": "src_main_shikiplugin_registerinlinecodeprocessor",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_registerinlinecodeprocessor"
     },
     {
       "relation": "calls",
@@ -2841,9 +3392,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin_onload",
-      "target": "src_main_shikiplugin_registercodeblockprocessors",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_registercodeblockprocessors"
     },
     {
       "relation": "calls",
@@ -2852,9 +3403,9 @@
       "source_file": "packages/obsidian/src/main.ts",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_shikiplugin_onload",
-      "target": "src_main_shikiplugin_registerprismplugin",
-      "confidence_score": 1.0
+      "target": "src_main_shikiplugin_registerprismplugin"
     },
     {
       "relation": "calls",
@@ -2884,9 +3435,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codeblock_ts",
-      "target": "src_codeblock_codeblockhost",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblockhost"
     },
     {
       "relation": "contains",
@@ -2894,9 +3445,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codeblock_ts",
-      "target": "src_codeblock_codeblock",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock"
     },
     {
       "relation": "method",
@@ -2904,8 +3455,18 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_constructor",
+      "target": "src_codeblock_codeblock_constructor"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/CodeBlock.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "src_codeblock_codeblock",
+      "target": "src_codeblock_codeblock_sourcepath",
       "confidence_score": 1.0
     },
     {
@@ -2914,9 +3475,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_getmetastring",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_getmetastring"
     },
     {
       "relation": "method",
@@ -2924,9 +3485,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_render",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_render"
     },
     {
       "relation": "method",
@@ -2934,9 +3495,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_rerenderonnotechange",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_rerenderonnotechange"
     },
     {
       "relation": "method",
@@ -2944,9 +3505,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_forcererender",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_forcererender"
     },
     {
       "relation": "method",
@@ -2954,9 +3515,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_onload",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_onload"
     },
     {
       "relation": "method",
@@ -2964,9 +3525,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock",
-      "target": "src_codeblock_codeblock_onunload",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_onunload"
     },
     {
       "relation": "calls",
@@ -2975,9 +3536,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock_rerenderonnotechange",
-      "target": "src_codeblock_codeblock_getmetastring",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_getmetastring"
     },
     {
       "relation": "calls",
@@ -2986,9 +3547,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock_forcererender",
-      "target": "src_codeblock_codeblock_getmetastring",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_getmetastring"
     },
     {
       "relation": "calls",
@@ -2997,9 +3558,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L98",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock_onload",
-      "target": "src_codeblock_codeblock_getmetastring",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_getmetastring"
     },
     {
       "relation": "calls",
@@ -3008,9 +3569,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock_rerenderonnotechange",
-      "target": "src_codeblock_codeblock_render",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_render"
     },
     {
       "relation": "calls",
@@ -3019,9 +3580,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock_forcererender",
-      "target": "src_codeblock_codeblock_render",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_render"
     },
     {
       "relation": "calls",
@@ -3030,9 +3591,9 @@
       "source_file": "packages/obsidian/src/CodeBlock.ts",
       "source_location": "L101",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_codeblock_codeblock_onload",
-      "target": "src_codeblock_codeblock_render",
-      "confidence_score": 1.0
+      "target": "src_codeblock_codeblock_render"
     },
     {
       "relation": "contains",
@@ -3040,9 +3601,9 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_prismplugin_ts",
-      "target": "src_prismplugin_prismfilterhighlightenv",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_prismfilterhighlightenv"
     },
     {
       "relation": "contains",
@@ -3050,9 +3611,9 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_prismplugin_ts",
-      "target": "src_prismplugin_prismfilterhighlightcondition",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_prismfilterhighlightcondition"
     },
     {
       "relation": "contains",
@@ -3060,9 +3621,9 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_prismplugin_ts",
-      "target": "src_prismplugin_prismfilterhighlightapi",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_prismfilterhighlightapi"
     },
     {
       "relation": "contains",
@@ -3070,9 +3631,9 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_prismplugin_ts",
-      "target": "src_prismplugin_prismbeforeallelementshighlightenv",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_prismbeforeallelementshighlightenv"
     },
     {
       "relation": "contains",
@@ -3080,9 +3641,9 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_prismplugin_ts",
-      "target": "src_prismplugin_prismwithfilterhighlightall",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_prismwithfilterhighlightall"
     },
     {
       "relation": "contains",
@@ -3090,9 +3651,9 @@
       "source_file": "packages/obsidian/src/PrismPlugin.ts",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_prismplugin_ts",
-      "target": "src_prismplugin_filterhighlightallplugin",
-      "confidence_score": 1.0
+      "target": "src_prismplugin_filterhighlightallplugin"
     },
     {
       "relation": "imports_from",
@@ -3101,9 +3662,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "packages_obsidian_src_themes_thememapper_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_themes_thememapper_ts"
     },
     {
       "relation": "imports",
@@ -3112,9 +3673,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "themes_thememapper_thememapper",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper"
     },
     {
       "relation": "imports_from",
@@ -3123,9 +3684,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "packages_ec_core_src_config_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_config_ts"
     },
     {
       "relation": "imports",
@@ -3134,9 +3695,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "src_config_createecengineconfig",
-      "confidence_score": 1.0
+      "target": "src_config_createecengineconfig"
     },
     {
       "relation": "imports",
@@ -3145,9 +3706,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "src_config_ecsettingsprops",
-      "confidence_score": 1.0
+      "target": "src_config_ecsettingsprops"
     },
     {
       "relation": "imports_from",
@@ -3156,9 +3717,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "packages_ec_core_src_cssvarthemeadapter_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_cssvarthemeadapter_ts"
     },
     {
       "relation": "imports",
@@ -3167,9 +3728,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "src_cssvarthemeadapter_encodecssvartheme",
-      "confidence_score": 1.0
+      "target": "src_cssvarthemeadapter_encodecssvartheme"
     },
     {
       "relation": "contains",
@@ -3177,9 +3738,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_ecrenderer_ts",
-      "target": "src_ecrenderer_ecrenderer",
-      "confidence_score": 1.0
+      "target": "src_ecrenderer_ecrenderer"
     },
     {
       "relation": "imports_from",
@@ -3188,9 +3749,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "packages_obsidian_src_ecrenderer_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_ecrenderer_ts"
     },
     {
       "relation": "method",
@@ -3198,9 +3759,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_ecrenderer_ecrenderer",
-      "target": "src_ecrenderer_ecrenderer_load",
-      "confidence_score": 1.0
+      "target": "src_ecrenderer_ecrenderer_load"
     },
     {
       "relation": "method",
@@ -3208,9 +3769,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_ecrenderer_ecrenderer",
-      "target": "src_ecrenderer_ecrenderer_unload",
-      "confidence_score": 1.0
+      "target": "src_ecrenderer_ecrenderer_unload"
     },
     {
       "relation": "method",
@@ -3218,9 +3779,9 @@
       "source_file": "packages/obsidian/src/EcRenderer.ts",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_ecrenderer_ecrenderer",
-      "target": "src_ecrenderer_ecrenderer_render",
-      "confidence_score": 1.0
+      "target": "src_ecrenderer_ecrenderer_render"
     },
     {
       "relation": "imports",
@@ -3229,9 +3790,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_ecrenderer_ecrenderer",
-      "confidence_score": 1.0
+      "target": "src_ecrenderer_ecrenderer"
     },
     {
       "relation": "calls",
@@ -3262,9 +3823,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "packages_obsidian_src_themes_thememapper_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_themes_thememapper_ts"
     },
     {
       "relation": "imports",
@@ -3273,9 +3834,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "themes_thememapper_thememapper",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper"
     },
     {
       "relation": "imports",
@@ -3284,9 +3845,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "themes_thememapper_themecontext",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_themecontext"
     },
     {
       "relation": "imports_from",
@@ -3295,9 +3856,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "packages_ec_core_src_config_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_config_ts"
     },
     {
       "relation": "imports",
@@ -3306,9 +3867,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_config_ecsettingsprops",
-      "confidence_score": 1.0
+      "target": "src_config_ecsettingsprops"
     },
     {
       "relation": "contains",
@@ -3316,9 +3877,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_highlighter_highlighterhost",
-      "confidence_score": 1.0
+      "target": "src_highlighter_highlighterhost"
     },
     {
       "relation": "contains",
@@ -3326,9 +3887,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_highlighter_customtheme",
-      "confidence_score": 1.0
+      "target": "src_highlighter_customtheme"
     },
     {
       "relation": "contains",
@@ -3337,7 +3898,7 @@
       "source_location": "L33",
       "weight": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_highlighter_language_blacklist",
+      "target": "src_highlighter_language_denylist",
       "confidence_score": 1.0
     },
     {
@@ -3346,9 +3907,19 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_highlighter_ts",
-      "target": "src_highlighter_codehighlighter",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/Highlighter.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_obsidian_src_highlighter_ts",
+      "target": "src_highlighter_language_blacklist"
     },
     {
       "relation": "method",
@@ -3356,9 +3927,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_constructor",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_constructor"
     },
     {
       "relation": "method",
@@ -3366,9 +3937,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_supportedlanguages",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_supportedlanguages"
     },
     {
       "relation": "method",
@@ -3377,8 +3948,18 @@
       "source_location": "L53",
       "weight": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_load",
+      "target": "src_highlighter_codehighlighter_getcustomthemes",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/Highlighter.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_highlighter_codehighlighter",
+      "target": "src_highlighter_codehighlighter_load"
     },
     {
       "relation": "method",
@@ -3386,9 +3967,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_reload",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_reload"
     },
     {
       "relation": "method",
@@ -3396,9 +3977,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_unload",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_unload"
     },
     {
       "relation": "method",
@@ -3406,9 +3987,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_listjsonfiles",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_listjsonfiles"
     },
     {
       "relation": "method",
@@ -3416,9 +3997,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_loadcustomlanguages",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_loadcustomlanguages"
     },
     {
       "relation": "method",
@@ -3426,9 +4007,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_loadcustomthemes",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_loadcustomthemes"
     },
     {
       "relation": "method",
@@ -3436,9 +4017,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L159",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_obsidiansafelanguagenames",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_obsidiansafelanguagenames"
     },
     {
       "relation": "method",
@@ -3446,9 +4027,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L165",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_renderwithec",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_renderwithec"
     },
     {
       "relation": "method",
@@ -3456,9 +4037,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L169",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_gethighlighttokens",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_gethighlighttokens"
     },
     {
       "relation": "method",
@@ -3466,9 +4047,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L176",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_rendertokens",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_rendertokens"
     },
     {
       "relation": "method",
@@ -3476,9 +4057,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L180",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter",
-      "target": "src_highlighter_codehighlighter_gettokenstyle",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_gettokenstyle"
     },
     {
       "relation": "calls",
@@ -3487,9 +4068,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_load",
-      "target": "src_highlighter_codehighlighter_loadcustomthemes",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_loadcustomthemes"
     },
     {
       "relation": "calls",
@@ -3498,9 +4079,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_load",
-      "target": "src_highlighter_codehighlighter_loadcustomlanguages",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_loadcustomlanguages"
     },
     {
       "relation": "calls",
@@ -3509,9 +4090,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_reload",
-      "target": "src_highlighter_codehighlighter_load",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_load"
     },
     {
       "relation": "calls",
@@ -3520,9 +4101,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_reload",
-      "target": "src_highlighter_codehighlighter_unload",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_unload"
     },
     {
       "relation": "calls",
@@ -3531,9 +4112,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L94",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_loadcustomlanguages",
-      "target": "src_highlighter_codehighlighter_listjsonfiles",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_listjsonfiles"
     },
     {
       "relation": "calls",
@@ -3542,9 +4123,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_loadcustomthemes",
-      "target": "src_highlighter_codehighlighter_listjsonfiles",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_listjsonfiles"
     },
     {
       "relation": "calls",
@@ -3553,9 +4134,9 @@
       "source_file": "packages/obsidian/src/Highlighter.ts",
       "source_location": "L170",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_highlighter_codehighlighter_gethighlighttokens",
-      "target": "src_highlighter_codehighlighter_obsidiansafelanguagenames",
-      "confidence_score": 1.0
+      "target": "src_highlighter_codehighlighter_obsidiansafelanguagenames"
     },
     {
       "relation": "contains",
@@ -3563,9 +4144,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_inlinecodeblock_ts",
-      "target": "src_inlinecodeblock_inlinecodeblockhost",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblockhost"
     },
     {
       "relation": "contains",
@@ -3573,9 +4154,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_inlinecodeblock_ts",
-      "target": "src_inlinecodeblock_inlinecodeblock",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock"
     },
     {
       "relation": "method",
@@ -3583,8 +4164,18 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock",
-      "target": "src_inlinecodeblock_inlinecodeblock_constructor",
+      "target": "src_inlinecodeblock_inlinecodeblock_constructor"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "src_inlinecodeblock_inlinecodeblock",
+      "target": "src_inlinecodeblock_inlinecodeblock_sourcepath",
       "confidence_score": 1.0
     },
     {
@@ -3593,19 +4184,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock",
-      "target": "src_inlinecodeblock_inlinecodeblock_render",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "src_inlinecodeblock_inlinecodeblock",
-      "target": "src_inlinecodeblock_inlinecodeblock_rerenderonnotechange",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock_render"
     },
     {
       "relation": "method",
@@ -3613,9 +4194,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock",
-      "target": "src_inlinecodeblock_inlinecodeblock_forcererender",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock_forcererender"
     },
     {
       "relation": "method",
@@ -3623,9 +4204,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock",
-      "target": "src_inlinecodeblock_inlinecodeblock_onload",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock_onload"
     },
     {
       "relation": "method",
@@ -3633,9 +4214,19 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock",
-      "target": "src_inlinecodeblock_inlinecodeblock_onunload",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock_onunload"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_inlinecodeblock_inlinecodeblock",
+      "target": "src_inlinecodeblock_inlinecodeblock_rerenderonnotechange"
     },
     {
       "relation": "calls",
@@ -3644,9 +4235,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock_forcererender",
-      "target": "src_inlinecodeblock_inlinecodeblock_render",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock_render"
     },
     {
       "relation": "calls",
@@ -3655,9 +4246,9 @@
       "source_file": "packages/obsidian/src/InlineCodeBlock.ts",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_inlinecodeblock_inlinecodeblock_onload",
-      "target": "src_inlinecodeblock_inlinecodeblock_render",
-      "confidence_score": 1.0
+      "target": "src_inlinecodeblock_inlinecodeblock_render"
     },
     {
       "relation": "imports_from",
@@ -3666,9 +4257,9 @@
       "source_file": "packages/obsidian/src/settings/Settings.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settings_ts",
-      "target": "packages_obsidian_src_constants_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_constants_ts"
     },
     {
       "relation": "imports_from",
@@ -3677,9 +4268,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "packages_obsidian_src_constants_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_constants_ts"
     },
     {
       "relation": "imports_from",
@@ -3688,9 +4279,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "packages_obsidian_src_constants_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_constants_ts"
     },
     {
       "relation": "imports_from",
@@ -3699,9 +4290,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_themes_thememapper_ts",
-      "target": "packages_obsidian_src_constants_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_constants_ts"
     },
     {
       "relation": "contains",
@@ -3709,9 +4300,9 @@
       "source_file": "packages/obsidian/src/obsidian-ex.d.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_obsidian_ex_d_ts",
-      "target": "src_obsidian_ex_d_app",
-      "confidence_score": 1.0
+      "target": "src_obsidian_ex_d_app"
     },
     {
       "relation": "imports_from",
@@ -3720,9 +4311,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingsstore_ts",
-      "target": "packages_obsidian_src_settings_settings_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_settings_settings_ts"
     },
     {
       "relation": "imports",
@@ -3731,9 +4322,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingsstore_ts",
-      "target": "settings_settings_settings",
-      "confidence_score": 1.0
+      "target": "settings_settings_settings"
     },
     {
       "relation": "contains",
@@ -3741,9 +4332,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingsstore_ts",
-      "target": "settings_settingsstore_settingsstore",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore"
     },
     {
       "relation": "method",
@@ -3751,9 +4342,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingsstore_settingsstore",
-      "target": "settings_settingsstore_settingsstore_constructor",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore_constructor"
     },
     {
       "relation": "method",
@@ -3761,9 +4352,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingsstore_settingsstore",
-      "target": "settings_settingsstore_settingsstore_persisted",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore_persisted"
     },
     {
       "relation": "method",
@@ -3771,9 +4362,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingsstore_settingsstore",
-      "target": "settings_settingsstore_settingsstore_snapshot",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore_snapshot"
     },
     {
       "relation": "method",
@@ -3781,9 +4372,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingsstore_settingsstore",
-      "target": "settings_settingsstore_settingsstore_set",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore_set"
     },
     {
       "relation": "method",
@@ -3791,9 +4382,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingsstore_settingsstore",
-      "target": "settings_settingsstore_settingsstore_setlive",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore_setlive"
     },
     {
       "relation": "method",
@@ -3801,9 +4392,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsStore.ts",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingsstore_settingsstore",
-      "target": "settings_settingsstore_settingsstore_flush",
-      "confidence_score": 1.0
+      "target": "settings_settingsstore_settingsstore_flush"
     },
     {
       "relation": "contains",
@@ -3811,9 +4402,9 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_stringselectmodal_ts",
-      "target": "settings_stringselectmodal_stringselectmodal",
-      "confidence_score": 1.0
+      "target": "settings_stringselectmodal_stringselectmodal"
     },
     {
       "relation": "imports_from",
@@ -3822,9 +4413,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "packages_obsidian_src_settings_stringselectmodal_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_settings_stringselectmodal_ts"
     },
     {
       "relation": "method",
@@ -3832,9 +4423,9 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_stringselectmodal_stringselectmodal",
-      "target": "settings_stringselectmodal_stringselectmodal_constructor",
-      "confidence_score": 1.0
+      "target": "settings_stringselectmodal_stringselectmodal_constructor"
     },
     {
       "relation": "method",
@@ -3842,9 +4433,9 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_stringselectmodal_stringselectmodal",
-      "target": "settings_stringselectmodal_stringselectmodal_getitemtext",
-      "confidence_score": 1.0
+      "target": "settings_stringselectmodal_stringselectmodal_getitemtext"
     },
     {
       "relation": "method",
@@ -3852,9 +4443,9 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_stringselectmodal_stringselectmodal",
-      "target": "settings_stringselectmodal_stringselectmodal_getitems",
-      "confidence_score": 1.0
+      "target": "settings_stringselectmodal_stringselectmodal_getitems"
     },
     {
       "relation": "method",
@@ -3862,9 +4453,9 @@
       "source_file": "packages/obsidian/src/settings/StringSelectModal.ts",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_stringselectmodal_stringselectmodal",
-      "target": "settings_stringselectmodal_stringselectmodal_onchooseitem",
-      "confidence_score": 1.0
+      "target": "settings_stringselectmodal_stringselectmodal_onchooseitem"
     },
     {
       "relation": "imports",
@@ -3873,9 +4464,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "settings_stringselectmodal_stringselectmodal",
-      "confidence_score": 1.0
+      "target": "settings_stringselectmodal_stringselectmodal"
     },
     {
       "relation": "imports_from",
@@ -3884,9 +4475,20 @@
       "source_file": "packages/obsidian/src/settings/Settings.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settings_ts",
-      "target": "packages_ec_core_src_config_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_config_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/settings/Settings.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_obsidian_src_settings_settings_ts",
+      "target": "src_config_ecsettingsprops"
     },
     {
       "relation": "imports",
@@ -3896,17 +4498,7 @@
       "source_location": "L2",
       "weight": 1.0,
       "source": "packages_obsidian_src_settings_settings_ts",
-      "target": "src_config_ecsettingsprops",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/obsidian/src/settings/Settings.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "packages_obsidian_src_settings_settings_ts",
-      "target": "settings_settings_frametype",
+      "target": "src_config_frametype",
       "confidence_score": 1.0
     },
     {
@@ -3915,9 +4507,9 @@
       "source_file": "packages/obsidian/src/settings/Settings.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settings_ts",
-      "target": "settings_settings_settings",
-      "confidence_score": 1.0
+      "target": "settings_settings_settings"
     },
     {
       "relation": "contains",
@@ -3925,9 +4517,9 @@
       "source_file": "packages/obsidian/src/settings/Settings.ts",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settings_ts",
-      "target": "settings_settings_default_settings",
-      "confidence_score": 1.0
+      "target": "settings_settings_default_settings"
     },
     {
       "relation": "imports_from",
@@ -3936,9 +4528,19 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "packages_obsidian_src_settings_settings_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_settings_settings_ts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/obsidian/src/settings/Settings.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_obsidian_src_settings_settings_ts",
+      "target": "settings_settings_frametype"
     },
     {
       "relation": "imports",
@@ -3947,9 +4549,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "settings_settings_frametype",
-      "confidence_score": 1.0
+      "target": "settings_settings_frametype"
     },
     {
       "relation": "contains",
@@ -3957,9 +4559,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_settings_settingstab_ts",
-      "target": "settings_settingstab_shikisettingstab",
-      "confidence_score": 1.0
+      "target": "settings_settingstab_shikisettingstab"
     },
     {
       "relation": "method",
@@ -3967,9 +4569,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingstab_shikisettingstab",
-      "target": "settings_settingstab_shikisettingstab_constructor",
-      "confidence_score": 1.0
+      "target": "settings_settingstab_shikisettingstab_constructor"
     },
     {
       "relation": "method",
@@ -3977,9 +4579,9 @@
       "source_file": "packages/obsidian/src/settings/SettingsTab.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_settingstab_shikisettingstab",
-      "target": "settings_settingstab_shikisettingstab_display",
-      "confidence_score": 1.0
+      "target": "settings_settingstab_shikisettingstab_display"
     },
     {
       "relation": "contains",
@@ -3987,9 +4589,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_decorationbuilder_ts",
-      "target": "codemirror_cm6_decorationbuilder_highlightablerange",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_decorationbuilder_highlightablerange"
     },
     {
       "relation": "contains",
@@ -3997,9 +4599,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_decorationbuilder_ts",
-      "target": "codemirror_cm6_decorationbuilder_builddecorationset",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_decorationbuilder_builddecorationset"
     },
     {
       "relation": "imports_from",
@@ -4008,9 +4610,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "packages_obsidian_src_codemirror_cm6_decorationbuilder_ts",
-      "confidence_score": 1.0
+      "target": "packages_obsidian_src_codemirror_cm6_decorationbuilder_ts"
     },
     {
       "relation": "imports",
@@ -4019,9 +4621,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "codemirror_cm6_decorationbuilder_highlightablerange",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_decorationbuilder_highlightablerange"
     },
     {
       "relation": "imports",
@@ -4030,9 +4632,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "codemirror_cm6_decorationbuilder_builddecorationset",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_decorationbuilder_builddecorationset"
     },
     {
       "relation": "contains",
@@ -4040,9 +4642,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "codemirror_cm6_viewplugin_cm6viewpluginhost",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_viewplugin_cm6viewpluginhost"
     },
     {
       "relation": "contains",
@@ -4050,9 +4652,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "codemirror_cm6_viewplugin_checkselectionoverlap",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_viewplugin_checkselectionoverlap"
     },
     {
       "relation": "contains",
@@ -4060,9 +4662,9 @@
       "source_file": "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_codemirror_cm6_viewplugin_ts",
-      "target": "codemirror_cm6_viewplugin_createcm6plugin",
-      "confidence_score": 1.0
+      "target": "codemirror_cm6_viewplugin_createcm6plugin"
     },
     {
       "relation": "imports_from",
@@ -4071,9 +4673,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_themes_thememapper_ts",
-      "target": "packages_ec_core_src_obsidiantheme_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_obsidiantheme_ts"
     },
     {
       "relation": "contains",
@@ -4081,9 +4683,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_themes_thememapper_ts",
-      "target": "themes_thememapper_themecontext",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_themecontext"
     },
     {
       "relation": "contains",
@@ -4091,9 +4693,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_obsidian_src_themes_thememapper_ts",
-      "target": "themes_thememapper_thememapper",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper"
     },
     {
       "relation": "method",
@@ -4101,9 +4703,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper",
-      "target": "themes_thememapper_thememapper_constructor",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_constructor"
     },
     {
       "relation": "method",
@@ -4111,9 +4713,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper",
-      "target": "themes_thememapper_thememapper_gettheme",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_gettheme"
     },
     {
       "relation": "method",
@@ -4121,9 +4723,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper",
-      "target": "themes_thememapper_thememapper_getthemeidentifier",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_getthemeidentifier"
     },
     {
       "relation": "method",
@@ -4131,9 +4733,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper",
-      "target": "themes_thememapper_thememapper_usingobsidiantheme",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_usingobsidiantheme"
     },
     {
       "relation": "method",
@@ -4141,9 +4743,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper",
-      "target": "themes_thememapper_thememapper_usingcustomtheme",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_usingcustomtheme"
     },
     {
       "relation": "calls",
@@ -4152,9 +4754,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper_gettheme",
-      "target": "themes_thememapper_thememapper_getthemeidentifier",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_getthemeidentifier"
     },
     {
       "relation": "calls",
@@ -4163,9 +4765,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper_gettheme",
-      "target": "themes_thememapper_thememapper_usingcustomtheme",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_usingcustomtheme"
     },
     {
       "relation": "calls",
@@ -4174,9 +4776,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper_gettheme",
-      "target": "themes_thememapper_thememapper_usingobsidiantheme",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_usingobsidiantheme"
     },
     {
       "relation": "calls",
@@ -4185,9 +4787,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper_usingobsidiantheme",
-      "target": "themes_thememapper_thememapper_getthemeidentifier",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_getthemeidentifier"
     },
     {
       "relation": "calls",
@@ -4196,9 +4798,9 @@
       "source_file": "packages/obsidian/src/themes/ThemeMapper.ts",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "themes_thememapper_thememapper_usingcustomtheme",
-      "target": "themes_thememapper_thememapper_getthemeidentifier",
-      "confidence_score": 1.0
+      "target": "themes_thememapper_thememapper_getthemeidentifier"
     },
     {
       "relation": "contains",
@@ -4206,9 +4808,9 @@
       "source_file": "packages/ec-core/src/ECTheme.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_ectheme_ts",
-      "target": "src_ectheme_getectheme",
-      "confidence_score": 1.0
+      "target": "src_ectheme_getectheme"
     },
     {
       "relation": "imports_from",
@@ -4217,9 +4819,9 @@
       "source_file": "packages/ec-core/src/Config.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_config_ts",
-      "target": "packages_ec_core_src_ectheme_ts",
-      "confidence_score": 1.0
+      "target": "packages_ec_core_src_ectheme_ts"
     },
     {
       "relation": "imports",
@@ -4228,9 +4830,9 @@
       "source_file": "packages/ec-core/src/Config.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_config_ts",
-      "target": "src_ectheme_getectheme",
-      "confidence_score": 1.0
+      "target": "src_ectheme_getectheme"
     },
     {
       "relation": "calls",
@@ -4250,8 +4852,18 @@
       "source_location": "L11",
       "weight": 1.0,
       "source": "packages_ec_core_src_config_ts",
-      "target": "src_config_ecsettingsprops",
+      "target": "src_config_frametype",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ec-core/src/Config.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ec_core_src_config_ts",
+      "target": "src_config_ecsettingsprops"
     },
     {
       "relation": "contains",
@@ -4259,9 +4871,9 @@
       "source_file": "packages/ec-core/src/Config.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_config_ts",
-      "target": "src_config_ecconfiginput",
-      "confidence_score": 1.0
+      "target": "src_config_ecconfiginput"
     },
     {
       "relation": "contains",
@@ -4269,9 +4881,9 @@
       "source_file": "packages/ec-core/src/Config.ts",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_config_ts",
-      "target": "src_config_ec_virtual_settings",
-      "confidence_score": 1.0
+      "target": "src_config_ec_virtual_settings"
     },
     {
       "relation": "contains",
@@ -4279,9 +4891,9 @@
       "source_file": "packages/ec-core/src/Config.ts",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_config_ts",
-      "target": "src_config_createecengineconfig",
-      "confidence_score": 1.0
+      "target": "src_config_createecengineconfig"
     },
     {
       "relation": "contains",
@@ -4289,8 +4901,498 @@
       "source_file": "packages/ec-core/src/CssVarThemeAdapter.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_ec_core_src_cssvarthemeadapter_ts",
-      "target": "src_cssvarthemeadapter_encodecssvartheme",
+      "target": "src_cssvarthemeadapter_encodecssvartheme"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme_md",
+      "target": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "target": "obsidian_shiki_plugin_readme_comparison",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "target": "obsidian_shiki_plugin_readme_usage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "target": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "target": "obsidian_shiki_plugin_readme_license",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "target": "obsidian_shiki_plugin_readme_installation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_shiki_highlighter",
+      "target": "obsidian_shiki_plugin_readme_credits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_usage",
+      "target": "obsidian_shiki_plugin_readme_inline_highlighting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_usage",
+      "target": "obsidian_shiki_plugin_readme_custom_themes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_inline_highlighting",
+      "target": "obsidian_shiki_plugin_readme_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "target": "obsidian_shiki_plugin_readme_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "target": "obsidian_shiki_plugin_readme_codeblock_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "target": "obsidian_shiki_plugin_readme_line_numbers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "target": "obsidian_shiki_plugin_readme_title",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "target": "obsidian_shiki_plugin_readme_line_highlighting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_code_block_configuration",
+      "target": "obsidian_shiki_plugin_readme_diff_highlighting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_line_numbers",
+      "target": "obsidian_shiki_plugin_readme_codeblock_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_line_numbers",
+      "target": "obsidian_shiki_plugin_readme_codeblock_5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_title",
+      "target": "obsidian_shiki_plugin_readme_codeblock_6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_title",
+      "target": "obsidian_shiki_plugin_readme_codeblock_7",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_line_highlighting",
+      "target": "obsidian_shiki_plugin_readme_codeblock_8",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_line_highlighting",
+      "target": "obsidian_shiki_plugin_readme_codeblock_9",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_diff_highlighting",
+      "target": "obsidian_shiki_plugin_readme_codeblock_10",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_diff_highlighting",
+      "target": "obsidian_shiki_plugin_readme_codeblock_11",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_installation",
+      "target": "obsidian_shiki_plugin_readme_obsidian_marketplace_recommended",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L109",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_readme_installation",
+      "target": "obsidian_shiki_plugin_readme_brat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "claude_md",
+      "target": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_eslint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_known_build_warnings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_package_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_settings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_testing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_narrow_host_interfaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_highlighter_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "obsidian_shiki_plugin_claude_obsidian_shiki_plugin",
+      "target": "obsidian_shiki_plugin_claude_ec_core_constraint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/Slides.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "examplevault_slides_md",
+      "target": "examplevault_slides_highlighting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/Slides.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "examplevault_slides_highlighting",
+      "target": "examplevault_slides_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/Untitled.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "examplevault_untitled_md",
+      "target": "examplevault_untitled_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "examplevault_list_md",
+      "target": "examplevault_list_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "examplevault_list_md",
+      "target": "examplevault_list_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/List.md",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "examplevault_list_md",
+      "target": "examplevault_list_codeblock_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L132",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_7",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "exampleVault/index.md",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "examplevault_index_md",
+      "target": "examplevault_index_codeblock_8",
       "confidence_score": 1.0
     },
     {
@@ -4986,5 +6088,5 @@
       "source_file": "exampleImage.png"
     }
   ],
-  "built_at_commit": "91245a6fb642accae4276fa77a0e50dc3861b706"
+  "built_at_commit": "105b769489ff533c192ed7575fdac63139a83423"
 }

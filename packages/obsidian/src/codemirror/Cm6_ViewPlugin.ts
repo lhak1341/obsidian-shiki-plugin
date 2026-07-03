@@ -1,5 +1,5 @@
 import { Decoration, type DecorationSet, type EditorView, ViewPlugin, type ViewUpdate } from '@codemirror/view';
-import { type EditorSelection, type EditorState } from '@codemirror/state';
+import { type EditorSelection, type EditorState, type StateField } from '@codemirror/state';
 import { type SyntaxNode } from '@lezer/common';
 import { syntaxTree } from '@codemirror/language';
 import { type ThemedToken, type TokensResult } from 'shiki';
@@ -56,8 +56,9 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 			}
 
 			isLivePreview(state: EditorState): boolean {
-				// @ts-ignore some strange private field not being assignable
-				return state.field(editorLivePreviewField);
+				// Obsidian's editorLivePreviewField carries a private generic parameter that
+				// TypeScript cannot unify with @codemirror/state's StateField<boolean>; the cast is safe.
+				return state.field(editorLivePreviewField as unknown as StateField<boolean>);
 			}
 
 			async updateWidgets(view: EditorView, docChanged: boolean = true): Promise<void> {

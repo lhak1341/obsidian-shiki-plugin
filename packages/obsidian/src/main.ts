@@ -6,7 +6,7 @@ import { createCm6Plugin } from 'packages/obsidian/src/codemirror/Cm6_ViewPlugin
 import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/Settings';
 import { ShikiSettingsTab } from 'packages/obsidian/src/settings/SettingsTab';
 import { filterHighlightAllPlugin, type PrismWithFilterHighlightAll } from 'packages/obsidian/src/PrismPlugin';
-import { CodeHighlighter } from 'packages/obsidian/src/Highlighter';
+import { CodeHighlighter, type CustomTheme } from 'packages/obsidian/src/Highlighter';
 import type { EcSettingsProps } from 'packages/ec-core/src/Config';
 import { InlineCodeBlock } from 'packages/obsidian/src/InlineCodeBlock';
 import { SettingsStore } from 'packages/obsidian/src/settings/SettingsStore';
@@ -49,7 +49,7 @@ export default class ShikiPlugin extends Plugin {
 				if (file instanceof TFile) {
 					if (this.activeCodeBlocks.has(file.path)) {
 						for (const codeBlock of this.activeCodeBlocks.get(file.path)!) {
-							void codeBlock.rerenderOnNoteChange();
+							if (codeBlock instanceof CodeBlock) void codeBlock.rerenderOnNoteChange();
 						}
 					}
 				}
@@ -88,7 +88,7 @@ export default class ShikiPlugin extends Plugin {
 			await this.highlighter.reload();
 
 			for (const [_, codeBlocks] of this.activeCodeBlocks) {
-				for (const codeBlock of codeBlocks) {
+				for (const codeBlock of [...codeBlocks]) {
 					await codeBlock.forceRerender();
 				}
 			}
@@ -161,7 +161,7 @@ export default class ShikiPlugin extends Plugin {
 	}
 
 	addActiveCodeBlock(codeBlock: CodeBlock | InlineCodeBlock): void {
-		const filePath = codeBlock.ctx.sourcePath;
+		const filePath = codeBlock.sourcePath;
 
 		if (!this.activeCodeBlocks.has(filePath)) {
 			this.activeCodeBlocks.set(filePath, [codeBlock]);
@@ -171,7 +171,7 @@ export default class ShikiPlugin extends Plugin {
 	}
 
 	removeActiveCodeBlock(codeBlock: CodeBlock | InlineCodeBlock): void {
-		const filePath = codeBlock.ctx.sourcePath;
+		const filePath = codeBlock.sourcePath;
 
 		if (this.activeCodeBlocks.has(filePath)) {
 			const index = this.activeCodeBlocks.get(filePath)!.indexOf(codeBlock);
@@ -225,7 +225,7 @@ export default class ShikiPlugin extends Plugin {
 	get lightTheme(): string { return this.store.snapshot.lightTheme; }
 	get customThemeFolder(): string { return this.store.snapshot.customThemeFolder; }
 	get customLanguageFolder(): string { return this.store.snapshot.customLanguageFolder; }
-	get disabledLanguages(): string[] { return this.store.snapshot.disabledLanguages; }
+	get disabledLanguages(): readonly string[] { return this.store.snapshot.disabledLanguages; }
 	get ecSettings(): EcSettingsProps {
 		return {
 			preferThemeColors: this.store.snapshot.preferThemeColors,
@@ -244,8 +244,8 @@ export default class ShikiPlugin extends Plugin {
 		await this.store.setLive(key, DEFAULT_SETTINGS[key]);
 	}
 
-	getCustomThemes(): CodeHighlighter['customThemes'] {
-		return this.highlighter.customThemes;
+	getCustomThemes(): CustomTheme[] {
+		return this.highlighter.getCustomThemes();
 	}
 
 	getSupportedLanguages(): string[] {
