@@ -25,7 +25,9 @@ export class CodeBlock extends MarkdownRenderChild {
 		this.cachedMetaString = '';
 	}
 
-	get sourcePath(): string { return this.ctx.sourcePath; }
+	get sourcePath(): string {
+		return this.ctx.sourcePath;
+	}
 
 	// Returns null when getSectionInfo is not yet available or stale (element detached).
 	private getMetaString(): string | null {

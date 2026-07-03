@@ -1,5 +1,5 @@
 import { Decoration, type DecorationSet, type EditorView, ViewPlugin, type ViewUpdate } from '@codemirror/view';
-import { type EditorSelection, type EditorState, type StateField } from '@codemirror/state';
+import { type EditorSelection, type EditorState } from '@codemirror/state';
 import { type SyntaxNode } from '@lezer/common';
 import { syntaxTree } from '@codemirror/language';
 import { type ThemedToken, type TokensResult } from 'shiki';
@@ -34,7 +34,7 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 			constructor(view: EditorView) {
 				this.view = view;
 				this.decorations = Decoration.none;
-				this.reloadCb = () => this.updateWidgets(this.view);
+				this.reloadCb = (): Promise<void> => this.updateWidgets(this.view);
 				host.addCm6Plugin(this.reloadCb);
 				void this.updateWidgets(view);
 			}
@@ -56,9 +56,7 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 			}
 
 			isLivePreview(state: EditorState): boolean {
-				// Obsidian's editorLivePreviewField carries a private generic parameter that
-				// TypeScript cannot unify with @codemirror/state's StateField<boolean>; the cast is safe.
-				return state.field(editorLivePreviewField as unknown as StateField<boolean>);
+				return state.field(editorLivePreviewField);
 			}
 
 			async updateWidgets(view: EditorView, docChanged: boolean = true): Promise<void> {
@@ -80,11 +78,7 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 							if (content.startsWith('{') && host.inlineHighlighting) {
 								const match = content.match(SHIKI_INLINE_REGEX);
 								if (match) {
-									const hasSelectionOverlap = checkSelectionOverlap(
-										view.state.selection,
-										node.from - 1,
-										node.to + 1,
-									);
+									const hasSelectionOverlap = checkSelectionOverlap(view.state.selection, node.from - 1, node.to + 1);
 									ranges.push({
 										from: node.from,
 										to: node.to,
@@ -101,11 +95,7 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 						// if !docChanged, this was a selection change — only inline-code nodes matter
 						if (!docChanged) return;
 
-						if (
-							props.includes('HyperMD-codeblock') &&
-							!props.includes('HyperMD-codeblock-begin') &&
-							!props.includes('HyperMD-codeblock-end')
-						) {
+						if (props.includes('HyperMD-codeblock') && !props.includes('HyperMD-codeblock-begin') && !props.includes('HyperMD-codeblock-end')) {
 							fencedLines.push(node);
 							return;
 						}

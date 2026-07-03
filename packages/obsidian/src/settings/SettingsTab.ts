@@ -106,11 +106,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setName('Custom themes folder location')
 			.setDesc('Folder relative to your vault where custom JSON theme files are located.')
 			.addText(textbox => {
-				textbox
-					.setValue(this.plugin.store.persisted.customThemeFolder)
-					.onChange(async value => {
-						await this.plugin.store.set('customThemeFolder', value);
-					});
+				textbox.setValue(this.plugin.store.persisted.customThemeFolder).onChange(async value => {
+					await this.plugin.store.set('customThemeFolder', value);
+				});
 				textbox.inputEl.addClass('shiki-custom-theme-folder');
 			});
 
@@ -129,11 +127,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			.setName('Custom languages folder location')
 			.setDesc('Folder relative to your vault where custom JSON language files are located.')
 			.addText(textbox => {
-				textbox
-					.setValue(this.plugin.store.persisted.customLanguageFolder)
-					.onChange(async value => {
-						await this.plugin.store.set('customLanguageFolder', value);
-					});
+				textbox.setValue(this.plugin.store.persisted.customLanguageFolder).onChange(async value => {
+					await this.plugin.store.set('customLanguageFolder', value);
+				});
 				textbox.inputEl.addClass('shiki-custom-language-folder');
 			});
 
@@ -156,7 +152,10 @@ export class ShikiSettingsTab extends PluginSettingTab {
 					.setIcon('trash')
 					.setWarning()
 					.onClick(() => {
-						void this.plugin.store.set('disabledLanguages', this.plugin.store.persisted.disabledLanguages.filter(x => x !== language));
+						void this.plugin.store.set(
+							'disabledLanguages',
+							this.plugin.store.persisted.disabledLanguages.filter(x => x !== language),
+						);
 						this.display();
 					});
 			});

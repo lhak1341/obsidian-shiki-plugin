@@ -1,4 +1,4 @@
-import { App, FuzzySuggestModal } from 'obsidian';
+import { type App, FuzzySuggestModal } from 'obsidian';
 
 export class StringSelectModal extends FuzzySuggestModal<string> {
 	items: string[];

@@ -37,8 +37,7 @@ export class ShikiRenderer {
 		if (!this.shiki.getLoadedLanguages().includes(lang)) {
 			let loading = this.loadingLanguages.get(lang);
 			if (!loading) {
-				loading = this.shiki.loadLanguage(lang as BundledLanguage)
-					.finally(() => this.loadingLanguages.delete(lang));
+				loading = this.shiki.loadLanguage(lang as BundledLanguage).finally(() => this.loadingLanguages.delete(lang));
 				this.loadingLanguages.set(lang, loading);
 			}
 			try {

@@ -3,11 +3,9 @@ import { InlineCodeBlock, type InlineCodeBlockHost } from 'packages/obsidian/src
 import type { MarkdownPostProcessorContext } from 'obsidian';
 import type { ThemedToken, TokensResult } from 'shiki';
 
-const makeCtx = (): MarkdownPostProcessorContext =>
-	({ sourcePath: 'test.md', addChild: mock(() => {}) }) as unknown as MarkdownPostProcessorContext;
+const makeCtx = (): MarkdownPostProcessorContext => ({ sourcePath: 'test.md', addChild: mock(() => {}) }) as unknown as MarkdownPostProcessorContext;
 
-const makeToken = (content: string, color = '#ffffff'): ThemedToken =>
-	({ content, color, offset: 0 }) as ThemedToken;
+const makeToken = (content: string, color = '#ffffff'): ThemedToken => ({ content, color, offset: 0 }) as ThemedToken;
 
 const makeHost = (overrides: Partial<InlineCodeBlockHost> = {}): InlineCodeBlockHost => ({
 	getHighlightTokens: mock(async () => undefined),

@@ -221,11 +221,21 @@ export default class ShikiPlugin extends Plugin {
 		return this.manifest.name;
 	}
 
-	get darkTheme(): string { return this.store.snapshot.darkTheme; }
-	get lightTheme(): string { return this.store.snapshot.lightTheme; }
-	get customThemeFolder(): string { return this.store.snapshot.customThemeFolder; }
-	get customLanguageFolder(): string { return this.store.snapshot.customLanguageFolder; }
-	get disabledLanguages(): readonly string[] { return this.store.snapshot.disabledLanguages; }
+	get darkTheme(): string {
+		return this.store.snapshot.darkTheme;
+	}
+	get lightTheme(): string {
+		return this.store.snapshot.lightTheme;
+	}
+	get customThemeFolder(): string {
+		return this.store.snapshot.customThemeFolder;
+	}
+	get customLanguageFolder(): string {
+		return this.store.snapshot.customLanguageFolder;
+	}
+	get disabledLanguages(): readonly string[] {
+		return this.store.snapshot.disabledLanguages;
+	}
 	get ecSettings(): EcSettingsProps {
 		return {
 			preferThemeColors: this.store.snapshot.preferThemeColors,

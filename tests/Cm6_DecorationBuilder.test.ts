@@ -42,11 +42,7 @@ describe('buildDecorationSet', () => {
 
 	test('single token, no hideLang → one mark decoration spanning full range', async () => {
 		const range: HighlightableRange = { from: 10, to: 20, lang: 'js', content: 'hello', hideLang: false };
-		const result = await buildDecorationSet(
-			[range],
-			async () => makeTokensResult([{ offset: 0, content: 'hello' }]),
-			mockStyle,
-		);
+		const result = await buildDecorationSet([range], async () => makeTokensResult([{ offset: 0, content: 'hello' }]), mockStyle);
 
 		const decs = collectDecorations(result);
 		expect(decs).toHaveLength(1);
@@ -57,42 +53,35 @@ describe('buildDecorationSet', () => {
 		const range: HighlightableRange = { from: 0, to: 15, lang: 'js', content: 'foo bar', hideLang: false };
 		const result = await buildDecorationSet(
 			[range],
-			async () => makeTokensResult([
-				{ offset: 0, content: 'foo' },
-				{ offset: 4, content: 'bar' },
-			]),
+			async () =>
+				makeTokensResult([
+					{ offset: 0, content: 'foo' },
+					{ offset: 4, content: 'bar' },
+				]),
 			mockStyle,
 		);
 
 		const decs = collectDecorations(result);
 		expect(decs).toHaveLength(2);
-		expect(decs[0]).toEqual({ from: 0, to: 4 });   // first token: 0 → next.offset 4
-		expect(decs[1]).toEqual({ from: 4, to: 15 });  // last token: 4 → range.to 15
+		expect(decs[0]).toEqual({ from: 0, to: 4 }); // first token: 0 → next.offset 4
+		expect(decs[1]).toEqual({ from: 4, to: 15 }); // last token: 4 → range.to 15
 	});
 
 	test('hideLang=true → replace decoration before mark decorations', async () => {
 		// Simulates `{js} foo` inline code: from=5, hideTo=10 (hides `{js} `), to=13
 		const range: HighlightableRange = { from: 5, to: 13, lang: 'js', content: 'foo', hideLang: true, hideTo: 10 };
-		const result = await buildDecorationSet(
-			[range],
-			async () => makeTokensResult([{ offset: 0, content: 'foo' }]),
-			mockStyle,
-		);
+		const result = await buildDecorationSet([range], async () => makeTokensResult([{ offset: 0, content: 'foo' }]), mockStyle);
 
 		const decs = collectDecorations(result);
 		// replace decoration + one mark decoration
 		expect(decs).toHaveLength(2);
-		expect(decs[0]).toEqual({ from: 5, to: 10 });  // replace: hides `{js} `
+		expect(decs[0]).toEqual({ from: 5, to: 10 }); // replace: hides `{js} `
 		expect(decs[1]).toEqual({ from: 10, to: 13 }); // mark: the code token
 	});
 
 	test('hideLang=false with hideTo present → no replace decoration', async () => {
 		const range: HighlightableRange = { from: 5, to: 13, lang: 'js', content: 'foo', hideLang: false, hideTo: 10 };
-		const result = await buildDecorationSet(
-			[range],
-			async () => makeTokensResult([{ offset: 0, content: 'foo' }]),
-			mockStyle,
-		);
+		const result = await buildDecorationSet([range], async () => makeTokensResult([{ offset: 0, content: 'foo' }]), mockStyle);
 
 		const decs = collectDecorations(result);
 		// only the mark decoration, starting at hideTo (contentFrom = 10)
@@ -105,11 +94,7 @@ describe('buildDecorationSet', () => {
 			{ from: 0, to: 5, lang: 'js', content: 'a', hideLang: false },
 			{ from: 20, to: 25, lang: 'ts', content: 'b', hideLang: false },
 		];
-		const result = await buildDecorationSet(
-			ranges,
-			async () => makeTokensResult([{ offset: 0, content: 'x' }]),
-			mockStyle,
-		);
+		const result = await buildDecorationSet(ranges, async () => makeTokensResult([{ offset: 0, content: 'x' }]), mockStyle);
 
 		const decs = collectDecorations(result);
 		expect(decs).toHaveLength(2);
@@ -123,7 +108,10 @@ describe('buildDecorationSet', () => {
 		const range: HighlightableRange = { from: 0, to: 5, lang: 'TypeScript', content: 'x', hideLang: false };
 		await buildDecorationSet(
 			[range],
-			async (code, lang) => { seen.push(lang); return undefined; },
+			async (code, lang) => {
+				seen.push(lang);
+				return undefined;
+			},
 			mockStyle,
 		);
 		expect(seen).toEqual(['typescript']);

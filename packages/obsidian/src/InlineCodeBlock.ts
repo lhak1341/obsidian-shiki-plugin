@@ -25,7 +25,9 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this.ctx = ctx;
 	}
 
-	get sourcePath(): string { return this.ctx.sourcePath; }
+	get sourcePath(): string {
+		return this.ctx.sourcePath;
+	}
 
 	private async render(): Promise<void> {
 		const gen = ++this.renderGeneration;

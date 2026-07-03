@@ -114,9 +114,6 @@ export class CodeHighlighter {
 	}
 
 	async loadCustomThemes(): Promise<void> {
-		const activeTheme = this.host.isDarkMode()
-			? this.host.darkTheme
-			: this.host.lightTheme;
 		this.customThemes = [];
 
 		// custom themes are disabled unless users specify a folder for them in plugin settings
@@ -161,9 +158,7 @@ export class CodeHighlighter {
 	 * All languages that are safe to use with Obsidian's `registerMarkdownCodeBlockProcessor`.
 	 */
 	obsidianSafeLanguageNames(): string[] {
-		return this.shikiRenderer.supportedLanguages.filter(
-			lang => !LANGUAGE_DENYLIST.has(lang) && !this.host.disabledLanguages.includes(lang),
-		);
+		return this.shikiRenderer.supportedLanguages.filter(lang => !LANGUAGE_DENYLIST.has(lang) && !this.host.disabledLanguages.includes(lang));
 	}
 
 	async renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
