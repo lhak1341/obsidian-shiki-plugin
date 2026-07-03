@@ -7,6 +7,7 @@ import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/
 import { ShikiSettingsTab } from 'packages/obsidian/src/settings/SettingsTab';
 import { filterHighlightAllPlugin, type PrismWithFilterHighlightAll } from 'packages/obsidian/src/PrismPlugin';
 import { CodeHighlighter } from 'packages/obsidian/src/Highlighter';
+import type { EcSettingsProps } from 'packages/ec-core/src/Config';
 import { InlineCodeBlock } from 'packages/obsidian/src/InlineCodeBlock';
 import { SettingsStore } from 'packages/obsidian/src/settings/SettingsStore';
 
@@ -84,11 +85,7 @@ export default class ShikiPlugin extends Plugin {
 		if (this.reloading) return;
 		this.reloading = true;
 		try {
-			await this.highlighter.unload();
-
-			this.store.flush();
-
-			await this.highlighter.load();
+			await this.highlighter.reload();
 
 			for (const [_, codeBlocks] of this.activeCodeBlocks) {
 				for (const codeBlock of codeBlocks) {
@@ -224,8 +221,22 @@ export default class ShikiPlugin extends Plugin {
 		return this.manifest.name;
 	}
 
-	get loadedSettings(): Settings {
-		return this.store.snapshot as Settings;
+	get darkTheme(): string { return this.store.snapshot.darkTheme; }
+	get lightTheme(): string { return this.store.snapshot.lightTheme; }
+	get customThemeFolder(): string { return this.store.snapshot.customThemeFolder; }
+	get customLanguageFolder(): string { return this.store.snapshot.customLanguageFolder; }
+	get disabledLanguages(): string[] { return this.store.snapshot.disabledLanguages; }
+	get ecSettings(): EcSettingsProps {
+		return {
+			preferThemeColors: this.store.snapshot.preferThemeColors,
+			ecDefaultShowLineNumbers: this.store.snapshot.ecDefaultShowLineNumbers,
+			ecDefaultWrap: this.store.snapshot.ecDefaultWrap,
+			ecDefaultFrame: this.store.snapshot.ecDefaultFrame,
+		};
+	}
+
+	refreshSettings(): void {
+		this.store.flush();
 	}
 
 	async resetTheme(which: 'dark' | 'light'): Promise<void> {

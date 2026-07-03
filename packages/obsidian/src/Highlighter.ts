@@ -1,8 +1,8 @@
 import { type LanguageRegistration, type TokensResult, type ThemedToken } from 'shiki';
 import { ThemeMapper, type ThemeContext } from 'packages/obsidian/src/themes/ThemeMapper';
 import { normalizePath, Notice } from 'obsidian';
-import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/Settings';
 import { EcRenderer } from 'packages/obsidian/src/EcRenderer';
+import { type EcSettingsProps } from 'packages/ec-core/src/Config';
 import { ShikiRenderer } from 'packages/obsidian/src/ShikiRenderer';
 
 interface HighlighterHost {
@@ -11,8 +11,14 @@ interface HighlighterHost {
 	vaultList(path: string): Promise<{ files: string[] }>;
 	vaultRead(path: string): Promise<string>;
 	readonly pluginName: string;
-	readonly loadedSettings: Settings;
+	readonly darkTheme: string;
+	readonly lightTheme: string;
+	readonly customThemeFolder: string;
+	readonly customLanguageFolder: string;
+	readonly disabledLanguages: string[];
+	readonly ecSettings: EcSettingsProps;
 	resetTheme(which: 'dark' | 'light'): Promise<void>;
+	refreshSettings(): void;
 }
 
 interface CustomTheme {
@@ -50,13 +56,19 @@ export class CodeHighlighter {
 
 		const themeMapper = new ThemeMapper({
 			isDarkMode: this.host.isDarkMode(),
-			darkTheme: this.host.loadedSettings.darkTheme,
-			lightTheme: this.host.loadedSettings.lightTheme,
+			darkTheme: this.host.darkTheme,
+			lightTheme: this.host.lightTheme,
 			customThemes: this.customThemes,
 		} satisfies ThemeContext);
 
-		await this.ecRenderer.load(themeMapper, this.customLanguages, this.host.loadedSettings);
+		await this.ecRenderer.load(themeMapper, this.customLanguages, this.host.ecSettings);
 		await this.shikiRenderer.load(themeMapper, this.customLanguages);
+	}
+
+	async reload(): Promise<void> {
+		await this.unload();
+		this.host.refreshSettings();
+		await this.load();
 	}
 
 	async unload(): Promise<void> {
@@ -77,9 +89,9 @@ export class CodeHighlighter {
 	async loadCustomLanguages(): Promise<void> {
 		this.customLanguages = [];
 
-		if (!this.host.loadedSettings.customLanguageFolder) return;
+		if (!this.host.customLanguageFolder) return;
 
-		const languageFiles = await this.listJsonFiles(this.host.loadedSettings.customLanguageFolder, 'languages');
+		const languageFiles = await this.listJsonFiles(this.host.customLanguageFolder, 'languages');
 
 		for (const languageFile of languageFiles) {
 			try {
@@ -99,15 +111,15 @@ export class CodeHighlighter {
 
 	async loadCustomThemes(): Promise<void> {
 		const activeTheme = this.host.isDarkMode()
-			? this.host.loadedSettings.darkTheme
-			: this.host.loadedSettings.lightTheme;
+			? this.host.darkTheme
+			: this.host.lightTheme;
 		this.customThemes = [];
 
 		// custom themes are disabled unless users specify a folder for them in plugin settings
-		if (!this.host.loadedSettings.customThemeFolder) return;
+		if (!this.host.customThemeFolder) return;
 
-		const themeFolder = normalizePath(this.host.loadedSettings.customThemeFolder);
-		const themeFiles = await this.listJsonFiles(this.host.loadedSettings.customThemeFolder, 'themes');
+		const themeFolder = normalizePath(this.host.customThemeFolder);
+		const themeFiles = await this.listJsonFiles(this.host.customThemeFolder, 'themes');
 
 		for (const themeFile of themeFiles) {
 			const baseName = themeFile.substring(`${themeFolder}/`.length);
@@ -131,9 +143,9 @@ export class CodeHighlighter {
 
 		// if the user's set theme cannot be loaded (e.g. it was deleted), fall back to default theme
 		if (activeTheme.endsWith('.json') && !this.customThemes.find(theme => theme.name === activeTheme)) {
-			if (activeTheme === this.host.loadedSettings.darkTheme) {
+			if (activeTheme === this.host.darkTheme) {
 				await this.host.resetTheme('dark');
-			} else if (activeTheme === this.host.loadedSettings.lightTheme) {
+			} else if (activeTheme === this.host.lightTheme) {
 				await this.host.resetTheme('light');
 			}
 		}
@@ -146,7 +158,7 @@ export class CodeHighlighter {
 	 */
 	obsidianSafeLanguageNames(): string[] {
 		return this.shikiRenderer.supportedLanguages.filter(
-			lang => !LANGUAGE_BLACKLIST.has(lang) && !this.host.loadedSettings.disabledLanguages.includes(lang),
+			lang => !LANGUAGE_BLACKLIST.has(lang) && !this.host.disabledLanguages.includes(lang),
 		);
 	}
 
