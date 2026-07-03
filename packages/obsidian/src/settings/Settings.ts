@@ -1,4 +1,5 @@
 import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
+import type { EcSettingsProps } from 'packages/ec-core/src/Config';
 
 export enum FrameType {
 	Code = 'code',
@@ -37,3 +38,6 @@ export const DEFAULT_SETTINGS: Settings = {
 	ecDefaultWrap: false,
 	ecDefaultFrame: FrameType.Auto,
 };
+
+// compile-time: enforces Settings stays structurally compatible with EcSettingsProps
+void (DEFAULT_SETTINGS satisfies EcSettingsProps);

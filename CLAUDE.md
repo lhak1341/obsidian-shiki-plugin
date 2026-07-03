@@ -18,7 +18,7 @@ Deploy to vault: `bun run deploy`
 
 ## Testing
 `tests/happydom.ts` polyfills Obsidian globals (`createDiv`, `sleep`, `HTMLElement.prototype.empty`); add new Obsidian module stubs to `tests/obsidianMock.ts`.
-`@codemirror/state` types are bun-testable without DOM; `@codemirror/view` (`EditorView`) requires integration tests — `Cm6_ViewPlugin`'s `buildDecorations`/`updateWidgets` fall in this category.
+`@codemirror/state` types are bun-testable without DOM; `EditorView` requires integration tests, but `Decoration.*` from `@codemirror/view` is HappyDOM-testable — see `Cm6_DecorationBuilder.test.ts`.
 
 ## Narrow host interfaces
 Modules take a narrow host interface (defined in the consuming file) instead of `ShikiPlugin`; `ShikiPlugin` satisfies them structurally via thin delegation methods in `main.ts`. Follow this pattern for new modules. Exception: `SettingsTab` extends Obsidian's `PluginSettingTab` whose constructor requires `(App, Plugin)` — it cannot be fully narrowed; it accesses `plugin.store` directly instead.
@@ -27,6 +27,6 @@ Modules take a narrow host interface (defined in the consuming file) instead of 
 `CodeHighlighter` (Highlighter.ts) is a lifecycle facade: owns custom theme/language loading, `ThemeMapper` construction, and `obsidianSafeLanguageNames()`. It delegates rendering to `EcRenderer` (EC/fenced blocks) and `ShikiRenderer` (Shiki/inline/CM6). The public API of `CodeHighlighter` is unchanged — `main.ts` and consumer narrow interfaces do not need to know about the split.
 
 ## ec-core constraint
-`ec-core/` cannot import from `packages/obsidian/` — it runs at Vite build time. `EcSettingsProps` in `Config.ts` is a parallel interface to `Settings` that must remain structurally compatible. TypeScript's structural typing enforces this at compile time, but it is not automatic — adding a new EC-level setting requires updating both `EcSettingsProps` and `Settings`.
+`ec-core/` cannot import from `packages/obsidian/` — it runs at Vite build time. `EcSettingsProps` in `Config.ts` is a parallel interface to `Settings`. `void (DEFAULT_SETTINGS satisfies EcSettingsProps)` in `Settings.ts` enforces compatibility at compile time — missing a field is a compile error. Apply `satisfies` to the declared variable, not the object literal (excess-property checking fires on literals).
 
 Architecture Explore reports may describe methods or fields removed in recent refactors — always verify against current files before implementing a suggestion.
