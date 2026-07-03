@@ -40,3 +40,5 @@ temp/
 
 # Tests — excluded from graph (no domain logic)
 tests/
+
+graphify-out/

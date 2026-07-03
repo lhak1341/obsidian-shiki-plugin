@@ -1,114 +1,115 @@
-# Graph Report - obsidian-shiki-plugin  (2026-07-03)
+# Graph Report - .  (2026-07-03)
 
 ## Corpus Check
-- 28 files · ~13,849 words
-- Verdict: corpus is large enough that graph structure adds value.
+- Corpus is ~13,849 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-- 242 nodes · 323 edges · 26 communities (15 shown, 11 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 200 nodes · 271 edges · 22 communities (9 shown, 13 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 14 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
-## Graph Freshness
-- Built from commit: `7189411e`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
-
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Community 0|Community 0]]
-- [[_COMMUNITY_Community 1|Community 1]]
-- [[_COMMUNITY_Community 2|Community 2]]
-- [[_COMMUNITY_Community 3|Community 3]]
-- [[_COMMUNITY_Community 4|Community 4]]
-- [[_COMMUNITY_Community 5|Community 5]]
-- [[_COMMUNITY_Community 6|Community 6]]
-- [[_COMMUNITY_Community 7|Community 7]]
-- [[_COMMUNITY_Community 8|Community 8]]
-- [[_COMMUNITY_Community 9|Community 9]]
-- [[_COMMUNITY_Community 10|Community 10]]
-- [[_COMMUNITY_Community 11|Community 11]]
-- [[_COMMUNITY_Community 12|Community 12]]
-- [[_COMMUNITY_Community 13|Community 13]]
-- [[_COMMUNITY_Community 14|Community 14]]
-- [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 16|Community 16]]
-- [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
-- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Plugin Entry & Init|Plugin Entry & Init]]
+- [[_COMMUNITY_Theme & Render Core|Theme & Render Core]]
+- [[_COMMUNITY_Plugin Settings Management|Plugin Settings Management]]
+- [[_COMMUNITY_Architecture & Integration Patterns|Architecture & Integration Patterns]]
+- [[_COMMUNITY_Config Models & Schemas|Config Models & Schemas]]
+- [[_COMMUNITY_Code Highlighter Core|Code Highlighter Core]]
+- [[_COMMUNITY_Code Block Life Cycle|Code Block Life Cycle]]
+- [[_COMMUNITY_Inline Code Block Renderer|Inline Code Block Renderer]]
+- [[_COMMUNITY_Shiki Tokenizer Core|Shiki Tokenizer Core]]
+- [[_COMMUNITY_CodeMirror 6 Custom Decorations|CodeMirror 6 Custom Decorations]]
+- [[_COMMUNITY_Prism Syntax Integration|Prism Syntax Integration]]
+- [[_COMMUNITY_Expressive Code Feature Demo|Expressive Code Feature Demo]]
+- [[_COMMUNITY_Obsidian Default Highlight Demo|Obsidian Default Highlight Demo]]
+- [[_COMMUNITY_Shiki Highlight Demo|Shiki Highlight Demo]]
+- [[_COMMUNITY_Obsidian API Extensions|Obsidian API Extensions]]
+- [[_COMMUNITY_Inline Code Patterns|Inline Code Patterns]]
+- [[_COMMUNITY_Highlightable Ranges|Highlightable Ranges]]
+- [[_COMMUNITY_Decoration Builders|Decoration Builders]]
+- [[_COMMUNITY_ESLint Utility Functions|ESLint Utility Functions]]
+- [[_COMMUNITY_Obsidian App Types|Obsidian App Types]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `ShikiPlugin` - 34 edges
-2. `CodeHighlighter` - 20 edges
-3. `ThemeMapper` - 13 edges
-4. `obsidian-shiki-plugin` - 10 edges
-5. `CodeBlock` - 9 edges
+1. `ShikiPlugin` - 32 edges
+2. `CodeHighlighter` - 15 edges
+3. `ShikiPlugin` - 10 edges
+4. `CodeBlock` - 9 edges
+5. `ThemeMapper` - 9 edges
 6. `ShikiRenderer` - 8 edges
 7. `InlineCodeBlock` - 8 edges
 8. `SettingsStore` - 8 edges
-9. `Shiki Highlighter` - 7 edges
-10. `Code Block Configuration` - 7 edges
+9. `CodeBlock` - 8 edges
+10. `CodeHighlighter` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `createEcEngineConfig()` --calls--> `getECTheme()`  [EXTRACTED]
-  packages/ec-core/src/Config.ts → packages/ec-core/src/ECTheme.ts
+- `Slides Presentation` --conceptually_related_to--> `CodeBlock`  [INFERRED]
+  exampleVault/Slides.md → packages/obsidian/src/CodeBlock.ts
+- `List Testing Note` --conceptually_related_to--> `CodeBlock`  [INFERRED]
+  exampleVault/List.md → packages/obsidian/src/CodeBlock.ts
+- `Vault Index Note` --conceptually_related_to--> `CodeBlock`  [INFERRED]
+  exampleVault/index.md → packages/obsidian/src/CodeBlock.ts
+- `Untitled Vault Note` --conceptually_related_to--> `CodeBlock`  [INFERRED]
+  exampleVault/Untitled.md → packages/obsidian/src/CodeBlock.ts
+- `Vault Index Note` --conceptually_related_to--> `InlineCodeBlock`  [INFERRED]
+  exampleVault/index.md → packages/obsidian/src/InlineCodeBlock.ts
 
-## Communities (26 total, 11 thin omitted)
+## Hyperedges (group relationships)
+- **Plugin Configuration Flow** — settings_settings, settings_default_settings, settingsstore_settingsstore, config_ecsettingsprops, config_createecengineconfig [INFERRED 0.85]
+- **Theme Resolution System** — obsidiantheme_obsidian_theme, thememapper_thememapper, thememapper_themecontext, constants_obsidian_theme_identifier [INFERRED 0.85]
+- **Narrow Host Interfaces Pattern** — cm6_viewplugin_cm6viewpluginhost, codeblock_codeblockhost, inlinecodeblock_inlinecodeblockhost, highlighter_highlighterhost [EXTRACTED 1.00]
+- **Obsidian Rendering Integration** — codeblock_codeblock, inlinecodeblock_inlinecodeblock, cm6_viewplugin_createcm6plugin [INFERRED 0.95]
+- **Expressive Code Rendering Features** — exampleimage_custom_title, exampleimage_line_numbers, exampleimage_line_highlighting, exampleimage_diff_highlighting [EXTRACTED 1.00]
 
-### Community 0 - "Community 0"
-Cohesion: 0.11
-Nodes (18): DEFAULT_SETTINGS, FrameType, Settings, ShikiSettingsTab, createEcEngineConfig(), CssVariableThemeBundle, EC_VIRTUAL_SETTINGS, EcConfigInput (+10 more)
+## Communities (22 total, 13 thin omitted)
 
-### Community 3 - "Community 3"
-Cohesion: 0.16
-Nodes (8): buildDecorationSet(), HighlightableRange, Cm6_Util, Cm6ViewPluginHost, DecorationUpdate, DecorationUpdateType, InsertDecoration, RemoveDecoration
+### Community 1 - "Theme & Render Core"
+Cohesion: 0.12
+Nodes (12): createEcEngineConfig(), EC_VIRTUAL_SETTINGS, EcConfigInput, encodeCssVarTheme(), EcRenderer, getECTheme(), CustomTheme, HighlighterHost (+4 more)
 
-### Community 4 - "Community 4"
+### Community 2 - "Plugin Settings Management"
+Cohesion: 0.12
+Nodes (7): DEFAULT_SETTINGS, FrameType, Settings, SettingsStore, ShikiSettingsTab, StringSelectModal, EcSettingsProps
+
+### Community 3 - "Architecture & Integration Patterns"
+Cohesion: 0.12
+Nodes (24): EC Core Constraint, Highlighter Structure, Narrow Host Interfaces Pattern, SettingsStore Management, Cm6ViewPluginHost, createCm6Plugin, CodeBlock, CodeBlockHost (+16 more)
+
+### Community 4 - "Config Models & Schemas"
 Cohesion: 0.13
-Nodes (15): Code Block Configuration, code:`md, code:block11, code:`md, code:block3, code:`md, code:block5, code:`md (+7 more)
+Nodes (16): createEcEngineConfig, EC_VIRTUAL_SETTINGS, EcConfigInput, EcSettingsProps, OBSIDIAN_THEME_IDENTIFIER, encodeCssVarTheme, getECTheme, OBSIDIAN_THEME (+8 more)
 
-### Community 5 - "Community 5"
-Cohesion: 0.14
-Nodes (13): API usage, code:ts (function test(): Promise<string | null> {), code:ts (async function AsyncTest(): Promise<string | null> {), code:ts (import { normalizePath } from 'obsidian';), code:ts (this.app.vault.getFiles().find(file => file.path === filePat), code:ts (// if you want to get a file), Coding style, Compatibility (+5 more)
+### Community 9 - "CodeMirror 6 Custom Decorations"
+Cohesion: 0.38
+Nodes (4): buildDecorationSet(), HighlightableRange, Cm6ViewPluginHost, createCm6Plugin()
 
-### Community 6 - "Community 6"
-Cohesion: 0.17
-Nodes (11): BRAT, code:md (Some inline code `{jsx} <button role="button" />`.), Comparison, Credits, Custom Themes, Inline Highlighting, Installation, License (+3 more)
+### Community 10 - "Prism Syntax Integration"
+Cohesion: 0.33
+Nodes (5): PrismBeforeAllElementsHighlightEnv, PrismFilterHighlightApi, PrismFilterHighlightCondition, PrismFilterHighlightEnv, PrismWithFilterHighlightAll
 
-### Community 7 - "Community 7"
-Cohesion: 0.18
-Nodes (10): ec-core constraint, ESLint, Highlighter structure, Known build warnings, Narrow host interfaces, obsidian-shiki-plugin, Package structure, Settings (+2 more)
-
-### Community 11 - "Community 11"
-Cohesion: 0.22
-Nodes (8): code:ts (export class Parser<const SType extends STypeBase> {), code:css (input:is([data-task="式"], [data-task="式"] > *):checked::afte), code:css (input:is([data-task="式"], [data-task="式"] > *):checked::afte), code:bash (echo "Hello"), code:diff (+ this line will be marked as inserted), code:custom-odin (package main), code:cpp (#include <foo>), code:SQL (SELECT)
-
-### Community 13 - "Community 13"
-Cohesion: 0.29
-Nodes (6): filterHighlightAllPlugin(), PrismBeforeAllElementsHighlightEnv, PrismFilterHighlightApi, PrismFilterHighlightCondition, PrismFilterHighlightEnv, PrismWithFilterHighlightAll
-
-### Community 16 - "Community 16"
-Cohesion: 0.5
-Nodes (3): code:block1 (- list), code:c (int a = 0;), code:block3 (- nested list)
+### Community 11 - "Expressive Code Feature Demo"
+Cohesion: 0.4
+Nodes (6): CSS Custom Task List Icons, Custom Code Block Title, Diff Highlighting, Line Highlighting, Line Numbering, Expressive Code Feature Demonstration Screenshot
 
 ## Knowledge Gaps
-- **69 isolated node(s):** `LANGUAGE_SPECIAL`, `CodeBlockHost`, `PrismFilterHighlightEnv`, `PrismFilterHighlightCondition`, `PrismFilterHighlightApi` (+64 more)
+- **38 isolated node(s):** `LANGUAGE_SPECIAL`, `CodeBlockHost`, `PrismFilterHighlightEnv`, `PrismFilterHighlightCondition`, `PrismFilterHighlightApi` (+33 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ShikiPlugin` connect `Community 1` to `Community 0`?**
-  _High betweenness centrality (0.159) - this node is a cross-community bridge._
-- **Why does `CodeHighlighter` connect `Community 2` to `Community 0`?**
-  _High betweenness centrality (0.092) - this node is a cross-community bridge._
-- **Why does `ThemeMapper` connect `Community 9` to `Community 0`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
+- **Why does `ShikiPlugin` connect `Plugin Entry & Init` to `Plugin Settings Management`?**
+  _High betweenness centrality (0.185) - this node is a cross-community bridge._
+- **Why does `CodeHighlighter` connect `Code Highlighter Core` to `Theme & Render Core`, `Plugin Settings Management`?**
+  _High betweenness centrality (0.086) - this node is a cross-community bridge._
+- **Why does `CodeBlock` connect `Code Block Life Cycle` to `Plugin Settings Management`?**
+  _High betweenness centrality (0.047) - this node is a cross-community bridge._
 - **What connects `LANGUAGE_SPECIAL`, `CodeBlockHost`, `PrismFilterHighlightEnv` to the rest of the system?**
-  _69 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.11 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.06 - nodes in this community are weakly interconnected._
-- **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
+  _38 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Plugin Entry & Init` be split into smaller, more focused modules?**
+  _Cohesion score 0.07 - nodes in this community are weakly interconnected._
+- **Should `Theme & Render Core` be split into smaller, more focused modules?**
+  _Cohesion score 0.12 - nodes in this community are weakly interconnected._
+- **Should `Plugin Settings Management` be split into smaller, more focused modules?**
+  _Cohesion score 0.12 - nodes in this community are weakly interconnected._
