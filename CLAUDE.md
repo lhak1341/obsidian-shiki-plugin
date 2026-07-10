@@ -20,6 +20,8 @@ Deploy to vault: `bun run deploy`
 
 `SettingsStore` (settings/SettingsStore.ts) owns both layers: `_persisted` (written to disk) and `_snapshot` (engine's active view, flushed on reload). Use `store.set(key, value)` for reload-required settings and `store.setLive(key, value)` for live-effect settings (writes both layers immediately). `CodeHighlighter.reload()` internalizes the flush invariant: it calls `host.refreshSettings()` (which delegates to `store.flush()`) between `unload()` and `load()` — callers of `reload()` cannot forget the flush. Do not access `plugin.settings` or `plugin.loadedSettings` directly — they no longer exist.
 
+`SettingsTab` groups get padding only when wrapped: `containerEl.createDiv('setting-group').createDiv('setting-items')`, then pass that inner div (not `containerEl`) to `new Setting(...)`. Headings (`.setHeading()`) stay on `containerEl` directly, outside the wrapper.
+
 ## Testing
 
 `tests/happydom.ts` polyfills Obsidian globals (`createDiv`, `sleep`, `HTMLElement.prototype.empty`); add new Obsidian module stubs to `tests/obsidianMock.ts`.

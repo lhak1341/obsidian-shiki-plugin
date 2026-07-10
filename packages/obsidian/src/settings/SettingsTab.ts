@@ -25,7 +25,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			...builtInThemes,
 		};
 
-		new Setting(this.containerEl).setName('Most changes require a reload of the highlighter').addButton(button => {
+		const generalItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
+
+		new Setting(generalItems).setName('Most changes require a reload of the highlighter').addButton(button => {
 			button
 				.setCta()
 				.setButtonText('Reload highlighter')
@@ -36,7 +38,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				});
 		});
 
-		new Setting(this.containerEl)
+		new Setting(generalItems)
 			.setName('Inline syntax highlighting')
 			.setDesc('Enables syntax highlighting for inline code blocks via `{lang} code`. Takes effect immediately.')
 			.addToggle(toggle => {
@@ -46,8 +48,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			});
 
 		new Setting(this.containerEl).setName('EC defaults').setHeading();
+		const ecDefaultsItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
 
-		new Setting(this.containerEl)
+		new Setting(ecDefaultsItems)
 			.setName('Show line numbers')
 			.setDesc('Controls whether line numbers are shown by default.')
 			.addToggle(toggle => {
@@ -56,7 +59,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				});
 			});
 
-		new Setting(this.containerEl)
+		new Setting(ecDefaultsItems)
 			.setName('Wrap')
 			.setDesc('Controls whether code block lines wrap by default.')
 			.addToggle(toggle => {
@@ -65,7 +68,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				});
 			});
 
-		new Setting(this.containerEl)
+		new Setting(ecDefaultsItems)
 			.setName('Frame')
 			.setDesc('Controls the default frame type for code blocks.')
 			.addDropdown(dropdown => {
@@ -81,8 +84,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			});
 
 		new Setting(this.containerEl).setName('Theme').setHeading();
+		const themeItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
 
-		new Setting(this.containerEl)
+		new Setting(themeItems)
 			.setName('Dark theme')
 			.setDesc("The theme for code blocks when Obsidian's base color scheme is dark.")
 			.addDropdown(dropdown => {
@@ -92,7 +96,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				});
 			});
 
-		new Setting(this.containerEl)
+		new Setting(themeItems)
 			.setName('Light theme')
 			.setDesc("The theme for code blocks when Obsidian's base color scheme is light.")
 			.addDropdown(dropdown => {
@@ -102,7 +106,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				});
 			});
 
-		const customThemeFolderSetting = new Setting(this.containerEl)
+		const customThemeFolderSetting = new Setting(themeItems)
 			.setName('Custom themes folder location')
 			.setDesc('Folder relative to your vault where custom JSON theme files are located.')
 			.addText(textbox => {
@@ -112,7 +116,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				textbox.inputEl.addClass('shiki-custom-theme-folder');
 			});
 
-		new Setting(this.containerEl)
+		new Setting(themeItems)
 			.setName('Prefer theme colors')
 			.setDesc('When enabled the plugin will prefer theme colors over CSS variables for things like the code block background.')
 			.addToggle(toggle => {
@@ -122,8 +126,9 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			});
 
 		new Setting(this.containerEl).setHeading().setName('Languages');
+		const languageItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
 
-		const customLanguageFolderSetting = new Setting(this.containerEl)
+		const customLanguageFolderSetting = new Setting(languageItems)
 			.setName('Custom languages folder location')
 			.setDesc('Folder relative to your vault where custom JSON language files are located.')
 			.addText(textbox => {
@@ -133,7 +138,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 				textbox.inputEl.addClass('shiki-custom-language-folder');
 			});
 
-		new Setting(this.containerEl)
+		new Setting(languageItems)
 			.setName('Excluded languages')
 			.setDesc('Configure language to exclude.')
 			.addButton(button => {
@@ -147,7 +152,7 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			});
 
 		for (const language of this.plugin.store.persisted.disabledLanguages) {
-			new Setting(this.containerEl).setName(language).addButton(button => {
+			new Setting(languageItems).setName(language).addButton(button => {
 				button
 					.setIcon('trash')
 					.setWarning()

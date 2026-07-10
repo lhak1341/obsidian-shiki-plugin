@@ -1,126 +1,126 @@
 {
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/eslint.config.mjs": {
-		"mtime": 1782745799.0193293,
-		"hash": "b2b3251b098af8c10a8a847b7bc0160d"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/ShikiRenderer.ts": {
-		"mtime": 1783076764.2391942,
-		"hash": "ebad52fb40cde42ac64090d4f70dccb0"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/main.ts": {
-		"mtime": 1783076869.1980207,
-		"hash": "f12faf80a032a0fdcc1d76b560beef8a"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/CodeBlock.ts": {
-		"mtime": 1783076837.4894133,
-		"hash": "29366aa7584b66bcbe8f7b656295dd27"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/PrismPlugin.ts": {
-		"mtime": 1782320018.1603436,
-		"hash": "8c17b4b30bcdf3db9922ec3588a69e69"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/EcRenderer.ts": {
-		"mtime": 1783059514.4366884,
-		"hash": "659ef91493bdad4498c23257c5ad21a5"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/Highlighter.ts": {
-		"mtime": 1783076851.419636,
-		"hash": "c1f61df733a6042853d7e7807c0514fe"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/InlineCodeBlock.ts": {
-		"mtime": 1783076843.11141,
-		"hash": "15e63c0d94e30aecc89f45dbee6d20ef"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/constants.ts": {
-		"mtime": 1783039874.595059,
-		"hash": "528768daacbd5071a4ff5ba4ec153a80"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/vite-virtual-modules.d.ts": {
-		"mtime": 1782320018.1618035,
-		"hash": "53eb222d94973a82e2977cdea7056a64"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/obsidian-ex.d.ts": {
-		"mtime": 1782320018.1609862,
-		"hash": "41fa74d658a69697343c06b16efdd962"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/SettingsStore.ts": {
-		"mtime": 1783039177.8863878,
-		"hash": "c4cc9c4e353d94444f85bb6f392331f7"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/StringSelectModal.ts": {
-		"mtime": 1783038441.5630035,
-		"hash": "db2d3009748cf640fa793724c0cfee96"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/Settings.ts": {
-		"mtime": 1783076675.3446567,
-		"hash": "ed1f29afff8cd4c20840c72489de344d"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/SettingsTab.ts": {
-		"mtime": 1783076683.919057,
-		"hash": "da5efece2e105400a059de7cab2ba428"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts": {
-		"mtime": 1783058067.1877065,
-		"hash": "31d0b52cf2fd56a6f1ae35387d933d2b"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts": {
-		"mtime": 1783076774.8598506,
-		"hash": "c74e4de4b2b3693a658754cc9b479fa0"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/themes/ThemeMapper.ts": {
-		"mtime": 1783076691.5033877,
-		"hash": "268249a4a727e4deec585043a8829e30"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/ECTheme.ts": {
-		"mtime": 1782320018.1594195,
-		"hash": "23b4a4d8cc39ae0301a5f024566343cb"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/ObsidianTheme.ts": {
-		"mtime": 1782320018.1595771,
-		"hash": "5b328ed6e2ef4ebfc8f0c51368357a9c"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/Config.ts": {
-		"mtime": 1783076670.2074378,
-		"hash": "32922261e56b8f2cf30ce06f3d1ca573"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/CssVarThemeAdapter.ts": {
-		"mtime": 1782999786.2577055,
-		"hash": "2f61d66868076c64a9d4477589daa9d2"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/README.md": {
-		"mtime": 1782320018.155393,
-		"hash": "bef9b569fc589a0ae805616600dc73f7"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/CLAUDE.md": {
-		"mtime": 1783072785.416289,
-		"hash": "4a589744106b40f25e99c800c1b7e438"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/Slides.md": {
-		"mtime": 1782320018.1576889,
-		"hash": "7200089a8918242fc2072974836d00ae"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/Untitled.md": {
-		"mtime": 1782320018.1578085,
-		"hash": "6abbda9bad520e297312795730de1c3e"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/List.md": {
-		"mtime": 1782320018.1575706,
-		"hash": "b7b96b32ecbebd80da5d0fc5800be122"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/index.md": {
-		"mtime": 1782320018.1585083,
-		"hash": "e4ae63f4d25312680e02fe9a01bfad36"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImage.png": {
-		"mtime": 1782320018.1565306,
-		"hash": "275afa9e8fb300407fc8daa7d5e291b7"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImageObsidian.png": {
-		"mtime": 1782320018.1569698,
-		"hash": "ebfb34a8d690b5e97a2ad9f9b4f263fe"
-	},
-	"/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImagePlain.png": {
-		"mtime": 1782320018.1573315,
-		"hash": "95350489bc12740abff967ed44a49022"
-	}
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/eslint.config.mjs": {
+    "mtime": 1782745799.0193293,
+    "hash": "b2b3251b098af8c10a8a847b7bc0160d"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/ShikiRenderer.ts": {
+    "mtime": 1783089671.0613525,
+    "hash": "7206c9b9aab5e101b4e6960b551ee780"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/main.ts": {
+    "mtime": 1783089671.0217915,
+    "hash": "e418c71c564c803626a8099cbee2894d"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/CodeBlock.ts": {
+    "mtime": 1783089670.9689002,
+    "hash": "2ebf68f39a24d5aea3286d87a79221c4"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/PrismPlugin.ts": {
+    "mtime": 1782320018.1603436,
+    "hash": "8c17b4b30bcdf3db9922ec3588a69e69"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/EcRenderer.ts": {
+    "mtime": 1783059514.4366884,
+    "hash": "659ef91493bdad4498c23257c5ad21a5"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/Highlighter.ts": {
+    "mtime": 1783089743.156363,
+    "hash": "a64268656d2566639097c832b6c0eecd"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/InlineCodeBlock.ts": {
+    "mtime": 1783089671.0094805,
+    "hash": "4f054055a8aacf8b57fcb8177dd32538"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/constants.ts": {
+    "mtime": 1783039874.595059,
+    "hash": "528768daacbd5071a4ff5ba4ec153a80"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/vite-virtual-modules.d.ts": {
+    "mtime": 1782320018.1618035,
+    "hash": "53eb222d94973a82e2977cdea7056a64"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/obsidian-ex.d.ts": {
+    "mtime": 1782320018.1609862,
+    "hash": "41fa74d658a69697343c06b16efdd962"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/SettingsStore.ts": {
+    "mtime": 1783039177.8863878,
+    "hash": "c4cc9c4e353d94444f85bb6f392331f7"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/StringSelectModal.ts": {
+    "mtime": 1783089763.2996593,
+    "hash": "69fa983330cc2a2560f6fdd5683e8bf1"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/Settings.ts": {
+    "mtime": 1783076675.3446567,
+    "hash": "ed1f29afff8cd4c20840c72489de344d"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/SettingsTab.ts": {
+    "mtime": 1783713971.7739315,
+    "hash": "f4b8363b7a60191c8f755bda67688658"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts": {
+    "mtime": 1783058067.1877065,
+    "hash": "31d0b52cf2fd56a6f1ae35387d933d2b"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts": {
+    "mtime": 1783089814.0733607,
+    "hash": "2d919339004018e98b7da0031ed5cf3a"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/themes/ThemeMapper.ts": {
+    "mtime": 1783076691.5033877,
+    "hash": "268249a4a727e4deec585043a8829e30"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/ECTheme.ts": {
+    "mtime": 1782320018.1594195,
+    "hash": "23b4a4d8cc39ae0301a5f024566343cb"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/ObsidianTheme.ts": {
+    "mtime": 1782320018.1595771,
+    "hash": "5b328ed6e2ef4ebfc8f0c51368357a9c"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/Config.ts": {
+    "mtime": 1783076670.2074378,
+    "hash": "32922261e56b8f2cf30ce06f3d1ca573"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/CssVarThemeAdapter.ts": {
+    "mtime": 1782999786.2577055,
+    "hash": "2f61d66868076c64a9d4477589daa9d2"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/README.md": {
+    "mtime": 1782320018.155393,
+    "hash": "bef9b569fc589a0ae805616600dc73f7"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/CLAUDE.md": {
+    "mtime": 1783714336.7180874,
+    "hash": "9d1913a6e090c5d07f961646857388d7"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/Slides.md": {
+    "mtime": 1782320018.1576889,
+    "hash": "7200089a8918242fc2072974836d00ae"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/Untitled.md": {
+    "mtime": 1782320018.1578085,
+    "hash": "6abbda9bad520e297312795730de1c3e"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/List.md": {
+    "mtime": 1782320018.1575706,
+    "hash": "b7b96b32ecbebd80da5d0fc5800be122"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/index.md": {
+    "mtime": 1782320018.1585083,
+    "hash": "e4ae63f4d25312680e02fe9a01bfad36"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImage.png": {
+    "mtime": 1782320018.1565306,
+    "hash": "275afa9e8fb300407fc8daa7d5e291b7"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImageObsidian.png": {
+    "mtime": 1782320018.1569698,
+    "hash": "ebfb34a8d690b5e97a2ad9f9b4f263fe"
+  },
+  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImagePlain.png": {
+    "mtime": 1782320018.1573315,
+    "hash": "95350489bc12740abff967ed44a49022"
+  }
 }
