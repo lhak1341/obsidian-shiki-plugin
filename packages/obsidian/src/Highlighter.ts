@@ -90,7 +90,7 @@ export class CodeHighlighter {
 		return listing.files.filter(f => f.toLowerCase().endsWith('.json'));
 	}
 
-	async loadCustomLanguages(): Promise<void> {
+	private async loadCustomLanguages(): Promise<void> {
 		this.customLanguages = [];
 
 		if (!this.host.customLanguageFolder) return;
@@ -113,7 +113,7 @@ export class CodeHighlighter {
 		}
 	}
 
-	async loadCustomThemes(): Promise<void> {
+	private async loadCustomThemes(): Promise<void> {
 		this.customThemes = [];
 
 		// custom themes are disabled unless users specify a folder for them in plugin settings

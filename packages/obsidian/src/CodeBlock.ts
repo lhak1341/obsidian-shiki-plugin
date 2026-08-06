@@ -53,6 +53,15 @@ export class CodeBlock extends MarkdownRenderChild {
 		return match !== null ? match[2] : '';
 	}
 
+	private async retryMetaString(retries: number): Promise<string | null> {
+		for (let i = 0; i < retries; i++) {
+			await sleep(100);
+			const meta = this.getMetaString();
+			if (meta !== null) return meta;
+		}
+		return null;
+	}
+
 	// Renders into a temp element and only applies to containerEl if this is still
 	// the most recently started render (generation check) and this component
 	// instance has not been unloaded (guards against CSS-reload teardown races).
@@ -77,8 +86,7 @@ export class CodeBlock extends MarkdownRenderChild {
 		if (newMetaString === null) {
 			// Section info transiently unavailable (e.g. view is re-rendering).
 			// One retry is enough: by the time the await resolves the view is stable.
-			await sleep(100);
-			newMetaString = this.getMetaString();
+			newMetaString = await this.retryMetaString(1);
 			if (newMetaString === null) return;
 		}
 		if (newMetaString !== this.cachedMetaString) {
@@ -108,14 +116,8 @@ export class CodeBlock extends MarkdownRenderChild {
 			// Mirrors the sleep(100) pattern used in the vault modify handler in main.ts.
 			// Retry up to 5× (500 ms total) before falling back to cachedMetaString.
 			void (async (): Promise<void> => {
-				for (let i = 0; i < 5; i++) {
-					await sleep(100);
-					const deferred = this.getMetaString();
-					if (deferred !== null) {
-						this.cachedMetaString = deferred;
-						break;
-					}
-				}
+				const deferred = await this.retryMetaString(5);
+				if (deferred !== null) this.cachedMetaString = deferred;
 				void this.render(this.cachedMetaString);
 			})();
 		}

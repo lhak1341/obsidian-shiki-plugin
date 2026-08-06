@@ -1,8 +1,15 @@
 # obsidian-shiki-plugin
 
 Fork of mProjectsCode/obsidian-shiki-plugin. Upstream remote: https://github.com/mProjectsCode/obsidian-shiki-plugin.git
-Sync upstream: `git fetch upstream && git merge upstream/master`
 Deploy to vault: `bun run deploy`
+
+## Upstream sync
+
+Fork has diverged too much (narrow host interfaces, SettingsStore, ec-core split) for clean `git merge upstream/master` — manually port relevant fixes instead: `git fetch upstream && git log HEAD..upstream/master --oneline`, review each commit, port real fixes by hand, skip noise (version bumps, canary tags).
+
+Last upstream commit reviewed: `4bd464e` (2026-08-02, "bump version to 0.7.7-canary.20260802T134945").
+- `317babc` "maybe a fix for #89" (IME composition dispatch bug) — ported manually into `Cm6_ViewPlugin.ts` (not merged, structure diverged).
+- `4bd464e` version bump — skipped, not applicable to fork.
 
 ## ESLint
 
@@ -26,10 +33,14 @@ Deploy to vault: `bun run deploy`
 
 `tests/happydom.ts` polyfills Obsidian globals (`createDiv`, `sleep`, `HTMLElement.prototype.empty`); add new Obsidian module stubs to `tests/obsidianMock.ts`.
 `@codemirror/state` types are bun-testable without DOM; `EditorView` requires integration tests, but `Decoration.*` from `@codemirror/view` is HappyDOM-testable — see `Cm6_DecorationBuilder.test.ts`.
+Obsidian's HyperMD markdown parser (produces `HyperMD-codeblock-*` node types) is bundled in the app, not an installable package — code that walks `syntaxTree()` can't be unit-tested against a real parsed tree. Shape such logic to consume pre-walked plain-data entries instead, keeping only the walk itself (untestable, mechanical) separate from the classification logic (testable) — see `Cm6_RangeParser.ts`.
+When testing against shiki's bundled themes, pick a theme name dynamically (`Object.keys(bundledThemes)[0]`) rather than hardcoding one — a hardcoded name breaks silently if a future shiki upgrade renames/removes it — see `ThemeMapper.test.ts`.
 
 ## Narrow host interfaces
 
 Modules take a narrow host interface (defined in the consuming file) instead of `ShikiPlugin`; `ShikiPlugin` satisfies them structurally via thin delegation methods in `main.ts`. Follow this pattern for new modules. Exception: `SettingsTab` extends Obsidian's `PluginSettingTab` whose constructor requires `(App, Plugin)` — it cannot be fully narrowed; it accesses `plugin.store` directly instead. `HighlighterHost` settings fields are opt-in — adding a field to `Settings` does not expose it to `CodeHighlighter`; you must explicitly add it to `HighlighterHost` (Highlighter.ts) and satisfy it in `main.ts`.
+
+This is structural, not just stylistic: `main.ts` already imports `CodeBlock.ts`/`InlineCodeBlock.ts`/`Cm6_ViewPlugin.ts`/`Highlighter.ts` — those modules importing `ShikiPlugin`'s type back to skip the narrow interface would create a circular import.
 
 ## Highlighter structure
 

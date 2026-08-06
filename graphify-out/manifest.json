@@ -1,126 +1,242 @@
 {
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/eslint.config.mjs": {
+  "eslint.config.mjs": {
     "mtime": 1782745799.0193293,
-    "hash": "b2b3251b098af8c10a8a847b7bc0160d"
+    "ast_hash": "b2b3251b098af8c10a8a847b7bc0160d",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/ShikiRenderer.ts": {
+  "packages/obsidian/src/ShikiRenderer.ts": {
     "mtime": 1783089671.0613525,
-    "hash": "7206c9b9aab5e101b4e6960b551ee780"
+    "ast_hash": "7206c9b9aab5e101b4e6960b551ee780",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/main.ts": {
+  "packages/obsidian/src/main.ts": {
     "mtime": 1783089671.0217915,
-    "hash": "e418c71c564c803626a8099cbee2894d"
+    "ast_hash": "e418c71c564c803626a8099cbee2894d",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/CodeBlock.ts": {
-    "mtime": 1783089670.9689002,
-    "hash": "2ebf68f39a24d5aea3286d87a79221c4"
+  "packages/obsidian/src/CodeBlock.ts": {
+    "mtime": 1786029468.35514,
+    "ast_hash": "502c9f6d51801e940ae84afec4d7565c",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/PrismPlugin.ts": {
+  "packages/obsidian/src/PrismPlugin.ts": {
     "mtime": 1782320018.1603436,
-    "hash": "8c17b4b30bcdf3db9922ec3588a69e69"
+    "ast_hash": "8c17b4b30bcdf3db9922ec3588a69e69",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/EcRenderer.ts": {
+  "packages/obsidian/src/EcRenderer.ts": {
     "mtime": 1783059514.4366884,
-    "hash": "659ef91493bdad4498c23257c5ad21a5"
+    "ast_hash": "659ef91493bdad4498c23257c5ad21a5",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/Highlighter.ts": {
-    "mtime": 1783089743.156363,
-    "hash": "a64268656d2566639097c832b6c0eecd"
+  "packages/obsidian/src/Highlighter.ts": {
+    "mtime": 1786029151.1706316,
+    "ast_hash": "176435a0dc7c921dc493857b00a1a96a",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/InlineCodeBlock.ts": {
+  "packages/obsidian/src/InlineCodeBlock.ts": {
     "mtime": 1783089671.0094805,
-    "hash": "4f054055a8aacf8b57fcb8177dd32538"
+    "ast_hash": "4f054055a8aacf8b57fcb8177dd32538",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/constants.ts": {
+  "packages/obsidian/src/constants.ts": {
     "mtime": 1783039874.595059,
-    "hash": "528768daacbd5071a4ff5ba4ec153a80"
+    "ast_hash": "528768daacbd5071a4ff5ba4ec153a80",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/vite-virtual-modules.d.ts": {
+  "packages/obsidian/src/vite-virtual-modules.d.ts": {
     "mtime": 1782320018.1618035,
-    "hash": "53eb222d94973a82e2977cdea7056a64"
+    "ast_hash": "53eb222d94973a82e2977cdea7056a64",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/obsidian-ex.d.ts": {
+  "packages/obsidian/src/obsidian-ex.d.ts": {
     "mtime": 1782320018.1609862,
-    "hash": "41fa74d658a69697343c06b16efdd962"
+    "ast_hash": "41fa74d658a69697343c06b16efdd962",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/SettingsStore.ts": {
+  "packages/obsidian/src/settings/SettingsStore.ts": {
     "mtime": 1783039177.8863878,
-    "hash": "c4cc9c4e353d94444f85bb6f392331f7"
+    "ast_hash": "c4cc9c4e353d94444f85bb6f392331f7",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/StringSelectModal.ts": {
+  "packages/obsidian/src/settings/StringSelectModal.ts": {
     "mtime": 1783089763.2996593,
-    "hash": "69fa983330cc2a2560f6fdd5683e8bf1"
+    "ast_hash": "69fa983330cc2a2560f6fdd5683e8bf1",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/Settings.ts": {
+  "packages/obsidian/src/settings/Settings.ts": {
     "mtime": 1783076675.3446567,
-    "hash": "ed1f29afff8cd4c20840c72489de344d"
+    "ast_hash": "ed1f29afff8cd4c20840c72489de344d",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/settings/SettingsTab.ts": {
+  "packages/obsidian/src/settings/SettingsTab.ts": {
     "mtime": 1783713971.7739315,
-    "hash": "f4b8363b7a60191c8f755bda67688658"
+    "ast_hash": "f4b8363b7a60191c8f755bda67688658",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts": {
+  "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts": {
     "mtime": 1783058067.1877065,
-    "hash": "31d0b52cf2fd56a6f1ae35387d933d2b"
+    "ast_hash": "31d0b52cf2fd56a6f1ae35387d933d2b",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts": {
-    "mtime": 1783089814.0733607,
-    "hash": "2d919339004018e98b7da0031ed5cf3a"
+  "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts": {
+    "mtime": 1786028490.0834615,
+    "ast_hash": "e26925690411f76e0f5032159e3b3032",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/obsidian/src/themes/ThemeMapper.ts": {
+  "packages/obsidian/src/themes/ThemeMapper.ts": {
     "mtime": 1783076691.5033877,
-    "hash": "268249a4a727e4deec585043a8829e30"
+    "ast_hash": "268249a4a727e4deec585043a8829e30",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/ECTheme.ts": {
+  "packages/ec-core/src/ECTheme.ts": {
     "mtime": 1782320018.1594195,
-    "hash": "23b4a4d8cc39ae0301a5f024566343cb"
+    "ast_hash": "23b4a4d8cc39ae0301a5f024566343cb",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/ObsidianTheme.ts": {
+  "packages/ec-core/src/ObsidianTheme.ts": {
     "mtime": 1782320018.1595771,
-    "hash": "5b328ed6e2ef4ebfc8f0c51368357a9c"
+    "ast_hash": "5b328ed6e2ef4ebfc8f0c51368357a9c",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/Config.ts": {
+  "packages/ec-core/src/Config.ts": {
     "mtime": 1783076670.2074378,
-    "hash": "32922261e56b8f2cf30ce06f3d1ca573"
+    "ast_hash": "32922261e56b8f2cf30ce06f3d1ca573",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/packages/ec-core/src/CssVarThemeAdapter.ts": {
+  "packages/ec-core/src/CssVarThemeAdapter.ts": {
     "mtime": 1782999786.2577055,
-    "hash": "2f61d66868076c64a9d4477589daa9d2"
+    "ast_hash": "2f61d66868076c64a9d4477589daa9d2",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/README.md": {
+  "README.md": {
     "mtime": 1782320018.155393,
-    "hash": "bef9b569fc589a0ae805616600dc73f7"
+    "ast_hash": "bef9b569fc589a0ae805616600dc73f7",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/CLAUDE.md": {
-    "mtime": 1783714336.7180874,
-    "hash": "9d1913a6e090c5d07f961646857388d7"
+  "CLAUDE.md": {
+    "mtime": 1786031237.856078,
+    "ast_hash": "1ba2c96a858ce8c081d046b6d08c5cc4",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/Slides.md": {
+  "exampleVault/Slides.md": {
     "mtime": 1782320018.1576889,
-    "hash": "7200089a8918242fc2072974836d00ae"
+    "ast_hash": "7200089a8918242fc2072974836d00ae",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/Untitled.md": {
+  "exampleVault/Untitled.md": {
     "mtime": 1782320018.1578085,
-    "hash": "6abbda9bad520e297312795730de1c3e"
+    "ast_hash": "6abbda9bad520e297312795730de1c3e",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/List.md": {
+  "exampleVault/List.md": {
     "mtime": 1782320018.1575706,
-    "hash": "b7b96b32ecbebd80da5d0fc5800be122"
+    "ast_hash": "b7b96b32ecbebd80da5d0fc5800be122",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleVault/index.md": {
+  "exampleVault/index.md": {
     "mtime": 1782320018.1585083,
-    "hash": "e4ae63f4d25312680e02fe9a01bfad36"
+    "ast_hash": "e4ae63f4d25312680e02fe9a01bfad36",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImage.png": {
+  "exampleImage.png": {
     "mtime": 1782320018.1565306,
-    "hash": "275afa9e8fb300407fc8daa7d5e291b7"
+    "ast_hash": "275afa9e8fb300407fc8daa7d5e291b7",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImageObsidian.png": {
+  "exampleImageObsidian.png": {
     "mtime": 1782320018.1569698,
-    "hash": "ebfb34a8d690b5e97a2ad9f9b4f263fe"
+    "ast_hash": "ebfb34a8d690b5e97a2ad9f9b4f263fe",
+    "semantic_hash": ""
   },
-  "/Users/lhak/workspace/github.com/lhak1341/obsidian-shiki-plugin/exampleImagePlain.png": {
+  "exampleImagePlain.png": {
     "mtime": 1782320018.1573315,
-    "hash": "95350489bc12740abff967ed44a49022"
+    "ast_hash": "95350489bc12740abff967ed44a49022",
+    "semantic_hash": ""
+  },
+  ".prettierrc.json": {
+    "mtime": 1782320018.1551585,
+    "ast_hash": "e3d4b063740506f47f92ae3ee03869c5",
+    "semantic_hash": ""
+  },
+  "exampleVault/customLanguages/odin.json": {
+    "mtime": 1782320018.1580315,
+    "ast_hash": "c87831de876dd9475f91c9aec6b3a254",
+    "semantic_hash": ""
+  },
+  "exampleVault/customThemes/OneMonokai-color-theme.json": {
+    "mtime": 1782320018.1583853,
+    "ast_hash": "db461066acfa9d64d06a4d1d70b7f334",
+    "semantic_hash": ""
+  },
+  "manifest-beta.json": {
+    "mtime": 1782320018.1586556,
+    "ast_hash": "e331aef57304916283f6f36a70192723",
+    "semantic_hash": ""
+  },
+  "manifest.json": {
+    "mtime": 1782320018.1587615,
+    "ast_hash": "e331aef57304916283f6f36a70192723",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1783089652.8523998,
+    "ast_hash": "e5d2cc40bd5d741aa7426edba79ee79d",
+    "semantic_hash": ""
+  },
+  "packages/obsidian/src/codemirror/Cm6_RangeParser.ts": {
+    "mtime": 1786028426.3709364,
+    "ast_hash": "a0945143115a8f9cfea8a966b7b7f095",
+    "semantic_hash": ""
+  },
+  "repo-automation.config.json": {
+    "mtime": 1782320018.1619112,
+    "ast_hash": "ba702ad369371a45868c237e4c360383",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1782320018.1624637,
+    "ast_hash": "675f63685fdc5ea330fe54ddf3d7f218",
+    "semantic_hash": ""
+  },
+  "versions.json": {
+    "mtime": 1782320018.1625657,
+    "ast_hash": "95e2ad4565d5b95d03a471489da2dc8e",
+    "semantic_hash": ""
+  },
+  "vite.config.mts": {
+    "mtime": 1782999825.1998892,
+    "ast_hash": "c3a54ddab4001e17fdbbd2d51da1d52a",
+    "semantic_hash": ""
+  },
+  ".github/FUNDING.yml": {
+    "mtime": 1782320018.1539056,
+    "ast_hash": "014368b22996ce2ed3444dae230f1c2d",
+    "semantic_hash": ""
+  },
+  ".github/ISSUE_TEMPLATE/bug_report.md": {
+    "mtime": 1782320018.154122,
+    "ast_hash": "0f2d8d944787f7b33e78ed12b4dda387",
+    "semantic_hash": ""
+  },
+  ".github/ISSUE_TEMPLATE/feature_request.md": {
+    "mtime": 1782320018.1542444,
+    "ast_hash": "e891012c53412a82b0ac53d5e9bb8a79",
+    "semantic_hash": ""
+  },
+  ".github/workflows/checkPR.yml": {
+    "mtime": 1782320018.1544292,
+    "ast_hash": "a3d56c8b6d7d0d3bc97c6fe9c7844976",
+    "semantic_hash": ""
+  },
+  ".github/workflows/closeIssue.yml": {
+    "mtime": 1782320018.1545553,
+    "ast_hash": "c2db1f4da9a275014c7c5ceb8201afdc",
+    "semantic_hash": ""
+  },
+  ".github/workflows/release.yml": {
+    "mtime": 1782320018.1546926,
+    "ast_hash": "b784e51f206ad6930b024e0a574779b3",
+    "semantic_hash": ""
   }
 }
