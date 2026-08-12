@@ -1,53 +1,88 @@
 # obsidian-shiki-plugin
 
-Fork of mProjectsCode/obsidian-shiki-plugin. Upstream remote: https://github.com/mProjectsCode/obsidian-shiki-plugin.git
-Deploy to vault: `bun run deploy`
+Fork of `mProjectsCode/obsidian-shiki-plugin`. Upstream remote:
+https://github.com/mProjectsCode/obsidian-shiki-plugin.git
 
-## Upstream sync
+House conventions for Obsidian plugin repos live in the `obsidian-plugin-dev` skill —
+including upstream-sync procedure, obsidianmd registration, and settings-tab structure.
+Only repo-specific facts are below.
 
-Fork has diverged too much (narrow host interfaces, SettingsStore, ec-core split) for clean `git merge upstream/master` — manually port relevant fixes instead: `git fetch upstream && git log HEAD..upstream/master --oneline`, review each commit, port real fixes by hand, skip noise (version bumps, canary tags).
+Has `graphify-out/`. Bundler is **vite**, not esbuild. Test runner is bun's native one.
+Deploys to the vault folder `shiki-highlighter`.
 
-Last upstream commit reviewed: `4bd464e` (2026-08-02, "bump version to 0.7.7-canary.20260802T134945").
-- `317babc` "maybe a fix for #89" (IME composition dispatch bug) — ported manually into `Cm6_ViewPlugin.ts` (not merged, structure diverged).
-- `4bd464e` version bump — skipped, not applicable to fork.
+## Upstream
+
+Diverged too far (narrow host interfaces, `SettingsStore`, ec-core split) for a clean
+`git merge upstream/master` — port fixes by hand.
+
+Last reviewed: `4bd464e` (2026-08-02, canary version bump).
+- `317babc` "maybe a fix for #89" (IME composition dispatch) — ported manually into
+  `Cm6_ViewPlugin.ts`.
+- `4bd464e` version bump — skipped, not applicable to the fork.
 
 ## ESLint
 
-`eslint-plugin-obsidianmd` must be integrated manually (plugin object + rules in the existing config block) — spreading `obsidianmd.configs.recommended` conflicts with the project's `eslint-plugin-import-x` which is also registered as `import`.
-
-## Known build warnings
-
-`[MIXED_EXPORTS]` on `bun run deploy` is benign — Obsidian's loader reads `module.default` correctly.
+`eslint-plugin-obsidianmd` is registered manually because spreading
+`obsidianmd.configs.recommended` conflicts with this project's `eslint-plugin-import-x`,
+also registered as `import`.
 
 ## Package structure
 
-`ec-core/` runs at both Vite build time and plugin runtime — put shared code there, not in `obsidian/`.
+`ec-core/` runs at **both** Vite build time and plugin runtime, so shared code goes there,
+not in `obsidian/`. It cannot import from `packages/obsidian/`. `EcSettingsProps`
+(`Config.ts`) is a parallel interface to `Settings`, and
+`void (DEFAULT_SETTINGS satisfies EcSettingsProps)` in `Settings.ts` enforces compatibility
+at compile time — apply `satisfies` to the declared variable, not the object literal
+(excess-property checking fires on literals).
 
-## Settings
-
-`SettingsStore` (settings/SettingsStore.ts) owns both layers: `_persisted` (written to disk) and `_snapshot` (engine's active view, flushed on reload). Use `store.set(key, value)` for reload-required settings and `store.setLive(key, value)` for live-effect settings (writes both layers immediately). `CodeHighlighter.reload()` internalizes the flush invariant: it calls `host.refreshSettings()` (which delegates to `store.flush()`) between `unload()` and `load()` — callers of `reload()` cannot forget the flush. Do not access `plugin.settings` or `plugin.loadedSettings` directly — they no longer exist.
-
-`SettingsTab` groups get padding only when wrapped: `containerEl.createDiv('setting-group').createDiv('setting-items')`, then pass that inner div (not `containerEl`) to `new Setting(...)`. Headings (`.setHeading()`) stay on `containerEl` directly, outside the wrapper.
-
-## Testing
-
-`tests/happydom.ts` polyfills Obsidian globals (`createDiv`, `sleep`, `HTMLElement.prototype.empty`); add new Obsidian module stubs to `tests/obsidianMock.ts`.
-`@codemirror/state` types are bun-testable without DOM; `EditorView` requires integration tests, but `Decoration.*` from `@codemirror/view` is HappyDOM-testable — see `Cm6_DecorationBuilder.test.ts`.
-Obsidian's HyperMD markdown parser (produces `HyperMD-codeblock-*` node types) is bundled in the app, not an installable package — code that walks `syntaxTree()` can't be unit-tested against a real parsed tree. Shape such logic to consume pre-walked plain-data entries instead, keeping only the walk itself (untestable, mechanical) separate from the classification logic (testable) — see `Cm6_RangeParser.ts`.
-When testing against shiki's bundled themes, pick a theme name dynamically (`Object.keys(bundledThemes)[0]`) rather than hardcoding one — a hardcoded name breaks silently if a future shiki upgrade renames/removes it — see `ThemeMapper.test.ts`.
+`[MIXED_EXPORTS]` on `bun run deploy` is benign — Obsidian's loader reads `module.default`
+correctly.
 
 ## Narrow host interfaces
 
-Modules take a narrow host interface (defined in the consuming file) instead of `ShikiPlugin`; `ShikiPlugin` satisfies them structurally via thin delegation methods in `main.ts`. Follow this pattern for new modules. Exception: `SettingsTab` extends Obsidian's `PluginSettingTab` whose constructor requires `(App, Plugin)` — it cannot be fully narrowed; it accesses `plugin.store` directly instead. `HighlighterHost` settings fields are opt-in — adding a field to `Settings` does not expose it to `CodeHighlighter`; you must explicitly add it to `HighlighterHost` (Highlighter.ts) and satisfy it in `main.ts`.
+Modules take a narrow host interface defined in the consuming file, not `ShikiPlugin`;
+`ShikiPlugin` satisfies them structurally via thin delegation methods in `main.ts`. This is
+structural, not stylistic: `main.ts` already imports `CodeBlock.ts`, `InlineCodeBlock.ts`,
+`Cm6_ViewPlugin.ts`, and `Highlighter.ts`, so importing `ShikiPlugin`'s type back would
+create a cycle. Follow the pattern for new modules.
 
-This is structural, not just stylistic: `main.ts` already imports `CodeBlock.ts`/`InlineCodeBlock.ts`/`Cm6_ViewPlugin.ts`/`Highlighter.ts` — those modules importing `ShikiPlugin`'s type back to skip the narrow interface would create a circular import.
+Exceptions and traps:
+- `SettingsTab` extends `PluginSettingTab`, whose constructor requires `(App, Plugin)` — it
+  cannot be fully narrowed and accesses `plugin.store` directly.
+- `HighlighterHost` fields are opt-in: adding a field to `Settings` does **not** expose it
+  to `CodeHighlighter`. Add it to `HighlighterHost` (`Highlighter.ts`) and satisfy it in
+  `main.ts`.
+
+## Settings store
+
+`SettingsStore` (`settings/SettingsStore.ts`) owns two layers: `_persisted` (disk) and
+`_snapshot` (the engine's active view, flushed on reload). Use `store.set(key, value)` for
+reload-required settings and `store.setLive(key, value)` for live-effect ones (writes both
+immediately). `CodeHighlighter.reload()` internalizes the flush invariant — it calls
+`host.refreshSettings()` (delegating to `store.flush()`) between `unload()` and `load()`,
+so callers cannot forget it. `plugin.settings` and `plugin.loadedSettings` no longer exist.
 
 ## Highlighter structure
 
-`CodeHighlighter` (Highlighter.ts) is a lifecycle facade: owns custom theme/language loading, `ThemeMapper` construction, and `obsidianSafeLanguageNames()`. It delegates rendering to `EcRenderer` (EC/fenced blocks) and `ShikiRenderer` (Shiki/inline/CM6). Public lifecycle API: `load()`, `unload()`, `reload()` (preferred for settings-driven reloads — internalizes the flush ordering invariant).
+`CodeHighlighter` (`Highlighter.ts`) is a lifecycle facade: it owns custom theme/language
+loading, `ThemeMapper` construction, and `obsidianSafeLanguageNames()`, delegating
+rendering to `EcRenderer` (EC/fenced blocks) and `ShikiRenderer` (Shiki/inline/CM6). Public
+lifecycle API: `load()`, `unload()`, `reload()` — prefer `reload()` for settings-driven
+reloads.
 
-## ec-core constraint
+## Testing
 
-`ec-core/` cannot import from `packages/obsidian/` — it runs at Vite build time. `EcSettingsProps` in `Config.ts` is a parallel interface to `Settings`. `void (DEFAULT_SETTINGS satisfies EcSettingsProps)` in `Settings.ts` enforces compatibility at compile time — missing a field is a compile error. Apply `satisfies` to the declared variable, not the object literal (excess-property checking fires on literals).
+- `tests/happydom.ts` polyfills Obsidian globals (`createDiv`, `sleep`,
+  `HTMLElement.prototype.empty`); new module stubs go in `tests/obsidianMock.ts`.
+- `@codemirror/state` types are bun-testable without a DOM. `EditorView` needs integration
+  tests, but `Decoration.*` from `@codemirror/view` is HappyDOM-testable — see
+  `Cm6_DecorationBuilder.test.ts`.
+- Obsidian's HyperMD parser (which produces `HyperMD-codeblock-*` nodes) ships inside the
+  app, not as a package, so `syntaxTree()`-walking code cannot be tested against a real
+  tree. Shape such logic to consume pre-walked plain data, keeping the walk (mechanical,
+  untestable) separate from the classification (testable) — see `Cm6_RangeParser.ts`.
+- Pick shiki theme names dynamically in tests (`Object.keys(bundledThemes)[0]`) — a
+  hardcoded name breaks silently on a shiki upgrade. See `ThemeMapper.test.ts`.
 
-Architecture Explore reports may describe methods or fields removed in recent refactors — always verify against current files before implementing a suggestion.
+Architecture Explore reports may describe methods or fields removed in recent refactors —
+verify against current files before implementing a suggestion.
