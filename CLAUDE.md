@@ -86,3 +86,12 @@ reloads.
 
 Architecture Explore reports may describe methods or fields removed in recent refactors —
 verify against current files before implementing a suggestion.
+
+## Dependencies
+
+`package.json` pins `@codemirror/state`/`@codemirror/view` in both `overrides` and
+`resolutions` to force a single copy (avoids a duplicate nested under
+`@codemirror/language`'s own `node_modules`, which causes a `SelectionRange`/private-field
+tsc error rather than a clear "duplicate package" message). When bumping either package,
+update these two pin fields to match, then `rm -rf node_modules && bun install` — a plain
+`bun install` can report "no changes" while leaving the stale nested copy in place.
