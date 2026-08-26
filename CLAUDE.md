@@ -1,14 +1,10 @@
 # obsidian-shiki-plugin
 
-Fork of `mProjectsCode/obsidian-shiki-plugin`. Upstream remote:
-https://github.com/mProjectsCode/obsidian-shiki-plugin.git
-
 House conventions for Obsidian plugin repos live in the `obsidian-plugin-dev` skill —
 including upstream-sync procedure, obsidianmd registration, and settings-tab structure.
 Only repo-specific facts are below.
 
-Has `graphify-out/`. Bundler is **vite**, not esbuild. Test runner is bun's native one.
-Deploys to the vault folder `shiki-highlighter`.
+Bundler is **vite**, not esbuild. Deploys to the vault folder `shiki-highlighter`.
 
 ## Upstream
 
@@ -19,12 +15,6 @@ Last reviewed: `4bd464e` (2026-08-02, canary version bump).
 - `317babc` "maybe a fix for #89" (IME composition dispatch) — ported manually into
   `Cm6_ViewPlugin.ts`.
 - `4bd464e` version bump — skipped, not applicable to the fork.
-
-## ESLint
-
-`eslint-plugin-obsidianmd` is registered manually because spreading
-`obsidianmd.configs.recommended` conflicts with this project's `eslint-plugin-import-x`,
-also registered as `import`.
 
 ## Package structure
 
