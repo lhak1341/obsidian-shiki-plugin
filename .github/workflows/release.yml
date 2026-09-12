@@ -34,12 +34,12 @@ jobs:
             - name: Install Bun
               uses: oven-sh/setup-bun@v2
               with:
-                  bun-version: latest
+                  bun-version: 1.4.0
 
             - name: Build
               id: build
               run: |
-                  bun install
+                  bun install --frozen-lockfile
                   bun run build
                   mkdir ${{ env.PLUGIN_NAME }}
                   cp -r dist/* ${{ env.PLUGIN_NAME }}

@@ -12,6 +12,7 @@ Diverged too far (narrow host interfaces, `SettingsStore`, ec-core split) for a 
 `git merge upstream/master` — port fixes by hand.
 
 Last reviewed: `4bd464e` (2026-08-02, canary version bump).
+
 - `317babc` "maybe a fix for #89" (IME composition dispatch) — ported manually into
   `Cm6_ViewPlugin.ts`.
 - `4bd464e` version bump — skipped, not applicable to the fork.
@@ -37,6 +38,7 @@ structural, not stylistic: `main.ts` already imports `CodeBlock.ts`, `InlineCode
 create a cycle. Follow the pattern for new modules.
 
 Exceptions and traps:
+
 - `SettingsTab` extends `PluginSettingTab`, whose constructor requires `(App, Plugin)` — it
   cannot be fully narrowed and accesses `plugin.store` directly.
 - `HighlighterHost` fields are opt-in: adding a field to `Settings` does **not** expose it

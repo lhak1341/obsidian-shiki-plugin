@@ -5,9 +5,7 @@
 import { access, copyFile, mkdir } from 'fs/promises';
 import { basename, join } from 'path';
 
-const VAULT_DIR =
-	process.env.OBSIDIAN_VAULT_DIR ??
-	'/Users/lhak/Library/Mobile Documents/iCloud~md~obsidian/Documents/lhakZettel/.obsidian/plugins';
+const VAULT_DIR = process.env.OBSIDIAN_VAULT_DIR ?? '/Users/lhak/Library/Mobile Documents/iCloud~md~obsidian/Documents/lhakZettel/.obsidian/plugins';
 
 // Vault folder name — not the manifest id.
 const PLUGIN_DIR_NAME = 'shiki-highlighter';
@@ -17,7 +15,11 @@ const OPTIONAL = [join('dist', 'styles.css')];
 
 const targets = [join(VAULT_DIR, PLUGIN_DIR_NAME)];
 
-const exists = (path) => access(path).then(() => true, () => false);
+const exists = path =>
+	access(path).then(
+		() => true,
+		() => false,
+	);
 
 for (const src of REQUIRED) {
 	if (!(await exists(src))) {
