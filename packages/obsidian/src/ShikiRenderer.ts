@@ -7,22 +7,22 @@ import {
 	type BundledLanguage,
 	type ThemedToken,
 } from 'shiki';
-import type { ThemeMapper } from 'packages/obsidian/src/themes/ThemeMapper';
+import type { ResolvedTheme } from 'packages/obsidian/src/themes/ResolveTheme';
 
 // some languages are considered "special" by shiki.isSpecialLang
 const LANGUAGE_SPECIAL = new Set(['plaintext', 'txt', 'text', 'plain', 'ansi']);
 
 export class ShikiRenderer {
 	private shiki!: Highlighter;
-	private themeMapper!: ThemeMapper;
+	private themeIdentifier!: string;
 	private loadingLanguages = new Map<string, Promise<void>>();
 	supportedLanguages!: string[];
 
-	async load(themeMapper: ThemeMapper, customLanguages: LanguageRegistration[]): Promise<void> {
-		this.themeMapper = themeMapper;
+	async load(theme: ResolvedTheme, customLanguages: LanguageRegistration[]): Promise<void> {
+		this.themeIdentifier = theme.identifier;
 		this.loadingLanguages = new Map();
 		this.shiki = await createHighlighter({
-			themes: [await themeMapper.getTheme()],
+			themes: [theme.registration],
 			langs: customLanguages,
 		});
 		this.supportedLanguages = [...Object.keys(bundledLanguages), ...LANGUAGE_SPECIAL, ...customLanguages.map(i => i.name)];
@@ -50,7 +50,7 @@ export class ShikiRenderer {
 		try {
 			return this.shiki.codeToTokens(code, {
 				lang: lang as BundledLanguage,
-				theme: this.themeMapper.getThemeIdentifier(),
+				theme: this.themeIdentifier,
 			});
 		} catch (e) {
 			console.warn(`Shiki: failed to tokenize code in "${lang}"`, e);

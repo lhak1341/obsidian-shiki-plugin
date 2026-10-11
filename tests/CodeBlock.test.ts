@@ -11,8 +11,7 @@ const makeCtx = (): MarkdownPostProcessorContext =>
 
 const makeHost = (renderImpl: CodeBlockHost['renderWithEc']): CodeBlockHost => ({
 	renderWithEc: mock(renderImpl),
-	addActiveCodeBlock: mock(() => {}),
-	removeActiveCodeBlock: mock(() => {}),
+	registerRenderTarget: mock(() => () => {}),
 });
 
 describe('CodeBlock', () => {

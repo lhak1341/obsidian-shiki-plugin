@@ -1,4 +1,4 @@
-import { debounce, loadPrism, Plugin, TFile, type MarkdownPostProcessor } from 'obsidian';
+import { debounce, loadPrism, Notice, Plugin, TFile, type MarkdownPostProcessor } from 'obsidian';
 import type { ThemedToken, TokensResult } from 'shiki';
 import { SHIKI_INLINE_REGEX } from 'packages/obsidian/src/constants';
 import { CodeBlock } from 'packages/obsidian/src/CodeBlock';
@@ -6,10 +6,11 @@ import { createCm6Plugin } from 'packages/obsidian/src/codemirror/Cm6_ViewPlugin
 import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/Settings';
 import { ShikiSettingsTab } from 'packages/obsidian/src/settings/SettingsTab';
 import { filterHighlightAllPlugin, type PrismWithFilterHighlightAll } from 'packages/obsidian/src/PrismPlugin';
-import { CodeHighlighter, type CustomTheme } from 'packages/obsidian/src/Highlighter';
-import type { EcSettingsProps } from 'packages/ec-core/src/Config';
+import { CodeHighlighter } from 'packages/obsidian/src/Highlighter';
+import type { CustomTheme } from 'packages/obsidian/src/CustomAssets';
 import { InlineCodeBlock } from 'packages/obsidian/src/InlineCodeBlock';
 import { SettingsStore } from 'packages/obsidian/src/settings/SettingsStore';
+import { RenderTargets, type RenderTarget } from 'packages/obsidian/src/RenderTargets';
 
 import 'packages/obsidian/src/styles.css';
 import 'virtual:ec-styles.css';
@@ -18,9 +19,7 @@ import 'virtual:ec-runtime';
 export default class ShikiPlugin extends Plugin {
 	store!: SettingsStore;
 	highlighter!: CodeHighlighter;
-	activeCodeBlocks!: Map<string, (CodeBlock | InlineCodeBlock)[]>;
-	cm6Plugins!: Set<() => Promise<void>>;
-	private reloading = false;
+	renderTargets!: RenderTargets;
 
 	codeBlockProcessors: MarkdownPostProcessor[] = [];
 
@@ -31,8 +30,7 @@ export default class ShikiPlugin extends Plugin {
 		this.highlighter = new CodeHighlighter(this);
 		await this.highlighter.load();
 
-		this.activeCodeBlocks = new Map();
-		this.cm6Plugins = new Set();
+		this.renderTargets = new RenderTargets({ reloadHighlighter: (): Promise<void> => this.highlighter.reload() });
 
 		this.registerInlineCodeProcessor();
 		this.registerCodeBlockProcessors();
@@ -46,13 +44,7 @@ export default class ShikiPlugin extends Plugin {
 				// sleep 100ms so Obsidian has time to update getSectionInfo() before we rerender
 				await sleep(100);
 
-				if (file instanceof TFile) {
-					if (this.activeCodeBlocks.has(file.path)) {
-						for (const codeBlock of this.activeCodeBlocks.get(file.path)!) {
-							if (codeBlock instanceof CodeBlock) void codeBlock.rerenderOnNoteChange();
-						}
-					}
-				}
+				if (file instanceof TFile) this.renderTargets.rerenderFor(file.path);
 			}),
 		);
 
@@ -81,24 +73,8 @@ export default class ShikiPlugin extends Plugin {
 		await this.registerPrismPlugin();
 	}
 
-	async reloadHighlighter(): Promise<void> {
-		if (this.reloading) return;
-		this.reloading = true;
-		try {
-			await this.highlighter.reload();
-
-			for (const [_, codeBlocks] of this.activeCodeBlocks) {
-				for (const codeBlock of [...codeBlocks]) {
-					await codeBlock.forceRerender();
-				}
-			}
-
-			for (const update of this.cm6Plugins) {
-				await update();
-			}
-		} finally {
-			this.reloading = false;
-		}
+	reloadHighlighter(): Promise<void> {
+		return this.renderTargets.reload();
 	}
 
 	async registerPrismPlugin(): Promise<void> {
@@ -152,33 +128,8 @@ export default class ShikiPlugin extends Plugin {
 		void this.highlighter.unload();
 	}
 
-	addCm6Plugin(cb: () => Promise<void>): void {
-		this.cm6Plugins.add(cb);
-	}
-
-	removeCm6Plugin(cb: () => Promise<void>): void {
-		this.cm6Plugins.delete(cb);
-	}
-
-	addActiveCodeBlock(codeBlock: CodeBlock | InlineCodeBlock): void {
-		const filePath = codeBlock.sourcePath;
-
-		if (!this.activeCodeBlocks.has(filePath)) {
-			this.activeCodeBlocks.set(filePath, [codeBlock]);
-		} else {
-			this.activeCodeBlocks.get(filePath)!.push(codeBlock);
-		}
-	}
-
-	removeActiveCodeBlock(codeBlock: CodeBlock | InlineCodeBlock): void {
-		const filePath = codeBlock.sourcePath;
-
-		if (this.activeCodeBlocks.has(filePath)) {
-			const index = this.activeCodeBlocks.get(filePath)!.indexOf(codeBlock);
-			if (index !== -1) {
-				this.activeCodeBlocks.get(filePath)!.splice(index, 1);
-			}
-		}
+	registerRenderTarget(target: RenderTarget): () => void {
+		return this.renderTargets.register(target);
 	}
 
 	async loadSettings(): Promise<void> {
@@ -217,32 +168,12 @@ export default class ShikiPlugin extends Plugin {
 		return this.app.vault.adapter.read(path);
 	}
 
-	get pluginName(): string {
-		return this.manifest.name;
+	notify(message: string): void {
+		new Notice(`${this.manifest.name}\n${message}`, 5000);
 	}
 
-	get darkTheme(): string {
-		return this.store.snapshot.darkTheme;
-	}
-	get lightTheme(): string {
-		return this.store.snapshot.lightTheme;
-	}
-	get customThemeFolder(): string {
-		return this.store.snapshot.customThemeFolder;
-	}
-	get customLanguageFolder(): string {
-		return this.store.snapshot.customLanguageFolder;
-	}
-	get disabledLanguages(): readonly string[] {
-		return this.store.snapshot.disabledLanguages;
-	}
-	get ecSettings(): EcSettingsProps {
-		return {
-			preferThemeColors: this.store.snapshot.preferThemeColors,
-			ecDefaultShowLineNumbers: this.store.snapshot.ecDefaultShowLineNumbers,
-			ecDefaultWrap: this.store.snapshot.ecDefaultWrap,
-			ecDefaultFrame: this.store.snapshot.ecDefaultFrame,
-		};
+	get engineSettings(): Readonly<Settings> {
+		return this.store.snapshot;
 	}
 
 	refreshSettings(): void {

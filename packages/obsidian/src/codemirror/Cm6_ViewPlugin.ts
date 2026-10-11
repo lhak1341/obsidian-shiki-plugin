@@ -1,44 +1,47 @@
 import { Decoration, type DecorationSet, type EditorView, ViewPlugin, type ViewUpdate } from '@codemirror/view';
-import { type EditorState } from '@codemirror/state';
+import { type EditorState, RangeSet } from '@codemirror/state';
 import { syntaxTree } from '@codemirror/language';
 import { type ThemedToken, type TokensResult } from 'shiki';
 import { editorLivePreviewField } from 'obsidian';
-import { buildDecorationSet } from 'packages/obsidian/src/codemirror/Cm6_DecorationBuilder';
-import { parseFencedRanges, type WalkedEntry } from 'packages/obsidian/src/codemirror/Cm6_RangeParser';
+import { rebuildDecorations } from 'packages/obsidian/src/codemirror/Cm6_Pipeline';
+import { isRelevantNode, type WalkedEntry } from 'packages/obsidian/src/codemirror/Cm6_RangeParser';
+import type { RenderTarget } from 'packages/obsidian/src/RenderTargets';
 
 export interface Cm6ViewPluginHost {
 	readonly inlineHighlighting: boolean;
-	addCm6Plugin(cb: () => Promise<void>): void;
-	removeCm6Plugin(cb: () => Promise<void>): void;
+	registerRenderTarget(target: RenderTarget): () => void;
 	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined>;
 	getTokenStyle(token: ThemedToken): { style: string; classes: string[] };
 }
-
-const RELEVANT_NODE_PROPS = ['inline-code', 'HyperMD-codeblock', 'HyperMD-codeblock-begin', 'HyperMD-codeblock-end'];
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- not an easily named type
 export function createCm6Plugin(host: Cm6ViewPluginHost) {
 	return ViewPlugin.fromClass(
 		class Cm6ViewPlugin {
 			decorations: DecorationSet;
+			private fenced: DecorationSet = Decoration.none;
+			private inline: DecorationSet = Decoration.none;
 			view: EditorView;
 			private updateGeneration = 0;
-			private readonly reloadCb: () => Promise<void>;
+			private readonly unregister: () => void;
 
 			constructor(view: EditorView) {
 				this.view = view;
 				this.decorations = Decoration.none;
-				this.reloadCb = (): Promise<void> => this.updateWidgets(this.view);
-				host.addCm6Plugin(this.reloadCb);
+				this.unregister = host.registerRenderTarget({ refresh: () => this.updateWidgets(this.view) });
 				void this.updateWidgets(view);
 			}
 
 			update(update: ViewUpdate): void {
 				try {
-					this.decorations = this.decorations.map(update.changes);
+					this.fenced = this.fenced.map(update.changes);
+					this.inline = this.inline.map(update.changes);
+					this.decorations = RangeSet.join([this.fenced, this.inline]);
 				} catch (e) {
 					// Decorations may have stale positions if the document changed while an async
 					// updateWidgets call was in flight. Reset them so the next update can rebuild.
+					this.fenced = Decoration.none;
+					this.inline = Decoration.none;
 					this.decorations = Decoration.none;
 					console.warn('Resetting decorations due to error:', e);
 				}
@@ -60,40 +63,35 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 				syntaxTree(view.state).iterate({
 					enter: nodeRef => {
 						const node = nodeRef.node;
-						const props = node.type.name?.split('_') ?? [];
-
-						if (props.includes('formatting')) return;
-						if (RELEVANT_NODE_PROPS.some(p => props.includes(p))) {
+						if (isRelevantNode(node.type.name)) {
 							entries.push({ typeName: node.type.name, from: node.from, to: node.to });
 						}
 					},
 				});
 
-				const ranges = parseFencedRanges(
+				const result = await rebuildDecorations(
 					entries,
-					(from, to) => view.state.sliceDoc(from, to),
-					view.state.selection.ranges.map(r => ({ from: r.from, to: r.to })),
 					{
+						getText: (from, to) => view.state.sliceDoc(from, to),
+						getHighlightTokens: (code, l) => host.getHighlightTokens(code, l),
+						getTokenStyle: token => host.getTokenStyle(token),
+					},
+					{ fenced: this.fenced, inline: this.inline },
+					{
+						selectionRanges: view.state.selection.ranges.map(r => ({ from: r.from, to: r.to })),
 						inlineHighlighting: host.inlineHighlighting,
 						isLivePreview: this.isLivePreview(view.state),
 						docChanged,
 					},
 				);
 
-				// capture before await so we know whether to dispatch even if ranges is now empty
-				const needsDispatch = ranges.length > 0 || this.decorations.size > 0;
-
-				const newDecorations = await buildDecorationSet(
-					ranges,
-					(code, l) => host.getHighlightTokens(code, l),
-					token => host.getTokenStyle(token),
-				);
-
 				if (generation !== this.updateGeneration) return;
 
-				this.decorations = newDecorations;
+				this.fenced = result.fenced;
+				this.inline = result.inline;
+				this.decorations = result.combined;
 
-				if (needsDispatch) {
+				if (result.needsDispatch) {
 					// Use requestAnimationFrame to avoid "Calls to EditorView.update are not allowed while an update is in progress".
 					// Update the view directly instead of dispatching an empty transaction. A
 					// transaction during IME composition can interrupt the browser's composing
@@ -107,7 +105,9 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 			}
 
 			destroy(): void {
-				host.removeCm6Plugin(this.reloadCb);
+				this.unregister();
+				this.fenced = Decoration.none;
+				this.inline = Decoration.none;
 				this.decorations = Decoration.none;
 			}
 		},

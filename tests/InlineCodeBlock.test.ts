@@ -10,8 +10,7 @@ const makeToken = (content: string, color = '#ffffff'): ThemedToken => ({ conten
 const makeHost = (overrides: Partial<InlineCodeBlockHost> = {}): InlineCodeBlockHost => ({
 	getHighlightTokens: mock(async () => undefined),
 	renderTokens: mock(() => {}),
-	addActiveCodeBlock: mock(() => {}),
-	removeActiveCodeBlock: mock(() => {}),
+	registerRenderTarget: mock(() => () => {}),
 	...overrides,
 });
 
@@ -120,7 +119,8 @@ describe('InlineCodeBlock', () => {
 	});
 
 	test('onunload clears container and deregisters', () => {
-		const host = makeHost();
+		const dispose = mock(() => {});
+		const host = makeHost({ registerRenderTarget: mock(() => dispose) });
 		const containerEl = document.createElement('code');
 		const block = new InlineCodeBlock(host, containerEl, 'x', 'ts', makeCtx());
 
@@ -128,6 +128,6 @@ describe('InlineCodeBlock', () => {
 		block.onunload();
 
 		expect(containerEl.textContent).toBe('Unloaded shiki inline code block');
-		expect((host.removeActiveCodeBlock as ReturnType<typeof mock>).mock.calls.length).toBe(1);
+		expect(dispose.mock.calls.length).toBe(1);
 	});
 });

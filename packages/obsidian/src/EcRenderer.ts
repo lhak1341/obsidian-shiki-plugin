@@ -1,6 +1,6 @@
 import { ExpressiveCodeEngine } from '@expressive-code/core';
 import type { LanguageRegistration } from 'shiki';
-import type { ThemeMapper } from 'packages/obsidian/src/themes/ThemeMapper';
+import type { ResolvedTheme } from 'packages/obsidian/src/themes/ResolveTheme';
 import { toDom } from 'hast-util-to-dom';
 import { createEcEngineConfig, type EcSettingsProps } from 'packages/ec-core/src/Config';
 import { encodeCssVarTheme } from 'packages/ec-core/src/CssVarThemeAdapter';
@@ -10,15 +10,14 @@ export class EcRenderer {
 	private ecStyleElement: HTMLElement | undefined;
 	private cssVarAdapter: ReturnType<typeof encodeCssVarTheme> | null = null;
 
-	async load(themeMapper: ThemeMapper, customLanguages: LanguageRegistration[], settings: EcSettingsProps): Promise<void> {
-		const rawTheme = await themeMapper.getTheme();
-		const usingObsidianTheme = themeMapper.usingObsidianTheme();
+	async load(theme: ResolvedTheme, customLanguages: LanguageRegistration[], settings: EcSettingsProps): Promise<void> {
+		const { registration, usingObsidianTheme } = theme;
 
-		this.cssVarAdapter = usingObsidianTheme ? encodeCssVarTheme(rawTheme) : null;
+		this.cssVarAdapter = usingObsidianTheme ? encodeCssVarTheme(registration) : null;
 
 		this.ec = new ExpressiveCodeEngine(
 			createEcEngineConfig({
-				theme: this.cssVarAdapter?.theme ?? rawTheme,
+				theme: this.cssVarAdapter?.theme ?? registration,
 				customLanguages,
 				settings,
 				usingObsidianTheme,

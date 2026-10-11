@@ -1,11 +1,11 @@
 import { type MarkdownPostProcessorContext, MarkdownRenderChild } from 'obsidian';
 import type { ThemedToken, TokensResult } from 'shiki';
+import type { RenderTarget } from 'packages/obsidian/src/RenderTargets';
 
 export interface InlineCodeBlockHost {
 	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined>;
 	renderTokens(tokens: ThemedToken[], container: HTMLElement): void;
-	addActiveCodeBlock(block: InlineCodeBlock): void;
-	removeActiveCodeBlock(block: InlineCodeBlock): void;
+	registerRenderTarget(target: RenderTarget): () => void;
 }
 
 export class InlineCodeBlock extends MarkdownRenderChild {
@@ -15,6 +15,7 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 	private readonly ctx: MarkdownPostProcessorContext;
 	private renderGeneration = 0;
 	private _active = false;
+	private unregister: (() => void) | undefined;
 
 	constructor(host: InlineCodeBlockHost, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
 		super(containerEl);
@@ -23,10 +24,6 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this.source = source;
 		this.language = language;
 		this.ctx = ctx;
-	}
-
-	get sourcePath(): string {
-		return this.ctx.sourcePath;
 	}
 
 	private async render(): Promise<void> {
@@ -56,7 +53,10 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this._active = true;
 		super.onload();
 
-		this.host.addActiveCodeBlock(this);
+		this.unregister = this.host.registerRenderTarget({
+			sourcePath: this.ctx.sourcePath,
+			refresh: () => this.forceRerender(),
+		});
 
 		void this.render();
 	}
@@ -65,7 +65,8 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this._active = false;
 		super.onunload();
 
-		this.host.removeActiveCodeBlock(this);
+		this.unregister?.();
+		this.unregister = undefined;
 
 		this.containerEl.empty();
 		this.containerEl.innerText = 'Unloaded shiki inline code block';

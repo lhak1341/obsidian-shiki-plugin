@@ -1,9 +1,9 @@
 import { type MarkdownPostProcessorContext, MarkdownRenderChild } from 'obsidian';
+import type { RenderTarget } from 'packages/obsidian/src/RenderTargets';
 
 export interface CodeBlockHost {
 	renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void>;
-	addActiveCodeBlock(block: CodeBlock): void;
-	removeActiveCodeBlock(block: CodeBlock): void;
+	registerRenderTarget(target: RenderTarget): () => void;
 }
 
 export class CodeBlock extends MarkdownRenderChild {
@@ -14,6 +14,7 @@ export class CodeBlock extends MarkdownRenderChild {
 	private cachedMetaString: string;
 	private renderGeneration = 0;
 	private _active = false;
+	private unregister: (() => void) | undefined;
 
 	constructor(host: CodeBlockHost, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
 		super(containerEl);
@@ -23,10 +24,6 @@ export class CodeBlock extends MarkdownRenderChild {
 		this.language = language;
 		this.ctx = ctx;
 		this.cachedMetaString = '';
-	}
-
-	get sourcePath(): string {
-		return this.ctx.sourcePath;
 	}
 
 	// Returns null when getSectionInfo is not yet available or stale (element detached).
@@ -105,7 +102,11 @@ export class CodeBlock extends MarkdownRenderChild {
 		this._active = true;
 		super.onload();
 
-		this.host.addActiveCodeBlock(this);
+		this.unregister = this.host.registerRenderTarget({
+			sourcePath: this.ctx.sourcePath,
+			refresh: () => this.forceRerender(),
+			onNoteChange: () => this.rerenderOnNoteChange(),
+		});
 
 		const metaString = this.getMetaString();
 		if (metaString !== null) {
@@ -127,7 +128,8 @@ export class CodeBlock extends MarkdownRenderChild {
 		this._active = false;
 		super.onunload();
 
-		this.host.removeActiveCodeBlock(this);
+		this.unregister?.();
+		this.unregister = undefined;
 
 		this.containerEl.empty();
 		this.containerEl.innerText = 'Unloaded shiki code block';

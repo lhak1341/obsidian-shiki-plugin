@@ -1,36 +1,33 @@
 import { type LanguageRegistration, type TokensResult, type ThemedToken } from 'shiki';
-import { ThemeMapper, type ThemeContext } from 'packages/obsidian/src/themes/ThemeMapper';
-import { normalizePath, Notice } from 'obsidian';
+import { type CustomAssetsHost, type CustomTheme, loadCustomAssets } from 'packages/obsidian/src/CustomAssets';
+import { resolveTheme, type ThemeContext } from 'packages/obsidian/src/themes/ResolveTheme';
 import { EcRenderer } from 'packages/obsidian/src/EcRenderer';
 import { type EcSettingsProps } from 'packages/ec-core/src/Config';
 import { ShikiRenderer } from 'packages/obsidian/src/ShikiRenderer';
+import type { Settings } from 'packages/obsidian/src/settings/Settings';
 
-interface HighlighterHost {
+// opt-in: a setting is only visible to CodeHighlighter once its key is added here
+type HighlighterSettings = Readonly<
+	Pick<Settings, 'darkTheme' | 'lightTheme' | 'customThemeFolder' | 'customLanguageFolder' | 'disabledLanguages' | keyof EcSettingsProps>
+>;
+
+interface HighlighterHost extends CustomAssetsHost {
 	isDarkMode(): boolean;
-	vaultExists(path: string): Promise<boolean>;
-	vaultList(path: string): Promise<{ files: string[] }>;
-	vaultRead(path: string): Promise<string>;
-	readonly pluginName: string;
-	readonly darkTheme: string;
-	readonly lightTheme: string;
-	readonly customThemeFolder: string;
-	readonly customLanguageFolder: string;
-	readonly disabledLanguages: readonly string[];
-	readonly ecSettings: EcSettingsProps;
+	/** The engine's active view (snapshot), re-read on every access: it is replaced on flush. */
+	readonly engineSettings: HighlighterSettings;
 	resetTheme(which: 'dark' | 'light'): Promise<void>;
 	refreshSettings(): void;
 }
 
-export interface CustomTheme {
-	name: string;
-	displayName: string;
-	type: string;
-	colors?: Record<string, unknown>[];
-	tokenColors?: Record<string, unknown>[];
-}
-
 // some languages break obsidian's `registerMarkdownCodeBlockProcessor`
 const LANGUAGE_DENYLIST = new Set(['c++', 'c#', 'f#', 'mermaid']);
+
+/**
+ * All languages that are safe to use with Obsidian's `registerMarkdownCodeBlockProcessor`.
+ */
+export function safeLanguageNames(supported: readonly string[], disabled: readonly string[]): string[] {
+	return supported.filter(lang => !LANGUAGE_DENYLIST.has(lang) && !disabled.includes(lang));
+}
 
 export class CodeHighlighter {
 	private readonly host: HighlighterHost;
@@ -39,6 +36,10 @@ export class CodeHighlighter {
 
 	private customThemes!: CustomTheme[];
 	private customLanguages!: LanguageRegistration[];
+
+	// disabledLanguages is a reload-required setting, so the filtered list only changes in load()
+	private safeLanguages: readonly string[] = [];
+	private safeLanguageSet = new Set<string>();
 
 	constructor(host: HighlighterHost) {
 		this.host = host;
@@ -55,18 +56,30 @@ export class CodeHighlighter {
 	}
 
 	async load(): Promise<void> {
-		await this.loadCustomThemes();
-		await this.loadCustomLanguages();
+		const assets = await loadCustomAssets(this.host, {
+			themeFolder: this.host.engineSettings.customThemeFolder,
+			languageFolder: this.host.engineSettings.customLanguageFolder,
+			darkTheme: this.host.engineSettings.darkTheme,
+			lightTheme: this.host.engineSettings.lightTheme,
+		});
+		this.customThemes = assets.themes;
+		this.customLanguages = assets.languages;
+		for (const mode of assets.modesToReset) {
+			await this.host.resetTheme(mode);
+		}
 
-		const themeMapper = new ThemeMapper({
+		const theme = await resolveTheme({
 			isDarkMode: this.host.isDarkMode(),
-			darkTheme: this.host.darkTheme,
-			lightTheme: this.host.lightTheme,
+			darkTheme: this.host.engineSettings.darkTheme,
+			lightTheme: this.host.engineSettings.lightTheme,
 			customThemes: this.customThemes,
 		} satisfies ThemeContext);
 
-		await this.ecRenderer.load(themeMapper, this.customLanguages, this.host.ecSettings);
-		await this.shikiRenderer.load(themeMapper, this.customLanguages);
+		await this.ecRenderer.load(theme, this.customLanguages, this.host.engineSettings);
+		await this.shikiRenderer.load(theme, this.customLanguages);
+
+		this.safeLanguages = safeLanguageNames(this.shikiRenderer.supportedLanguages, this.host.engineSettings.disabledLanguages);
+		this.safeLanguageSet = new Set(this.safeLanguages);
 	}
 
 	async reload(): Promise<void> {
@@ -80,85 +93,8 @@ export class CodeHighlighter {
 		this.shikiRenderer.unload();
 	}
 
-	private async listJsonFiles(folder: string, kind: string): Promise<string[]> {
-		const normalized = normalizePath(folder);
-		if (!(await this.host.vaultExists(normalized))) {
-			new Notice(`${this.host.pluginName}\nUnable to open custom ${kind} folder: ${normalized}`, 5000);
-			return [];
-		}
-		const listing = await this.host.vaultList(normalized);
-		return listing.files.filter(f => f.toLowerCase().endsWith('.json'));
-	}
-
-	private async loadCustomLanguages(): Promise<void> {
-		this.customLanguages = [];
-
-		if (!this.host.customLanguageFolder) return;
-
-		const languageFiles = await this.listJsonFiles(this.host.customLanguageFolder, 'languages');
-
-		for (const languageFile of languageFiles) {
-			try {
-				const language = JSON.parse(await this.host.vaultRead(languageFile)) as LanguageRegistration;
-				// validate that language file JSON can be parsed and contains at a minimum a scopeName
-				if (!language.name) {
-					throw Error('Invalid JSON language file is missing a name property.');
-				}
-
-				this.customLanguages.push(language);
-			} catch (e) {
-				new Notice(`${this.host.pluginName}\nUnable to load custom language: ${languageFile}`, 5000);
-				console.warn(`Unable to load custom language: ${languageFile}`, e);
-			}
-		}
-	}
-
-	private async loadCustomThemes(): Promise<void> {
-		this.customThemes = [];
-
-		// custom themes are disabled unless users specify a folder for them in plugin settings
-		if (!this.host.customThemeFolder) return;
-
-		const themeFolder = normalizePath(this.host.customThemeFolder);
-		const themeFiles = await this.listJsonFiles(this.host.customThemeFolder, 'themes');
-
-		for (const themeFile of themeFiles) {
-			const baseName = themeFile.substring(`${themeFolder}/`.length);
-			try {
-				const theme = JSON.parse(await this.host.vaultRead(themeFile)) as CustomTheme;
-				// validate that theme file JSON can be parsed and contains colors at a minimum
-				if (!theme.colors && !theme.tokenColors) {
-					throw Error('Invalid JSON theme file.');
-				}
-				// what metadata is available in the theme file depends on how it was created
-				theme.displayName = theme.displayName ?? theme.name ?? baseName;
-				theme.name = baseName.toLowerCase();
-				theme.type = theme.type ?? 'both';
-
-				this.customThemes.push(theme);
-			} catch (e) {
-				new Notice(`${this.host.pluginName}\nUnable to load custom theme: ${themeFile}`, 5000);
-				console.warn(`Unable to load custom theme: ${themeFile}`, e);
-			}
-		}
-
-		// if either mode's custom theme cannot be loaded (e.g. it was deleted), fall back to default.
-		// check both modes so a mode-switch after the folder is emptied doesn't crash on load.
-		for (const mode of ['dark', 'light'] as const) {
-			const themeId = mode === 'dark' ? this.host.darkTheme : this.host.lightTheme;
-			if (themeId.endsWith('.json') && !this.customThemes.find(t => t.name === themeId)) {
-				await this.host.resetTheme(mode);
-			}
-		}
-
-		this.customThemes.sort((a, b) => a.displayName.localeCompare(b.displayName));
-	}
-
-	/**
-	 * All languages that are safe to use with Obsidian's `registerMarkdownCodeBlockProcessor`.
-	 */
-	obsidianSafeLanguageNames(): string[] {
-		return this.shikiRenderer.supportedLanguages.filter(lang => !LANGUAGE_DENYLIST.has(lang) && !this.host.disabledLanguages.includes(lang));
+	obsidianSafeLanguageNames(): readonly string[] {
+		return this.safeLanguages;
 	}
 
 	async renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
@@ -166,7 +102,7 @@ export class CodeHighlighter {
 	}
 
 	async getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined> {
-		if (!this.obsidianSafeLanguageNames().includes(lang)) {
+		if (!this.safeLanguageSet.has(lang)) {
 			return undefined;
 		}
 		return this.shikiRenderer.tokenize(code, lang);

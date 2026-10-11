@@ -12,10 +12,26 @@ export interface SelectionRange {
 	to: number;
 }
 
-export interface ParseFencedRangesOptions {
+export interface ParseOptions {
 	inlineHighlighting: boolean;
 	isLivePreview: boolean;
-	docChanged: boolean;
+}
+
+export interface ParsedRanges {
+	fenced: HighlightableRange[];
+	inline: HighlightableRange[];
+}
+
+const RELEVANT_NODE_PROPS = ['inline-code', 'HyperMD-codeblock', 'HyperMD-codeblock-begin', 'HyperMD-codeblock-end'];
+
+/**
+ * Whether the syntax-tree walk should hand a node to `parseHighlightableRanges`. Obsidian joins
+ * a node's properties with `_` in its type name, e.g. `HyperMD-codeblock_HyperMD-codeblock-bg`.
+ */
+export function isRelevantNode(typeName: string | undefined): boolean {
+	const props = typeName?.split('_') ?? [];
+	if (props.includes('formatting')) return false;
+	return RELEVANT_NODE_PROPS.some(p => props.includes(p));
 }
 
 function checkSelectionOverlap(selectionRanges: SelectionRange[], from: number, to: number): boolean {
@@ -25,13 +41,14 @@ function checkSelectionOverlap(selectionRanges: SelectionRange[], from: number, 
 	return false;
 }
 
-export function parseFencedRanges(
+export function parseHighlightableRanges(
 	entries: WalkedEntry[],
 	getText: (from: number, to: number) => string,
 	selectionRanges: SelectionRange[],
-	opts: ParseFencedRangesOptions,
-): HighlightableRange[] {
-	const ranges: HighlightableRange[] = [];
+	opts: ParseOptions,
+): ParsedRanges {
+	const fenced: HighlightableRange[] = [];
+	const inline: HighlightableRange[] = [];
 	let lang = '';
 	let fencedLines: WalkedEntry[] = [];
 
@@ -45,7 +62,7 @@ export function parseFencedRanges(
 				const match = content.match(SHIKI_INLINE_REGEX);
 				if (match) {
 					const hasSelectionOverlap = checkSelectionOverlap(selectionRanges, entry.from - 1, entry.to + 1);
-					ranges.push({
+					inline.push({
 						from: entry.from,
 						to: entry.to,
 						lang: match[1],
@@ -57,9 +74,6 @@ export function parseFencedRanges(
 			}
 			continue;
 		}
-
-		// if !docChanged, this was a selection change — only inline-code nodes matter
-		if (!opts.docChanged) continue;
 
 		if (props.includes('HyperMD-codeblock') && !props.includes('HyperMD-codeblock-begin') && !props.includes('HyperMD-codeblock-end')) {
 			fencedLines.push(entry);
@@ -75,7 +89,7 @@ export function parseFencedRanges(
 			if (fencedLines.length > 0 && lang !== '') {
 				const start = fencedLines[0].from;
 				const end = fencedLines[fencedLines.length - 1].to;
-				ranges.push({
+				fenced.push({
 					from: start,
 					to: end,
 					lang,
@@ -88,5 +102,5 @@ export function parseFencedRanges(
 		}
 	}
 
-	return ranges;
+	return { fenced, inline };
 }

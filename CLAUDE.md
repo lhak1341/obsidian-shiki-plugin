@@ -41,43 +41,25 @@ Exceptions and traps:
 
 - `SettingsTab` extends `PluginSettingTab`, whose constructor requires `(App, Plugin)` — it
   cannot be fully narrowed and accesses `plugin.store` directly.
-- `HighlighterHost` fields are opt-in: adding a field to `Settings` does **not** expose it
-  to `CodeHighlighter`. Add it to `HighlighterHost` (`Highlighter.ts`) and satisfy it in
-  `main.ts`.
+- `HighlighterHost` settings are opt-in: adding a field to `Settings` does **not** expose it
+  to `CodeHighlighter`. Add its key to the `HighlighterSettings` `Pick` in `Highlighter.ts`;
+  `main.ts` exposes the whole snapshot as `engineSettings`, so nothing else changes.
 
 ## Settings store
 
-`SettingsStore` (`settings/SettingsStore.ts`) owns two layers: `_persisted` (disk) and
-`_snapshot` (the engine's active view, flushed on reload). Use `store.set(key, value)` for
-reload-required settings and `store.setLive(key, value)` for live-effect ones (writes both
-immediately). `CodeHighlighter.reload()` internalizes the flush invariant — it calls
-`host.refreshSettings()` (delegating to `store.flush()`) between `unload()` and `load()`,
-so callers cannot forget it. `plugin.settings` and `plugin.loadedSettings` no longer exist.
+`SettingsStore` keeps `_persisted` (disk) and `_snapshot` (the engine's view, flushed on
+reload by `CodeHighlighter.reload()`). Use `store.set(key, value)` for reload-required
+settings and `store.setLive(key, value)` for live-effect ones (writes both immediately).
 
 ## Highlighter structure
 
-`CodeHighlighter` (`Highlighter.ts`) is a lifecycle facade: it owns custom theme/language
-loading, `ThemeMapper` construction, and `obsidianSafeLanguageNames()`, delegating
-rendering to `EcRenderer` (EC/fenced blocks) and `ShikiRenderer` (Shiki/inline/CM6). Public
-lifecycle API: `load()`, `unload()`, `reload()` — prefer `reload()` for settings-driven
-reloads.
+`CodeHighlighter` (`Highlighter.ts`) is a lifecycle facade over `EcRenderer` (EC/fenced
+blocks) and `ShikiRenderer` (Shiki/inline/CM6); `RenderTargets` owns the reload fan-out.
+Prefer `reload()` for settings-driven reloads — it flushes the settings snapshot itself.
 
-## Testing
-
-- `tests/happydom.ts` polyfills Obsidian globals (`createDiv`, `sleep`,
-  `HTMLElement.prototype.empty`); new module stubs go in `tests/obsidianMock.ts`.
-- `@codemirror/state` types are bun-testable without a DOM. `EditorView` needs integration
-  tests, but `Decoration.*` from `@codemirror/view` is HappyDOM-testable — see
-  `Cm6_DecorationBuilder.test.ts`.
-- Obsidian's HyperMD parser (which produces `HyperMD-codeblock-*` nodes) ships inside the
-  app, not as a package, so `syntaxTree()`-walking code cannot be tested against a real
-  tree. Shape such logic to consume pre-walked plain data, keeping the walk (mechanical,
-  untestable) separate from the classification (testable) — see `Cm6_RangeParser.ts`.
-- Pick shiki theme names dynamically in tests (`Object.keys(bundledThemes)[0]`) — a
-  hardcoded name breaks silently on a shiki upgrade. See `ThemeMapper.test.ts`.
-
-Architecture Explore reports may describe methods or fields removed in recent refactors —
-verify against current files before implementing a suggestion.
+Design decisions that look arbitrary are recorded in `docs/adr/`. Architecture Explore
+reports are hypotheses (removed methods, bugs that don't exist): verify against current
+files and library source before acting.
 
 ## Dependencies
 
