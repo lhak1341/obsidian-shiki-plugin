@@ -1,15 +1,15 @@
 import { type MarkdownPostProcessorContext, MarkdownRenderChild } from 'obsidian';
 import type { ThemedToken, TokensResult } from 'shiki';
-import type { RenderTarget } from 'packages/obsidian/src/RenderTargets';
+import type { RenderTargetRegistry } from 'packages/obsidian/src/RenderTargets';
 
-export interface InlineCodeBlockHost {
+export interface InlineCodeRenderer {
 	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined>;
 	renderTokens(tokens: ThemedToken[], container: HTMLElement): void;
-	registerRenderTarget(target: RenderTarget): () => void;
 }
 
 export class InlineCodeBlock extends MarkdownRenderChild {
-	private readonly host: InlineCodeBlockHost;
+	private readonly renderer: InlineCodeRenderer;
+	private readonly targets: RenderTargetRegistry;
 	private readonly source: string;
 	private readonly language: string;
 	private readonly ctx: MarkdownPostProcessorContext;
@@ -17,10 +17,18 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 	private _active = false;
 	private unregister: (() => void) | undefined;
 
-	constructor(host: InlineCodeBlockHost, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
+	constructor(
+		renderer: InlineCodeRenderer,
+		targets: RenderTargetRegistry,
+		containerEl: HTMLElement,
+		source: string,
+		language: string,
+		ctx: MarkdownPostProcessorContext,
+	) {
 		super(containerEl);
 
-		this.host = host;
+		this.renderer = renderer;
+		this.targets = targets;
 		this.source = source;
 		this.language = language;
 		this.ctx = ctx;
@@ -29,7 +37,7 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 	private async render(): Promise<void> {
 		const gen = ++this.renderGeneration;
 
-		const highlight = await this.host.getHighlightTokens(this.source, this.language);
+		const highlight = await this.renderer.getHighlightTokens(this.source, this.language);
 		if (gen !== this.renderGeneration) return;
 		if (!this._active) return;
 
@@ -42,7 +50,7 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 			return;
 		}
 
-		this.host.renderTokens(tokens, this.containerEl);
+		this.renderer.renderTokens(tokens, this.containerEl);
 	}
 
 	public async forceRerender(): Promise<void> {
@@ -53,7 +61,7 @@ export class InlineCodeBlock extends MarkdownRenderChild {
 		this._active = true;
 		super.onload();
 
-		this.unregister = this.host.registerRenderTarget({
+		this.unregister = this.targets.register({
 			sourcePath: this.ctx.sourcePath,
 			refresh: () => this.forceRerender(),
 		});

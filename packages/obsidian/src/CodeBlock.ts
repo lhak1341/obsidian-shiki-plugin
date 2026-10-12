@@ -1,62 +1,38 @@
 import { type MarkdownPostProcessorContext, MarkdownRenderChild } from 'obsidian';
-import type { RenderTarget } from 'packages/obsidian/src/RenderTargets';
+import type { RenderTargetRegistry } from 'packages/obsidian/src/RenderTargets';
+import { FenceMetaReader, type FenceSectionInfo } from 'packages/obsidian/src/FenceMeta';
 
-export interface CodeBlockHost {
+export interface CodeBlockRenderer {
 	renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void>;
-	registerRenderTarget(target: RenderTarget): () => void;
 }
 
 export class CodeBlock extends MarkdownRenderChild {
-	private readonly host: CodeBlockHost;
+	private readonly renderer: CodeBlockRenderer;
+	private readonly targets: RenderTargetRegistry;
 	private readonly source: string;
 	private readonly language: string;
 	private readonly ctx: MarkdownPostProcessorContext;
-	private cachedMetaString: string;
+	private readonly meta: FenceMetaReader;
 	private renderGeneration = 0;
 	private _active = false;
 	private unregister: (() => void) | undefined;
 
-	constructor(host: CodeBlockHost, containerEl: HTMLElement, source: string, language: string, ctx: MarkdownPostProcessorContext) {
+	constructor(
+		renderer: CodeBlockRenderer,
+		targets: RenderTargetRegistry,
+		containerEl: HTMLElement,
+		source: string,
+		language: string,
+		ctx: MarkdownPostProcessorContext,
+	) {
 		super(containerEl);
 
-		this.host = host;
+		this.renderer = renderer;
+		this.targets = targets;
 		this.source = source;
 		this.language = language;
 		this.ctx = ctx;
-		this.cachedMetaString = '';
-	}
-
-	// Returns null when getSectionInfo is not yet available or stale (element detached).
-	private getMetaString(): string | null {
-		const sectionInfo = this.ctx.getSectionInfo(this.containerEl);
-
-		if (sectionInfo === null) {
-			return null;
-		}
-
-		const lines = sectionInfo.text.split('\n');
-		const startLine = lines[sectionInfo.lineStart];
-
-		// lineStart out of bounds means sectionInfo.text is stale (e.g. from a detached element
-		// returning only its text content rather than the full document). Treat as not-ready.
-		if (startLine === undefined) {
-			return null;
-		}
-
-		// regexp to match the text after the code block language
-		const escapedLang = this.language.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-		const regex = new RegExp('^[^`~]*?\\s*(```+|~~~+)' + escapedLang + ' (.*)', 'g');
-		const match = regex.exec(startLine);
-		return match !== null ? match[2] : '';
-	}
-
-	private async retryMetaString(retries: number): Promise<string | null> {
-		for (let i = 0; i < retries; i++) {
-			await sleep(100);
-			const meta = this.getMetaString();
-			if (meta !== null) return meta;
-		}
-		return null;
+		this.meta = new FenceMetaReader({ sectionInfo: (): FenceSectionInfo | null => ctx.getSectionInfo(this.containerEl), language, wait: sleep });
 	}
 
 	// Renders into a temp element and only applies to containerEl if this is still
@@ -65,7 +41,7 @@ export class CodeBlock extends MarkdownRenderChild {
 	private async render(metaString: string): Promise<void> {
 		const gen = ++this.renderGeneration;
 		const tempEl = createDiv();
-		await this.host.renderWithEc(this.source, this.language, metaString, tempEl);
+		await this.renderer.renderWithEc(this.source, this.language, metaString, tempEl);
 		if (gen !== this.renderGeneration) return;
 		if (!this._active) return;
 		this.containerEl.empty();
@@ -75,53 +51,27 @@ export class CodeBlock extends MarkdownRenderChild {
 	}
 
 	public async rerenderOnNoteChange(): Promise<void> {
-		// compare the new meta string to the cached one
-		// only rerender if they are different, to avoid unnecessary work
-		// since the meta string is likely to be the same most of the time
-		// and if the code block content changes obsidian will rerender for us
-		let newMetaString = this.getMetaString();
-		if (newMetaString === null) {
-			// Section info transiently unavailable (e.g. view is re-rendering).
-			// One retry is enough: by the time the await resolves the view is stable.
-			newMetaString = await this.retryMetaString(1);
-			if (newMetaString === null) return;
-		}
-		if (newMetaString !== this.cachedMetaString) {
-			this.cachedMetaString = newMetaString;
-			await this.render(newMetaString);
-		}
+		// only rerender if the meta string changed: if the code block content changes
+		// obsidian will rerender for us
+		const meta = await this.meta.onNoteChange();
+		if (meta !== null) await this.render(meta);
 	}
 
 	public async forceRerender(): Promise<void> {
-		const freshMeta = this.getMetaString();
-		if (freshMeta !== null) this.cachedMetaString = freshMeta;
-		await this.render(this.cachedMetaString);
+		await this.render(this.meta.onRefresh());
 	}
 
 	public onload(): void {
 		this._active = true;
 		super.onload();
 
-		this.unregister = this.host.registerRenderTarget({
+		this.unregister = this.targets.register({
 			sourcePath: this.ctx.sourcePath,
 			refresh: () => this.forceRerender(),
 			onNoteChange: () => this.rerenderOnNoteChange(),
 		});
 
-		const metaString = this.getMetaString();
-		if (metaString !== null) {
-			this.cachedMetaString = metaString;
-			void this.render(this.cachedMetaString);
-		} else {
-			// getSectionInfo not ready yet; defer render until Obsidian attaches section info.
-			// Mirrors the sleep(100) pattern used in the vault modify handler in main.ts.
-			// Retry up to 5× (500 ms total) before falling back to cachedMetaString.
-			void (async (): Promise<void> => {
-				const deferred = await this.retryMetaString(5);
-				if (deferred !== null) this.cachedMetaString = deferred;
-				void this.render(this.cachedMetaString);
-			})();
-		}
+		void this.meta.onLoad().then(meta => this.render(meta));
 	}
 
 	public onunload(): void {

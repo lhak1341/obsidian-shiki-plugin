@@ -1,28 +1,15 @@
-import { ExpressiveCodeEngine } from '@expressive-code/core';
 import type { LanguageRegistration } from 'shiki';
 import type { ResolvedTheme } from 'packages/obsidian/src/themes/ResolveTheme';
 import { toDom } from 'hast-util-to-dom';
-import { createEcEngineConfig, type EcSettingsProps } from 'packages/ec-core/src/Config';
-import { encodeCssVarTheme } from 'packages/ec-core/src/CssVarThemeAdapter';
+import { type EcSettingsProps } from 'packages/ec-core/src/Config';
+import { createEcEngine, type EcEngine } from 'packages/ec-core/src/EcEngine';
 
 export class EcRenderer {
-	private ec!: ExpressiveCodeEngine;
+	private ec!: EcEngine;
 	private ecStyleElement: HTMLElement | undefined;
-	private cssVarAdapter: ReturnType<typeof encodeCssVarTheme> | null = null;
 
 	async load(theme: ResolvedTheme, customLanguages: LanguageRegistration[], settings: EcSettingsProps): Promise<void> {
-		const { registration, usingObsidianTheme } = theme;
-
-		this.cssVarAdapter = usingObsidianTheme ? encodeCssVarTheme(registration) : null;
-
-		this.ec = new ExpressiveCodeEngine(
-			createEcEngineConfig({
-				theme: this.cssVarAdapter?.theme ?? registration,
-				customLanguages,
-				settings,
-				usingObsidianTheme,
-			}),
-		);
+		this.ec = createEcEngine({ theme, customLanguages, settings });
 
 		// Since they come directly from EC, and depend on runtime settings/theme selection, there is no other way than to attach them dynamically.
 		// Note that the static EC styles and scripts are bundled with the plugin and don't need to be loaded like this.
@@ -44,9 +31,7 @@ export class EcRenderer {
 	}
 
 	async render(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
-		const result = await this.ec.render({ code, language, meta });
-		const ast = result.renderedGroupAst;
-		this.cssVarAdapter?.decodeHast(ast);
+		const ast = await this.ec.render({ code, language, meta });
 		container.empty();
 		container.append(toDom(ast));
 	}

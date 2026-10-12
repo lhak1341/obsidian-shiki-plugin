@@ -1,14 +1,13 @@
 import path from 'node:path';
 import { builtinModules } from 'node:module';
 import { defineConfig, type UserConfig } from 'vite';
-import { ExpressiveCodeEngine } from '@expressive-code/core';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import banner from 'vite-plugin-banner';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { getBuildBanner } from '@lemons_dev/lemons-obsidian-plugin-automation';
 import manifest from './manifest.json' with { type: 'json' };
-import { createEcEngineConfig, EC_VIRTUAL_SETTINGS } from './packages/ec-core/src/Config';
-import { encodeCssVarTheme } from './packages/ec-core/src/CssVarThemeAdapter';
+import { EC_DEFAULT_SETTINGS } from './packages/ec-core/src/Config';
+import { createEcEngine } from './packages/ec-core/src/EcEngine';
 import { OBSIDIAN_THEME } from './packages/ec-core/src/ObsidianTheme';
 
 const polyfilledNodeBuiltins = new Set(['fs', 'path', 'url']);
@@ -26,21 +25,17 @@ function expressiveCodeBundlePlugin() {
 	const getBundle = async (): Promise<{ runtimeModule: string; styles: string }> => {
 		if (!bundlePromise) {
 			bundlePromise = (async () => {
-				const adapter = encodeCssVarTheme(OBSIDIAN_THEME);
-				const ec = new ExpressiveCodeEngine(
-					createEcEngineConfig({
-						theme: adapter.theme,
-						customLanguages: [],
-						settings: EC_VIRTUAL_SETTINGS,
-						usingObsidianTheme: true,
-					}),
-				);
+				const ec = createEcEngine({
+					theme: { registration: OBSIDIAN_THEME, usingObsidianTheme: true },
+					customLanguages: [],
+					settings: EC_DEFAULT_SETTINGS,
+				});
 
-				const [baseStyles, jsModules] = await Promise.all([ec.getBaseStyles(), ec.getJsModules()]);
+				const [styles, jsModules] = await Promise.all([ec.getBaseStyles(), ec.getJsModules()]);
 
 				return {
 					runtimeModule: jsModules.join('\n'),
-					styles: adapter.decodeString(baseStyles),
+					styles,
 				};
 			})();
 		}

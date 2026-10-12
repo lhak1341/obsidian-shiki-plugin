@@ -11,8 +11,8 @@ export interface ThemeContext {
 
 /**
  * The theme in effect, as one value. `registration`, `identifier` and `usingObsidianTheme` always
- * agree: a renderer that loads `registration` can ask shiki for `identifier`, and the CSS-variable
- * encoding applies exactly when `usingObsidianTheme` is true.
+ * agree: a renderer that loads `registration` can ask shiki for `identifier`, and `ec-core`'s
+ * `createEcEngine` applies the CSS-variable encoding exactly when `usingObsidianTheme` is true.
  */
 export interface ResolvedTheme {
 	registration: ThemeRegistration;

@@ -1,5 +1,6 @@
 import { describe, test, expect, mock } from 'bun:test';
-import { InlineCodeBlock, type InlineCodeBlockHost } from 'packages/obsidian/src/InlineCodeBlock';
+import { InlineCodeBlock, type InlineCodeRenderer } from 'packages/obsidian/src/InlineCodeBlock';
+import type { RenderTargetRegistry } from 'packages/obsidian/src/RenderTargets';
 import type { MarkdownPostProcessorContext } from 'obsidian';
 import type { ThemedToken, TokensResult } from 'shiki';
 
@@ -7,31 +8,32 @@ const makeCtx = (): MarkdownPostProcessorContext => ({ sourcePath: 'test.md', ad
 
 const makeToken = (content: string, color = '#ffffff'): ThemedToken => ({ content, color, offset: 0 }) as ThemedToken;
 
-const makeHost = (overrides: Partial<InlineCodeBlockHost> = {}): InlineCodeBlockHost => ({
+const makeRenderer = (overrides: Partial<InlineCodeRenderer> = {}): InlineCodeRenderer => ({
 	getHighlightTokens: mock(async () => undefined),
 	renderTokens: mock(() => {}),
-	registerRenderTarget: mock(() => () => {}),
 	...overrides,
 });
 
+const makeTargets = (register: RenderTargetRegistry['register'] = mock(() => () => {})): RenderTargetRegistry => ({ register });
+
 describe('InlineCodeBlock', () => {
 	test('falls back to raw source text when no tokens returned', async () => {
-		const host = makeHost({ getHighlightTokens: mock(async () => undefined) });
+		const renderer = makeRenderer({ getHighlightTokens: mock(async () => undefined) });
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'const x = 1', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(), containerEl, 'const x = 1', 'ts', makeCtx());
 
 		block.onload();
 		await new Promise<void>(r => setTimeout(r, 0));
 
 		expect(containerEl.innerText).toBe('const x = 1');
-		expect((host.renderTokens as ReturnType<typeof mock>).mock.calls.length).toBe(0);
+		expect((renderer.renderTokens as ReturnType<typeof mock>).mock.calls.length).toBe(0);
 	});
 
 	test('falls back to raw source text when tokens array is empty', async () => {
 		const emptyResult = { tokens: [[]] } as unknown as TokensResult;
-		const host = makeHost({ getHighlightTokens: mock(async () => emptyResult) });
+		const renderer = makeRenderer({ getHighlightTokens: mock(async () => emptyResult) });
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'hello', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(), containerEl, 'hello', 'ts', makeCtx());
 
 		block.onload();
 		await new Promise<void>(r => setTimeout(r, 0));
@@ -43,29 +45,29 @@ describe('InlineCodeBlock', () => {
 		const line1 = [makeToken('const'), makeToken(' x')];
 		const line2 = [makeToken(' = 1')];
 		const result = { tokens: [line1, line2] } as unknown as TokensResult;
-		const host = makeHost({ getHighlightTokens: mock(async () => result) });
+		const renderer = makeRenderer({ getHighlightTokens: mock(async () => result) });
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'const x = 1', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(), containerEl, 'const x = 1', 'ts', makeCtx());
 
 		block.onload();
 		await new Promise<void>(r => setTimeout(r, 0));
 
-		const calls = (host.renderTokens as ReturnType<typeof mock>).mock.calls;
+		const calls = (renderer.renderTokens as ReturnType<typeof mock>).mock.calls;
 		expect(calls.length).toBe(1);
 		expect(calls[0]![0]).toEqual([...line1, ...line2]);
 		expect(calls[0]![1]).toBe(containerEl);
 	});
 
 	test('forceRerender triggers a fresh render', async () => {
-		const host = makeHost({ getHighlightTokens: mock(async () => undefined) });
+		const renderer = makeRenderer({ getHighlightTokens: mock(async () => undefined) });
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'x', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(), containerEl, 'x', 'ts', makeCtx());
 
 		block.onload();
 		await new Promise<void>(r => setTimeout(r, 0));
 		await block.forceRerender();
 
-		expect((host.getHighlightTokens as ReturnType<typeof mock>).mock.calls.length).toBe(2);
+		expect((renderer.getHighlightTokens as ReturnType<typeof mock>).mock.calls.length).toBe(2);
 	});
 
 	test('generation guard: stale render does not replace DOM', async () => {
@@ -74,7 +76,7 @@ describe('InlineCodeBlock', () => {
 
 		let callCount = 0;
 		const line = [makeToken('x')];
-		const host = makeHost({
+		const renderer = makeRenderer({
 			getHighlightTokens: mock(async () => {
 				callCount++;
 				if (callCount === 1) await firstRenderDone;
@@ -83,7 +85,7 @@ describe('InlineCodeBlock', () => {
 		});
 
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'x', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(), containerEl, 'x', 'ts', makeCtx());
 
 		block.onload(); // starts render #1, hangs
 		await block.forceRerender(); // render #2 completes first — generation advances
@@ -92,14 +94,14 @@ describe('InlineCodeBlock', () => {
 		await new Promise<void>(r => setTimeout(r, 0)); // drain microtasks
 
 		// render #1 should have been dropped; renderTokens called only for render #2
-		expect((host.renderTokens as ReturnType<typeof mock>).mock.calls.length).toBe(1);
+		expect((renderer.renderTokens as ReturnType<typeof mock>).mock.calls.length).toBe(1);
 	});
 
 	test('_active guard: render completing after unload does not apply to DOM', async () => {
 		let resolveRender!: () => void;
 		const renderDone = new Promise<void>(r => (resolveRender = r));
 
-		const host = makeHost({
+		const renderer = makeRenderer({
 			getHighlightTokens: mock(async () => {
 				await renderDone;
 				return undefined;
@@ -107,7 +109,7 @@ describe('InlineCodeBlock', () => {
 		});
 
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'x', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(), containerEl, 'x', 'ts', makeCtx());
 
 		block.onload(); // starts render, hangs on getHighlightTokens
 		block.onunload(); // sets _active = false, writes placeholder
@@ -120,9 +122,9 @@ describe('InlineCodeBlock', () => {
 
 	test('onunload clears container and deregisters', () => {
 		const dispose = mock(() => {});
-		const host = makeHost({ registerRenderTarget: mock(() => dispose) });
+		const renderer = makeRenderer();
 		const containerEl = document.createElement('code');
-		const block = new InlineCodeBlock(host, containerEl, 'x', 'ts', makeCtx());
+		const block = new InlineCodeBlock(renderer, makeTargets(mock(() => dispose)), containerEl, 'x', 'ts', makeCtx());
 
 		block.onload();
 		block.onunload();

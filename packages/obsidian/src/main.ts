@@ -1,5 +1,4 @@
 import { debounce, loadPrism, Notice, Plugin, TFile, type MarkdownPostProcessor } from 'obsidian';
-import type { ThemedToken, TokensResult } from 'shiki';
 import { SHIKI_INLINE_REGEX } from 'packages/obsidian/src/constants';
 import { CodeBlock } from 'packages/obsidian/src/CodeBlock';
 import { createCm6Plugin } from 'packages/obsidian/src/codemirror/Cm6_ViewPlugin';
@@ -7,10 +6,9 @@ import { DEFAULT_SETTINGS, type Settings } from 'packages/obsidian/src/settings/
 import { ShikiSettingsTab } from 'packages/obsidian/src/settings/SettingsTab';
 import { filterHighlightAllPlugin, type PrismWithFilterHighlightAll } from 'packages/obsidian/src/PrismPlugin';
 import { CodeHighlighter } from 'packages/obsidian/src/Highlighter';
-import type { CustomTheme } from 'packages/obsidian/src/CustomAssets';
 import { InlineCodeBlock } from 'packages/obsidian/src/InlineCodeBlock';
 import { SettingsStore } from 'packages/obsidian/src/settings/SettingsStore';
-import { RenderTargets, type RenderTarget } from 'packages/obsidian/src/RenderTargets';
+import { RenderTargets } from 'packages/obsidian/src/RenderTargets';
 
 import 'packages/obsidian/src/styles.css';
 import 'virtual:ec-styles.css';
@@ -25,32 +23,30 @@ export default class ShikiPlugin extends Plugin {
 
 	async onload(): Promise<void> {
 		await this.loadSettings();
-		this.addSettingTab(new ShikiSettingsTab(this));
 
 		this.highlighter = new CodeHighlighter(this);
 		await this.highlighter.load();
 
 		this.renderTargets = new RenderTargets({ reloadHighlighter: (): Promise<void> => this.highlighter.reload() });
 
+		this.addSettingTab(new ShikiSettingsTab(this, this.store, this.highlighter, this.renderTargets));
+
 		this.registerInlineCodeProcessor();
 		this.registerCodeBlockProcessors();
 
-		this.registerEditorExtension([createCm6Plugin(this)]);
+		this.registerEditorExtension([createCm6Plugin(this.highlighter, this.renderTargets, this.store)]);
 
 		// this is a workaround for the fact that obsidian does not rerender the code block
 		// when the start line with the language changes, and we need that for the EC meta string
 		this.registerEvent(
-			this.app.vault.on('modify', async file => {
-				// sleep 100ms so Obsidian has time to update getSectionInfo() before we rerender
-				await sleep(100);
-
+			this.app.vault.on('modify', file => {
 				if (file instanceof TFile) this.renderTargets.rerenderFor(file.path);
 			}),
 		);
 
 		const debouncedReload = debounce(
 			() => {
-				void this.reloadHighlighter();
+				void this.renderTargets.reload();
 			},
 			500,
 			true,
@@ -66,15 +62,11 @@ export default class ShikiPlugin extends Plugin {
 			id: 'reload-highlighter',
 			name: 'Reload highlighter',
 			callback: () => {
-				void this.reloadHighlighter();
+				void this.renderTargets.reload();
 			},
 		});
 
 		await this.registerPrismPlugin();
-	}
-
-	reloadHighlighter(): Promise<void> {
-		return this.renderTargets.reload();
 	}
 
 	async registerPrismPlugin(): Promise<void> {
@@ -96,7 +88,7 @@ export default class ShikiPlugin extends Plugin {
 							return;
 						}
 
-						const codeBlock = new CodeBlock(this, el, source, language, ctx);
+						const codeBlock = new CodeBlock(this.highlighter, this.renderTargets, el, source, language, ctx);
 
 						ctx.addChild(codeBlock);
 					},
@@ -110,6 +102,9 @@ export default class ShikiPlugin extends Plugin {
 
 	registerInlineCodeProcessor(): void {
 		this.registerMarkdownPostProcessor(async (el, ctx) => {
+			// a live setting: read on every pass, so the next render of a note picks up a toggle
+			if (!this.store.snapshot.inlineHighlighting) return;
+
 			const inlineCodes = el.findAll(':not(pre) > code');
 			for (const codeElm of inlineCodes) {
 				const match = SHIKI_INLINE_REGEX.exec(codeElm.textContent ?? ''); // format: `{lang} code`
@@ -117,7 +112,7 @@ export default class ShikiPlugin extends Plugin {
 					continue;
 				}
 
-				const codeBlock = new InlineCodeBlock(this, codeElm, match[2], match[1], ctx);
+				const codeBlock = new InlineCodeBlock(this.highlighter, this.renderTargets, codeElm, match[2], match[1], ctx);
 
 				ctx.addChild(codeBlock);
 			}
@@ -126,10 +121,6 @@ export default class ShikiPlugin extends Plugin {
 
 	onunload(): void {
 		void this.highlighter.unload();
-	}
-
-	registerRenderTarget(target: RenderTarget): () => void {
-		return this.renderTargets.register(target);
 	}
 
 	async loadSettings(): Promise<void> {
@@ -182,34 +173,6 @@ export default class ShikiPlugin extends Plugin {
 
 	async resetTheme(which: 'dark' | 'light'): Promise<void> {
 		const key = which === 'dark' ? ('darkTheme' as const) : ('lightTheme' as const);
-		await this.store.setLive(key, DEFAULT_SETTINGS[key]);
-	}
-
-	getCustomThemes(): CustomTheme[] {
-		return this.highlighter.getCustomThemes();
-	}
-
-	getSupportedLanguages(): string[] {
-		return this.highlighter.supportedLanguages;
-	}
-
-	renderWithEc(code: string, language: string, meta: string, container: HTMLElement): Promise<void> {
-		return this.highlighter.renderWithEc(code, language, meta, container);
-	}
-
-	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined> {
-		return this.highlighter.getHighlightTokens(code, lang);
-	}
-
-	renderTokens(tokens: ThemedToken[], container: HTMLElement): void {
-		this.highlighter.renderTokens(tokens, container);
-	}
-
-	getTokenStyle(token: ThemedToken): { style: string; classes: string[] } {
-		return this.highlighter.getTokenStyle(token);
-	}
-
-	get inlineHighlighting(): boolean {
-		return this.store.snapshot.inlineHighlighting;
+		await this.store.reset(key);
 	}
 }

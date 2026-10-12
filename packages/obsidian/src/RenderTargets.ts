@@ -6,6 +6,9 @@ export interface RenderTarget {
 	onNoteChange?(): Promise<void>;
 }
 
+/** What a render target needs to register itself; satisfied by `RenderTargets`. */
+export type RenderTargetRegistry = Pick<RenderTargets, 'register'>;
+
 export interface RenderTargetsHost {
 	reloadHighlighter(): Promise<void>;
 }

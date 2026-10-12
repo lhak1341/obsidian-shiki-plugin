@@ -1,9 +1,9 @@
 import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
-import { type EcSettingsProps, FrameType } from 'packages/ec-core/src/Config';
+import { EC_DEFAULT_SETTINGS, type EcSettingsProps, FrameType } from 'packages/ec-core/src/Config';
 
 export { FrameType };
 
-export interface Settings {
+export interface Settings extends EcSettingsProps {
 	disabledLanguages: readonly string[];
 	customThemeFolder: string;
 	customLanguageFolder: string;
@@ -13,11 +13,7 @@ export interface Settings {
 	theme: string | undefined;
 	darkTheme: string;
 	lightTheme: string;
-	preferThemeColors: boolean;
 	inlineHighlighting: boolean;
-	ecDefaultShowLineNumbers: boolean;
-	ecDefaultWrap: boolean;
-	ecDefaultFrame: FrameType;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -27,12 +23,12 @@ export const DEFAULT_SETTINGS: Settings = {
 	theme: undefined,
 	darkTheme: OBSIDIAN_THEME_IDENTIFIER,
 	lightTheme: OBSIDIAN_THEME_IDENTIFIER,
-	preferThemeColors: true,
 	inlineHighlighting: true,
-	ecDefaultShowLineNumbers: false,
-	ecDefaultWrap: false,
-	ecDefaultFrame: FrameType.Auto,
+	...EC_DEFAULT_SETTINGS,
 };
 
-// compile-time: enforces Settings stays structurally compatible with EcSettingsProps
-void (DEFAULT_SETTINGS satisfies EcSettingsProps);
+/**
+ * Settings that take effect without a highlighter reload. `SettingsStore.update` writes these
+ * straight into the snapshot; every other setting waits for the next reload.
+ */
+export const LIVE_SETTINGS: ReadonlySet<keyof Settings> = new Set<keyof Settings>(['inlineHighlighting']);

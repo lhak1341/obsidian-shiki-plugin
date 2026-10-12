@@ -1,11 +1,10 @@
 import { describe, test, expect, spyOn } from 'bun:test';
 import { bundledThemes, createHighlighter } from 'shiki';
-import { ExpressiveCodeEngine } from '@expressive-code/core';
 import { resolveTheme, type ResolvedTheme, type ThemeContext } from 'packages/obsidian/src/themes/ResolveTheme';
 import { OBSIDIAN_THEME } from 'packages/ec-core/src/ObsidianTheme';
 import { OBSIDIAN_THEME_IDENTIFIER } from 'packages/obsidian/src/constants';
-import { createEcEngineConfig, EC_VIRTUAL_SETTINGS } from 'packages/ec-core/src/Config';
-import { encodeCssVarTheme } from 'packages/ec-core/src/CssVarThemeAdapter';
+import { EC_DEFAULT_SETTINGS } from 'packages/ec-core/src/Config';
+import { createEcEngine, type EcEngine } from 'packages/ec-core/src/EcEngine';
 
 // Helpers
 
@@ -34,20 +33,14 @@ const expectObsidianFallback = (resolved: ResolvedTheme): void => {
 	expect(resolved.usingObsidianTheme).toBe(true);
 };
 
-// mirrors EcRenderer.load: CSS-variable colours are encoded exactly when the Obsidian theme is in use
-const ecEngineFor = (resolved: ResolvedTheme): ExpressiveCodeEngine => {
-	// shiki normalises a registration it is given in place, so every test works on its own copy
-	const registration = structuredClone(resolved.registration);
-	const adapter = resolved.usingObsidianTheme ? encodeCssVarTheme(registration) : null;
-	return new ExpressiveCodeEngine(
-		createEcEngineConfig({
-			theme: adapter?.theme ?? registration,
-			customLanguages: [],
-			settings: EC_VIRTUAL_SETTINGS,
-			usingObsidianTheme: resolved.usingObsidianTheme,
-		}),
-	);
-};
+// the engine EcRenderer.load builds from a resolved theme
+const ecEngineFor = (resolved: ResolvedTheme): EcEngine =>
+	createEcEngine({
+		// shiki normalises a registration it is given in place, so every test works on its own copy
+		theme: { ...resolved, registration: structuredClone(resolved.registration) },
+		customLanguages: [],
+		settings: EC_DEFAULT_SETTINGS,
+	});
 
 // Tests
 

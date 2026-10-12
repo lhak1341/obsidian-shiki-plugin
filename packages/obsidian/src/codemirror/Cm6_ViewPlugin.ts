@@ -5,17 +5,21 @@ import { type ThemedToken, type TokensResult } from 'shiki';
 import { editorLivePreviewField } from 'obsidian';
 import { rebuildDecorations } from 'packages/obsidian/src/codemirror/Cm6_Pipeline';
 import { isRelevantNode, type WalkedEntry } from 'packages/obsidian/src/codemirror/Cm6_RangeParser';
-import type { RenderTarget } from 'packages/obsidian/src/RenderTargets';
+import type { RenderTargetRegistry } from 'packages/obsidian/src/RenderTargets';
+import type { Settings } from 'packages/obsidian/src/settings/Settings';
 
-export interface Cm6ViewPluginHost {
-	readonly inlineHighlighting: boolean;
-	registerRenderTarget(target: RenderTarget): () => void;
+export interface Cm6Renderer {
 	getHighlightTokens(code: string, lang: string): Promise<TokensResult | undefined>;
 	getTokenStyle(token: ThemedToken): { style: string; classes: string[] };
 }
 
+export interface Cm6Settings {
+	/** Re-read on every update: live settings change it in place, a flush replaces it. */
+	readonly snapshot: Readonly<Pick<Settings, 'inlineHighlighting'>>;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- not an easily named type
-export function createCm6Plugin(host: Cm6ViewPluginHost) {
+export function createCm6Plugin(renderer: Cm6Renderer, targets: RenderTargetRegistry, settings: Cm6Settings) {
 	return ViewPlugin.fromClass(
 		class Cm6ViewPlugin {
 			decorations: DecorationSet;
@@ -28,7 +32,7 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 			constructor(view: EditorView) {
 				this.view = view;
 				this.decorations = Decoration.none;
-				this.unregister = host.registerRenderTarget({ refresh: () => this.updateWidgets(this.view) });
+				this.unregister = targets.register({ refresh: () => this.updateWidgets(this.view) });
 				void this.updateWidgets(view);
 			}
 
@@ -73,13 +77,13 @@ export function createCm6Plugin(host: Cm6ViewPluginHost) {
 					entries,
 					{
 						getText: (from, to) => view.state.sliceDoc(from, to),
-						getHighlightTokens: (code, l) => host.getHighlightTokens(code, l),
-						getTokenStyle: token => host.getTokenStyle(token),
+						getHighlightTokens: (code, l) => renderer.getHighlightTokens(code, l),
+						getTokenStyle: token => renderer.getTokenStyle(token),
 					},
 					{ fenced: this.fenced, inline: this.inline },
 					{
 						selectionRanges: view.state.selection.ranges.map(r => ({ from: r.from, to: r.to })),
-						inlineHighlighting: host.inlineHighlighting,
+						inlineHighlighting: settings.snapshot.inlineHighlighting,
 						isLivePreview: this.isLivePreview(view.state),
 						docChanged,
 					},

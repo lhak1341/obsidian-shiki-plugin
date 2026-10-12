@@ -10,13 +10,13 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/main.ts": {
-    "mtime": 1791706481.5002024,
-    "ast_hash": "5af6c8aa21babbf40474d5ae1d990fdf",
+    "mtime": 1791785129.2652435,
+    "ast_hash": "f5a17d741c80400f4e0c7c64de71bbf2",
     "semantic_hash": ""
   },
   "packages/obsidian/src/CodeBlock.ts": {
-    "mtime": 1791704749.1996038,
-    "ast_hash": "8bf9269bc800485cccbea634c97aa99c",
+    "mtime": 1791781580.4274478,
+    "ast_hash": "7ae34b33e319eabab5c034357f694b31",
     "semantic_hash": ""
   },
   "packages/obsidian/src/PrismPlugin.ts": {
@@ -25,18 +25,18 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/EcRenderer.ts": {
-    "mtime": 1791707680.8484733,
-    "ast_hash": "7b2897c47d0ecf30cf98a4618dccda5b",
+    "mtime": 1791790155.325545,
+    "ast_hash": "0ba26da72213ab98aee353fec6d1566d",
     "semantic_hash": ""
   },
   "packages/obsidian/src/Highlighter.ts": {
-    "mtime": 1791707680.8475428,
+    "mtime": 1791781597.5966086,
     "ast_hash": "af7d25660f1ed72b4298f70b2b62bb9e",
     "semantic_hash": ""
   },
   "packages/obsidian/src/InlineCodeBlock.ts": {
-    "mtime": 1791704749.2003386,
-    "ast_hash": "b417869ef160dbd67426bdd594e42561",
+    "mtime": 1791781580.4888859,
+    "ast_hash": "5895901c0724510b4b2e668f5d6585f8",
     "semantic_hash": ""
   },
   "packages/obsidian/src/constants.ts": {
@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/settings/SettingsStore.ts": {
-    "mtime": 1783039177.8863878,
-    "ast_hash": "c4cc9c4e353d94444f85bb6f392331f7",
+    "mtime": 1791785166.5728614,
+    "ast_hash": "ace7dd9438afc62201a90b6f01baa939",
     "semantic_hash": ""
   },
   "packages/obsidian/src/settings/StringSelectModal.ts": {
@@ -65,13 +65,13 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/settings/Settings.ts": {
-    "mtime": 1783076675.3446567,
-    "ast_hash": "ed1f29afff8cd4c20840c72489de344d",
+    "mtime": 1791792445.8597174,
+    "ast_hash": "b46621de451797ad4fae67914efb81f9",
     "semantic_hash": ""
   },
   "packages/obsidian/src/settings/SettingsTab.ts": {
-    "mtime": 1783713971.7739315,
-    "ast_hash": "f4b8363b7a60191c8f755bda67688658",
+    "mtime": 1791785129.264817,
+    "ast_hash": "8f3a98e97d728df685e23bfd0a05b2da",
     "semantic_hash": ""
   },
   "packages/obsidian/src/codemirror/Cm6_DecorationBuilder.ts": {
@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts": {
-    "mtime": 1791707194.934989,
-    "ast_hash": "2b2bbc94ae1ddf1876112baa700d4936",
+    "mtime": 1791781569.5963566,
+    "ast_hash": "50d99c84c954f3e5586fb3ff1c54e331",
     "semantic_hash": ""
   },
   "packages/ec-core/src/ECTheme.ts": {
@@ -95,8 +95,8 @@
     "semantic_hash": ""
   },
   "packages/ec-core/src/Config.ts": {
-    "mtime": 1783076670.2074378,
-    "ast_hash": "32922261e56b8f2cf30ce06f3d1ca573",
+    "mtime": 1791792465.841295,
+    "ast_hash": "77918cb0617afc113274ed4a593e6848",
     "semantic_hash": ""
   },
   "packages/ec-core/src/CssVarThemeAdapter.ts": {
@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1791708245.2796211,
-    "ast_hash": "f723990ce5570865e630ec5bad943965",
+    "mtime": 1791792445.8607855,
+    "ast_hash": "2db5a709c6f03d6708b3ad78f7cee918",
     "semantic_hash": ""
   },
   "exampleVault/Slides.md": {
@@ -200,8 +200,8 @@
     "semantic_hash": ""
   },
   "vite.config.mts": {
-    "mtime": 1782999825.1998892,
-    "ast_hash": "c3a54ddab4001e17fdbbd2d51da1d52a",
+    "mtime": 1791792445.8599818,
+    "ast_hash": "820af034660d796e544280fd7ec36741",
     "semantic_hash": ""
   },
   ".github/FUNDING.yml": {
@@ -240,8 +240,8 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/RenderTargets.ts": {
-    "mtime": 1791704804.7222586,
-    "ast_hash": "9cdfe70ec0142806b974f3aae735b903",
+    "mtime": 1791781598.6702263,
+    "ast_hash": "9574806a968a91eca97abcc324fa00ff",
     "semantic_hash": ""
   },
   "packages/obsidian/src/codemirror/Cm6_Pipeline.ts": {
@@ -250,8 +250,8 @@
     "semantic_hash": ""
   },
   "packages/obsidian/src/themes/ResolveTheme.ts": {
-    "mtime": 1791707774.2394903,
-    "ast_hash": "369fdd758c9c17033c51d995228ec50b",
+    "mtime": 1791790155.3263905,
+    "ast_hash": "a2427831f5e62c37a1e4e185e99b7f9c",
     "semantic_hash": ""
   },
   "scripts/deploy.mjs": {
@@ -262,6 +262,21 @@
   "docs/adr/0001-keep-stale-render-guards-per-consumer.md": {
     "mtime": 1791706084.216168,
     "ast_hash": "5e0c52dc1196905b6982ea427d0a9181",
+    "semantic_hash": ""
+  },
+  "packages/ec-core/src/EcEngine.ts": {
+    "mtime": 1791791829.2264638,
+    "ast_hash": "6bcc0f7e5f4a6f734b833ea1590dadb5",
+    "semantic_hash": ""
+  },
+  "packages/obsidian/src/FenceMeta.ts": {
+    "mtime": 1791780714.006177,
+    "ast_hash": "99a52c5bf53af14a985f22ec4c25061a",
+    "semantic_hash": ""
+  },
+  "CONTEXT.md": {
+    "mtime": 1791780728.0150924,
+    "ast_hash": "ba4f5c81df3869b456665ff417b378d9",
     "semantic_hash": ""
   }
 }
