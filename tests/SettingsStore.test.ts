@@ -43,7 +43,7 @@ describe('SettingsStore', () => {
 
 	test('update: a live setting reaches the snapshot at once', async () => {
 		const { store } = makeStore();
-		await store.update('inlineHighlighting', false);
+		expect(await store.update('inlineHighlighting', false)).toBe(false);
 		expect(store.persisted.inlineHighlighting).toBe(false);
 		expect(store.snapshot.inlineHighlighting).toBe(false);
 	});
@@ -55,7 +55,7 @@ describe('SettingsStore', () => {
 			const { store } = makeStore();
 			const before = structuredClone(store.snapshot[key]);
 			const value = changed[key];
-			await store.update(key, value as never);
+			expect(await store.update(key, value as never), key).toBe(true);
 			expect(store.persisted[key], key).toEqual(value);
 			expect(store.snapshot[key], key).toEqual(before);
 		}

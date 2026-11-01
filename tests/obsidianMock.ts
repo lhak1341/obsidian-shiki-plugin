@@ -16,4 +16,17 @@ mock.module('obsidian', () => ({
 		onunload(): void {}
 		register(_cb: () => void): void {}
 	},
+	PluginSettingTab: class {
+		app: unknown;
+		constructor(app: unknown, _plugin: unknown) {
+			this.app = app;
+		}
+		update(): void {}
+	},
+	FuzzySuggestModal: class {
+		constructor(_app: unknown) {}
+		open(): void {}
+	},
+	Platform: { isDesktopApp: false },
+	Notice: class {},
 }));

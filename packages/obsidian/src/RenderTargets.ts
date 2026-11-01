@@ -11,6 +11,8 @@ export type RenderTargetRegistry = Pick<RenderTargets, 'register'>;
 
 export interface RenderTargetsHost {
 	reloadHighlighter(): Promise<void>;
+	/** Runs after the highlighter reloads and before targets refresh; skipped once disposed. */
+	afterReload?(): void;
 }
 
 /**
@@ -23,6 +25,7 @@ export class RenderTargets {
 	private readonly unkeyed = new Set<RenderTarget>();
 	private current: Promise<void> | null = null;
 	private pending = false;
+	private disposed = false;
 
 	constructor(host: RenderTargetsHost) {
 		this.host = host;
@@ -52,6 +55,7 @@ export class RenderTargets {
 	}
 
 	reload(): Promise<void> {
+		if (this.disposed) return Promise.resolve();
 		if (this.current) {
 			this.pending = true;
 			return this.current;
@@ -72,6 +76,10 @@ export class RenderTargets {
 		do {
 			this.pending = false;
 			await this.host.reloadHighlighter();
+			// plugin unloaded mid-reload: its processors and settings tab are gone and the targets
+			// are being torn down, so neither the post-reload step nor a refresh may run
+			if (this.disposed) return;
+			this.host.afterReload?.();
 
 			for (const targets of [...this.byPath.values()]) {
 				for (const target of [...targets]) {
@@ -83,6 +91,15 @@ export class RenderTargets {
 				await this.isolate(target, () => target.refresh());
 			}
 		} while (this.pending);
+	}
+
+	/**
+	 * Refuses further reloads; a queued trailing run is dropped by the check after `reloadHighlighter`. Resolves once a reload already in progress
+	 * has finished (even if it failed), so the caller can unload the highlighter without racing it.
+	 */
+	dispose(): Promise<void> {
+		this.disposed = true;
+		return (this.current ?? Promise.resolve()).catch(() => {});
 	}
 
 	private async isolate(target: RenderTarget, run: () => Promise<void>): Promise<void> {

@@ -134,4 +134,67 @@ describe('RenderTargets', () => {
 		expect(warn).toHaveBeenCalled();
 		warn.mockRestore();
 	});
+
+	test('dispose waits for the reload in progress, skips its refresh, and drops the queued one', async () => {
+		const { calls, host, targets } = setup();
+		let release!: () => void;
+		const gate = new Promise<void>(r => (release = r));
+		host.reloadHighlighter.mockImplementationOnce(async () => {
+			await gate;
+			calls.push('highlighter');
+		});
+		targets.register(target(calls, 'block', { sourcePath: 'a.md' }));
+
+		void targets.reload();
+		void targets.reload(); // queued trailing run
+		let disposed = false;
+		const done = targets.dispose().then(() => void (disposed = true));
+		await Promise.resolve();
+		expect(disposed).toBe(false);
+
+		release();
+		await done;
+
+		expect(calls).toEqual(['highlighter']);
+	});
+
+	test('afterReload runs between highlighter and targets, and not once disposed mid-reload', async () => {
+		const { calls, host } = setup();
+		const withHook = new RenderTargets({ reloadHighlighter: host.reloadHighlighter, afterReload: () => void calls.push('after') });
+		withHook.register(target(calls, 'block', { sourcePath: 'a.md' }));
+		await withHook.reload();
+		expect(calls).toEqual(['highlighter', 'after', 'block']);
+
+		calls.length = 0;
+		let release!: () => void;
+		const gate = new Promise<void>(r => (release = r));
+		host.reloadHighlighter.mockImplementationOnce(async () => {
+			await gate;
+			calls.push('highlighter');
+		});
+		void withHook.reload();
+		const done = withHook.dispose();
+		release();
+		await done;
+		expect(calls).toEqual(['highlighter']);
+	});
+
+	test('dispose resolves even when the reload in progress fails', async () => {
+		const { host, targets } = setup();
+		host.reloadHighlighter.mockImplementationOnce(async () => {
+			throw new Error('boom');
+		});
+		const failed = targets.reload();
+
+		await targets.dispose();
+		await expect(failed).rejects.toThrow('boom');
+	});
+
+	test('reload after dispose does nothing', async () => {
+		const { host, targets } = setup();
+		await targets.dispose();
+
+		await targets.reload();
+		expect(host.reloadHighlighter).not.toHaveBeenCalled();
+	});
 });

@@ -19,11 +19,16 @@ export class SettingsStore {
 		return this._snapshot;
 	}
 
-	/** Saves a user edit. Settings in `LIVE_SETTINGS` reach the snapshot now, the rest on the next flush. */
-	async update<K extends keyof Settings>(key: K, value: Settings[K]): Promise<void> {
+	/**
+	 * Saves a user edit. Settings in `LIVE_SETTINGS` reach the snapshot now, the rest on the next
+	 * flush. Resolves to whether the edit waits for that flush, i.e. whether a reload is needed.
+	 */
+	async update<K extends keyof Settings>(key: K, value: Settings[K]): Promise<boolean> {
 		this._persisted[key] = value;
-		if (LIVE_SETTINGS.has(key)) this._snapshot[key] = value;
+		const live = LIVE_SETTINGS.has(key);
+		if (live) this._snapshot[key] = value;
 		await this._save();
+		return !live;
 	}
 
 	/** Replaces a stored value that proved invalid with its default, in the snapshot too, so a load in progress uses it. */

@@ -1,41 +1,44 @@
-# Graph Report - obsidian-shiki-plugin  (2026-10-12)
+# Graph Report - obsidian-shiki-plugin  (2026-11-01)
 
 ## Corpus Check
-- 49 files · ~19,795 words
+- 50 files · ~20,583 words
 - Verdict: corpus is large enough that graph structure adds value.
+- Unclassified: 8 file(s) not represented in the graph (top: (none) 5, .lock 1, .toml 1)
 
 ## Summary
-- 609 nodes · 778 edges · 111 communities (43 shown, 68 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.85)
+- 633 nodes · 908 edges · 87 communities (44 shown, 43 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 55 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9fb884e4`
+- Built from commit: `5dc2efdc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- Plugin Entry & Init
+- ShikiPlugin
 - Theme & Render Core
 - Plugin Settings Management
 - Architecture & Integration Patterns
 - Config Models & Schemas
-- Code Highlighter Core
-- Code Block Life Cycle
+- EcEngine.ts
+- EcRenderer.ts
 - Inline Code Block Renderer
-- CodeMirror 6 Custom Decorations
+- vite.config.mts
+- beginCaptures
 - Prism Syntax Integration
 - Expressive Code Feature Demo
+- 1
 - Shiki Highlight Demo
 - Obsidian API Extensions
 - ESLint Configuration
 - Vite Build Setup
 - Inline Code Patterns
-- Highlightable Ranges
+- scripts
 - Decoration Builders
 - ESLint Utility Functions
 - Obsidian App Types
-- SHIKI_INLINE_REGEX
+- case-clause
 - Cm6_RangeParser.ts
 - obsidian-shiki-plugin
 - defineConfig
@@ -54,45 +57,23 @@
 - object-definition
 - return-type-declaration
 - slice
-- distinct-type-assignment
+- 0
 - block-label
 - constant-assignment
-- 0
+- distinct-type-assignment
 - punctuation
 - type-name
-- variable-name
+- procedure-assignment
 - vite-virtual-modules.d.ts
-- @codemirror/language
-- @codemirror/state
-- @codemirror/view
-- @eslint/js
-- eslint-plugin-no-relative-import-paths
-- eslint-plugin-obsidianmd
-- eslint-plugin-only-warn
-- assignments
-- basic-types
-- @expressive-code/core
-- @expressive-code/plugin-collapsible-sections
-- @expressive-code/plugin-frames
-- @expressive-code/plugin-line-numbers
-- @expressive-code/plugin-shiki
-- @expressive-code/plugin-text-markers
-- @happy-dom/global-registrator
-- hast-util-to-dom
-- itertools-ts
-- @lemons_dev/lemons-obsidian-plugin-automation
-- obsidian
-- prettier
-- shiki
-- tslib
-- @types/bun
-- @types/prismjs
-- typescript
-- typescript-eslint
-- vite-plugin-banner
-- vite-plugin-node-polyfills
-- vite-plugin-static-copy
-- SettingsStore Management
+- type-annotation
+- type-assignment
+- punctuation
+- overrides
+- resolutions
+- name
+- keywords
+- statements
+- package.json
 - code:css (input:is([data-task="式"], [data-task="式"] > *):checked::afte)
 - code:bash (echo "Hello")
 - code:diff (+ this line will be marked as inserted)
@@ -114,34 +95,32 @@
 - code:block5
 - code:block7
 - code:block9
-- OBSIDIAN_THEME_IDENTIFIER
-- LANGUAGE_BLACKLIST
 - FrameType
 - Plugin README
 
 ## God Nodes (most connected - your core abstractions)
 1. `repository` - 35 edges
 2. `compilerOptions` - 22 edges
-3. `ShikiPlugin` - 18 edges
-4. `CodeHighlighter` - 17 edges
-5. `Settings` - 16 edges
+3. `ShikiPlugin` - 21 edges
+4. `CodeHighlighter` - 18 edges
+5. `Settings` - 18 edges
 6. `scripts` - 14 edges
-7. `createEcEngine()` - 11 edges
-8. `0` - 10 edges
-9. `CodeBlock` - 10 edges
-10. `RenderTargetRegistry` - 10 edges
+7. `shiki` - 14 edges
+8. `CodeBlock` - 12 edges
+9. `ShikiSettingsTab` - 12 edges
+10. `FenceMetaReader` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `Domain glossary` --references--> `FenceMetaReader`  [INFERRED]
+  CONTEXT.md → packages/obsidian/src/FenceMeta.ts
+- `Keep the stale-render guards in each consumer` --references--> `CodeBlock`  [INFERRED]
+  docs/adr/0001-keep-stale-render-guards-per-consumer.md → packages/obsidian/src/CodeBlock.ts
+- `Keep the stale-render guards in each consumer` --references--> `InlineCodeBlock`  [INFERRED]
+  docs/adr/0001-keep-stale-render-guards-per-consumer.md → packages/obsidian/src/InlineCodeBlock.ts
 - `expressiveCodeBundlePlugin()` --calls--> `createEcEngine()`  [EXTRACTED]
   vite.config.mts → packages/ec-core/src/EcEngine.ts
-- `Cm6Settings` --references--> `Settings`  [EXTRACTED]
-  packages/obsidian/src/codemirror/Cm6_ViewPlugin.ts → packages/obsidian/src/settings/Settings.ts
 - `EcEngineInput` --references--> `EcSettingsProps`  [EXTRACTED]
   packages/ec-core/src/EcEngine.ts → packages/ec-core/src/Config.ts
-- `Settings` --inherits--> `EcSettingsProps`  [EXTRACTED]
-  packages/obsidian/src/settings/Settings.ts → packages/ec-core/src/Config.ts
-- `CodeHighlighter` --references--> `EcRenderer`  [EXTRACTED]
-  packages/obsidian/src/Highlighter.ts → packages/obsidian/src/EcRenderer.ts
 
 ## Import Cycles
 - None detected.
@@ -150,87 +129,99 @@
 - **Obsidian Rendering Integration** — packages_obsidian_src_codeblock_codeblock, packages_obsidian_src_inlinecodeblock_inlinecodeblock, packages_obsidian_src_codemirror_cm6_viewplugin_createcm6plugin [INFERRED 0.95]
 - **Expressive Code Rendering Features** — exampleimage_custom_title, exampleimage_line_numbers, exampleimage_line_highlighting, exampleimage_diff_highlighting [EXTRACTED 1.00]
 
-## Communities (111 total, 68 thin omitted)
+## Communities (87 total, 43 thin omitted)
 
-### Community 0 - "Plugin Entry & Init"
-Cohesion: 0.22
-Nodes (3): RenderTarget, RenderTargets, RenderTargetsHost
+### Community 0 - "ShikiPlugin"
+Cohesion: 0.06
+Nodes (7): CodeBlockProcessors, ProcessorRegistrar, ShikiPlugin, filterHighlightAllPlugin(), RenderTarget, RenderTargets, RenderTargetsHost
 
 ### Community 1 - "Theme & Render Core"
 Cohesion: 0.06
-Nodes (20): FrameType, createCm6Plugin(), ShikiPlugin, add(), addSelector(), filterHighlightAllPlugin(), PrismBeforeAllElementsHighlightEnv, PrismFilterHighlightApi (+12 more)
+Nodes (24): EC_DEFAULT_SETTINGS, FrameType, Auto, Code, None, Terminal, Cm6Settings, OBSIDIAN_THEME_IDENTIFIER (+16 more)
 
 ### Community 2 - "Plugin Settings Management"
-Cohesion: 0.08
-Nodes (18): CustomAssets, CustomAssetsHost, CustomAssetsInput, CustomTheme, listJsonFiles(), loadCustomAssets(), loadLanguages(), loadThemes() (+10 more)
+Cohesion: 0.07
+Nodes (22): OBSIDIAN_THEME, CustomAssets, CustomAssetsHost, CustomAssetsInput, CustomTheme, listJsonFiles(), loadCustomAssets(), loadLanguages() (+14 more)
 
 ### Community 4 - "Config Models & Schemas"
 Cohesion: 0.12
 Nodes (15): BRAT, Code Block Configuration, Comparison, Credits, Custom Themes, Diff Highlighting, Inline Highlighting, Installation (+7 more)
 
-### Community 6 - "Code Block Life Cycle"
-Cohesion: 0.13
-Nodes (14): EC_DEFAULT_SETTINGS, EcSettingsProps, encodeCssVarTheme(), createEcEngine(), createEcEngineConfig(), EcEngine, EcEngineInput, EcThemeInput (+6 more)
+### Community 5 - "EcEngine.ts"
+Cohesion: 0.20
+Nodes (10): encodeCssVarTheme(), createEcEngineConfig(), EcThemeInput, getECTheme(), @expressive-code/core, @expressive-code/plugin-collapsible-sections, @expressive-code/plugin-frames, @expressive-code/plugin-line-numbers (+2 more)
+
+### Community 6 - "EcRenderer.ts"
+Cohesion: 0.24
+Nodes (4): EcSettingsProps, EcEngine, EcEngineInput, hast-util-to-dom
 
 ### Community 7 - "Inline Code Block Renderer"
-Cohesion: 0.12
-Nodes (8): CodeBlock, CodeBlockRenderer, FenceMetaReader, FenceMetaReaderDeps, FenceSectionInfo, InlineCodeBlock, InlineCodeRenderer, RenderTargetRegistry
+Cohesion: 0.10
+Nodes (10): Domain glossary, Keep the stale-render guards in each consumer, CodeBlock, CodeBlockRenderer, FenceMetaReader, FenceMetaReaderDeps, FenceSectionInfo, InlineCodeBlock (+2 more)
 
-### Community 9 - "CodeMirror 6 Custom Decorations"
-Cohesion: 0.05
-Nodes (47): name, name, name, name, name, 1, 2, 3 (+39 more)
+### Community 8 - "vite.config.mts"
+Cohesion: 0.18
+Nodes (9): createEcEngine(), @lemons_dev/lemons-obsidian-plugin-automation, vite, vite-plugin-banner, vite-plugin-node-polyfills, vite-plugin-static-copy, expressiveCodeBundlePlugin(), externalNodeBuiltins (+1 more)
+
+### Community 9 - "beginCaptures"
+Cohesion: 0.22
+Nodes (11): name, name, name, 4, 5, 6, 4, 5 (+3 more)
 
 ### Community 11 - "Expressive Code Feature Demo"
-Cohesion: 0.06
-Nodes (32): bun, DOM, ESNext, ./packages/*, packages/*/src/**/*.d.ts, packages/*/src/**/*.ts, tests/**/*.ts, vite/client (+24 more)
+Cohesion: 0.08
+Nodes (24): compilerOptions, allowJs, allowSyntheticDefaultImports, checkJs, importHelpers, isolatedModules, lib, module (+16 more)
 
-### Community 13 - "Shiki Highlight Demo"
-Cohesion: 0.40
-Nodes (6): CSS Custom Task List Icons, Custom Code Block Title, Diff Highlighting, Line Highlighting, Line Numbering, Expressive Code Feature Demonstration Screenshot
+### Community 12 - "1"
+Cohesion: 0.39
+Nodes (8): name, name, 1, 2, 3, beginCaptures, beginCaptures, beginCaptures
 
-### Community 18 - "Highlightable Ranges"
-Cohesion: 0.07
-Nodes (27): author, description, keywords, license, main, name, overrides, @codemirror/state (+19 more)
+### Community 18 - "scripts"
+Cohesion: 0.14
+Nodes (14): scripts, build, check, check:fix, deploy, dev, format, format:check (+6 more)
 
 ### Community 20 - "ESLint Utility Functions"
-Cohesion: 0.09
-Nodes (22): patterns, patterns, patterns, patterns, patterns, patterns, match, name (+14 more)
+Cohesion: 0.11
+Nodes (18): patterns, patterns, patterns, patterns, patterns, repository, assignments, attribute (+10 more)
 
 ### Community 21 - "Obsidian App Types"
-Cohesion: 0.15
-Nodes (17): name, captures, 1, 2, captures, match, name, captures (+9 more)
+Cohesion: 0.16
+Nodes (16): captures, 1, 2, captures, match, name, captures, match (+8 more)
+
+### Community 22 - "case-clause"
+Cohesion: 0.33
+Nodes (6): begin, beginCaptures, end, name, patterns, case-clause
 
 ### Community 23 - "Cm6_RangeParser.ts"
-Cohesion: 0.15
-Nodes (17): buildDecorationSet(), HighlightableRange, DecorationSets, PipelineDeps, PipelineInput, rebuildDecorations(), RebuildResult, checkSelectionOverlap() (+9 more)
+Cohesion: 0.13
+Nodes (21): buildDecorationSet(), HighlightableRange, DecorationSets, PipelineDeps, PipelineInput, rebuildDecorations(), RebuildResult, checkSelectionOverlap() (+13 more)
 
 ### Community 24 - "obsidian-shiki-plugin"
 Cohesion: 0.25
 Nodes (7): Dependencies, Highlighter structure, Narrow host interfaces, obsidian-shiki-plugin, Package structure, Settings store, Upstream
 
 ### Community 27 - "manifest.json"
-Cohesion: 0.40
+Cohesion: 0.29
 Nodes (3): OPTIONAL, REQUIRED, targets
 
 ### Community 28 - "devDependencies"
-Cohesion: 0.22
-Nodes (9): @codemirror/language, @lezer/common, devDependencies, @codemirror/language, @lezer/common, @tsconfig/svelte, vite, @tsconfig/svelte (+1 more)
+Cohesion: 0.06
+Nodes (33): devDependencies, @codemirror/language, @codemirror/state, @codemirror/view, @eslint/js, eslint-plugin-import-x, eslint-plugin-no-relative-import-paths, eslint-plugin-obsidianmd (+25 more)
 
 ### Community 29 - "0"
-Cohesion: 0.33
-Nodes (6): begin, beginCaptures, end, name, patterns, block-comment
+Cohesion: 0.29
+Nodes (7): begin, beginCaptures, end, endCaptures, name, patterns, block-comment
 
 ### Community 30 - "block-definition"
-Cohesion: 0.33
-Nodes (6): begin, end, endCaptures, name, patterns, block-definition
+Cohesion: 0.29
+Nodes (7): begin, beginCaptures, end, endCaptures, name, patterns, block-definition
 
 ### Community 31 - "case-clause"
 Cohesion: 0.20
 Nodes (9): author, authorUrl, description, fundingUrl, id, isDesktopOnly, minAppVersion, name (+1 more)
 
 ### Community 32 - "parameters"
-Cohesion: 0.33
-Nodes (6): begin, end, endCaptures, name, patterns, parameters
+Cohesion: 0.29
+Nodes (7): begin, beginCaptures, end, endCaptures, name, patterns, parameters
 
 ### Community 33 - ".prettierrc.json"
 Cohesion: 0.29
@@ -245,8 +236,8 @@ Cohesion: 0.33
 Nodes (6): begin, beginCaptures, end, name, patterns, file-tags
 
 ### Community 36 - "import-declaration"
-Cohesion: 0.33
-Nodes (6): begin, beginCaptures, end, name, patterns, import-declaration
+Cohesion: 0.25
+Nodes (8): name, 0, begin, beginCaptures, end, name, patterns, import-declaration
 
 ### Community 37 - "map-bitset"
 Cohesion: 0.33
@@ -262,11 +253,11 @@ Nodes (6): return-type-declaration, begin, beginCaptures, end, name, patterns
 
 ### Community 40 - "slice"
 Cohesion: 0.33
-Nodes (6): slice, begin, end, endCaptures, name, patterns
+Nodes (6): slice, begin, beginCaptures, end, name, patterns
 
-### Community 41 - "distinct-type-assignment"
+### Community 41 - "0"
 Cohesion: 0.50
-Nodes (4): name, endCaptures, 0, endCaptures
+Nodes (4): endCaptures, 0, endCaptures, endCaptures
 
 ### Community 42 - "block-label"
 Cohesion: 0.67
@@ -276,9 +267,9 @@ Nodes (3): match, name, block-label
 Cohesion: 0.67
 Nodes (3): type-declaration, name, patterns
 
-### Community 44 - "0"
-Cohesion: 0.50
-Nodes (4): 0, beginCaptures, beginCaptures, beginCaptures
+### Community 44 - "distinct-type-assignment"
+Cohesion: 0.40
+Nodes (5): begin, end, name, patterns, distinct-type-assignment
 
 ### Community 45 - "punctuation"
 Cohesion: 0.67
@@ -288,29 +279,53 @@ Nodes (3): variable-assignment, match, name
 Cohesion: 0.67
 Nodes (3): type-name, match, name
 
-### Community 47 - "variable-name"
+### Community 47 - "procedure-assignment"
+Cohesion: 0.40
+Nodes (5): begin, end, name, patterns, procedure-assignment
+
+### Community 49 - "type-annotation"
+Cohesion: 0.40
+Nodes (5): type-annotation, begin, end, name, patterns
+
+### Community 50 - "type-assignment"
+Cohesion: 0.40
+Nodes (5): type-assignment, begin, end, name, patterns
+
+### Community 51 - "punctuation"
 Cohesion: 0.67
-Nodes (3): variable-name, match, name
+Nodes (3): match, name, punctuation
+
+### Community 52 - "overrides"
+Cohesion: 0.67
+Nodes (3): overrides, @codemirror/state, @codemirror/view
+
+### Community 53 - "resolutions"
+Cohesion: 0.67
+Nodes (3): resolutions, @codemirror/state, @codemirror/view
+
+### Community 80 - "package.json"
+Cohesion: 0.10
+Nodes (22): author, description, keywords, license, main, name, version, @eslint/js (+14 more)
 
 ## Knowledge Gaps
-- **254 isolated node(s):** `printWidth`, `useTabs`, `tabWidth`, `semi`, `singleQuote` (+249 more)
-  These have ≤1 connection - possible missing edges or undocumented components.
-- **68 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **40 isolated node(s):** `@happy-dom/global-registrator`, `@lezer/common`, `@tsconfig/svelte`, `@types/bun`, `@types/prismjs` (+35 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 316 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **43 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `repository` connect `ESLint Utility Functions` to `parameters`, `odin.json`, `file-tags`, `import-declaration`, `map-bitset`, `object-definition`, `code:`md`, `return-type-declaration`, `CodeMirror 6 Custom Decorations`, `block-label`, `slice`, `constant-assignment`, `punctuation`, `type-name`, `variable-name`, `Obsidian App Types`, `0`, `block-definition`?**
-  _High betweenness centrality (0.068) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `devDependencies` to `Highlightable Ranges`, `@codemirror/language`, `@codemirror/view`, `@eslint/js`, `eslint-plugin-no-relative-import-paths`, `eslint-plugin-obsidianmd`, `eslint-plugin-only-warn`, `assignments`, `@expressive-code/core`, `@expressive-code/plugin-collapsible-sections`, `@expressive-code/plugin-frames`, `@expressive-code/plugin-line-numbers`, `@expressive-code/plugin-shiki`, `@expressive-code/plugin-text-markers`, `@happy-dom/global-registrator`, `hast-util-to-dom`, `itertools-ts`, `@lemons_dev/lemons-obsidian-plugin-automation`, `obsidian`, `prettier`, `shiki`, `tslib`, `@types/bun`, `@types/prismjs`, `typescript`, `typescript-eslint`, `vite-plugin-banner`, `vite-plugin-node-polyfills`, `vite-plugin-static-copy`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
-- **Why does `CodeHighlighter` connect `Plugin Settings Management` to `Theme & Render Core`, `Code Block Life Cycle`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
-- **What connects `printWidth`, `useTabs`, `tabWidth` to the rest of the system?**
-  _254 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `repository` connect `ESLint Utility Functions` to `Obsidian App Types`, `case-clause`, `0`, `block-definition`, `parameters`, `odin.json`, `file-tags`, `import-declaration`, `map-bitset`, `object-definition`, `return-type-declaration`, `slice`, `block-label`, `constant-assignment`, `distinct-type-assignment`, `punctuation`, `type-name`, `procedure-assignment`, `type-annotation`, `type-assignment`, `punctuation`, `keywords`, `statements`, `code:`md`?**
+  _High betweenness centrality (0.063) - this node is a cross-community bridge._
+- **What connects `@happy-dom/global-registrator`, `@lezer/common`, `@tsconfig/svelte` to the rest of the system?**
+  _40 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `ShikiPlugin` be split into smaller, more focused modules?**
+  _Cohesion score 0.06363636363636363 - nodes in this community are weakly interconnected._
+- **Why does `obsidian` connect `Theme & Render Core` to `package.json`, `Plugin Settings Management`, `Cm6_RangeParser.ts`, `Inline Code Block Renderer`?**
+  _High betweenness centrality (0.059) - this node is a cross-community bridge._
 - **Should `Theme & Render Core` be split into smaller, more focused modules?**
-  _Cohesion score 0.056866303690260134 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05827067669172932 - nodes in this community are weakly interconnected._
+- **Why does `devDependencies` connect `devDependencies` to `package.json`?**
+  _High betweenness centrality (0.053) - this node is a cross-community bridge._
 - **Should `Plugin Settings Management` be split into smaller, more focused modules?**
-  _Cohesion score 0.07536231884057971 - nodes in this community are weakly interconnected._
-- **Should `Config Models & Schemas` be split into smaller, more focused modules?**
-  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07329462989840348 - nodes in this community are weakly interconnected._

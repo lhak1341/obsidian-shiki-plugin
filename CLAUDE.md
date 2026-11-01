@@ -11,11 +11,24 @@ Bundler is **vite**, not esbuild. Deploys to the vault folder `shiki-highlighter
 Diverged too far (narrow host interfaces, `SettingsStore`, ec-core split) for a clean
 `git merge upstream/master` — port fixes by hand.
 
-Last reviewed: `4bd464e` (2026-08-02, canary version bump).
+Last reviewed: `5268557` (2026-10-27, upstream 0.8.0).
 
 - `317babc` "maybe a fix for #89" (IME composition dispatch) — ported manually into
   `Cm6_ViewPlugin.ts`.
 - `4bd464e` version bump — skipped, not applicable to the fork.
+- `c0f585e` "migrate settings tab" — ported onto `SettingsStore`: declarative
+  `getSettingDefinitions()` tab, folder pickers, edits schedule a debounced reload. Raises
+  `minAppVersion` to 1.13.0.
+- `4e855c4`, `2ac6dff`, `db4cca9`, `d7f9dc1` "fix lint issues part 1–4" — they also carried the
+  `main.ts` reload rework. Ported: per-language processors re-synced after each reload
+  (`CodeBlockProcessors.ts`), the tab refreshed after a reload, unload waiting for a
+  reload still in flight (`RenderTargets.dispose`), and no duplicate excluded languages.
+  Skipped: serialized reloads and the active-theme fallback (the fork already had both,
+  in `RenderTargets` and `CustomAssets.modesToReset`), plus import-style and
+  `window.requestAnimationFrame` lint nits.
+- `38b2e6f`, `56c3d9c`, `1ffba9b`, `0560856`, `83231e7`, `6b0dc41` repo automation,
+  CI and release tooling — skipped, the fork has its own toolchain.
+- `5268557` version bump to 0.8.0 — skipped.
 
 ## Package structure
 
@@ -45,7 +58,7 @@ Exceptions and traps:
 
 - `SettingsTab` extends `PluginSettingTab`, whose constructor requires `(App, Plugin)`. It
   takes the plugin for `super()` only; everything else arrives through its own narrow
-  interfaces (`SettingsTabStore`, `ThemeLanguageSource`, `HighlighterReloader`), so the tab
+  interfaces (`SettingsTabStore`, `ThemeLanguageSource`, `ReloadScheduler`), so the tab
   is registered after the highlighter and `RenderTargets` exist.
 - `HighlighterHost` settings are opt-in: adding a field to `Settings` does **not** expose it
   to `CodeHighlighter`. Add its key to the `HighlighterSettings` `Pick` in `Highlighter.ts`;
@@ -56,7 +69,9 @@ Exceptions and traps:
 `SettingsStore` keeps `_persisted` (disk) and `_snapshot` (the engine's view, flushed on
 reload by `CodeHighlighter.reload()`). Callers never choose live versus reload: user edits go
 through `store.update(key, value)`, which writes the snapshot immediately only for keys in
-`LIVE_SETTINGS` (`Settings.ts`). A new live-effect setting is one entry in that set.
+`LIVE_SETTINGS` (`Settings.ts`), and resolves to whether the edit needs a reload. The
+settings tab schedules a reload on `true`, so it never checks `LIVE_SETTINGS` itself. A new
+live-effect setting is one entry in that set.
 `store.reset(key)` writes the default to both, for a stored value found invalid mid-load
 (`resetTheme`).
 
@@ -65,6 +80,9 @@ through `store.update(key, value)`, which writes the snapshot immediately only f
 `CodeHighlighter` (`Highlighter.ts`) is a lifecycle facade over `EcRenderer` (EC/fenced
 blocks) and `ShikiRenderer` (Shiki/inline/CM6); `RenderTargets` owns the reload fan-out.
 Prefer `reload()` for settings-driven reloads — it flushes the settings snapshot itself.
+Work that touches plugin-owned registrations after a reload (processor sync, tab refresh) goes in
+`RenderTargetsHost.afterReload`, which is skipped once disposed. Chained inside `reloadHighlighter`,
+it ran after unload and leaked 347 processors into Obsidian until restart.
 
 Design decisions that look arbitrary are recorded in `docs/adr/`. Architecture Explore
 reports are hypotheses (removed methods, bugs that don't exist): verify against current

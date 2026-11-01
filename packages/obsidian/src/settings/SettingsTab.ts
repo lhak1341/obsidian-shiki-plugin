@@ -1,4 +1,4 @@
-import { type Plugin, PluginSettingTab, Setting, Platform, Notice, normalizePath } from 'obsidian';
+import { type Plugin, PluginSettingTab, Platform, Notice, normalizePath, type SettingDefinitionItem } from 'obsidian';
 import type { CustomTheme } from 'packages/obsidian/src/CustomAssets';
 import { StringSelectModal } from 'packages/obsidian/src/settings/StringSelectModal';
 import { bundledThemesInfo } from 'shiki';
@@ -7,7 +7,8 @@ import { FrameType, type Settings } from 'packages/obsidian/src/settings/Setting
 
 export interface SettingsTabStore {
 	readonly persisted: Readonly<Settings>;
-	update<K extends keyof Settings>(key: K, value: Settings[K]): Promise<void>;
+	/** Resolves to whether the edit needs a highlighter reload to take effect. */
+	update<K extends keyof Settings>(key: K, value: Settings[K]): Promise<boolean>;
 }
 
 export interface ThemeLanguageSource {
@@ -15,26 +16,45 @@ export interface ThemeLanguageSource {
 	readonly supportedLanguages: string[];
 }
 
-export interface HighlighterReloader {
-	reload(): Promise<void>;
+export interface ReloadScheduler {
+	/** Requests a highlighter reload; a burst of requests collapses into one. */
+	scheduleReload(): void;
 }
 
+/** Languages the "Exclude language" picker offers: every supported one not already excluded. */
+export function excludableLanguages(supported: readonly string[], excluded: readonly string[]): string[] {
+	const taken = new Set(excluded);
+	return supported.filter(language => !taken.has(language));
+}
+
+/**
+ * Declarative settings tab (Obsidian 1.13 settings API). Controls read and write through the
+ * settings store; an edit that needs a reload schedules one, so there is no reload button.
+ * Call `update()` after a highlighter reload so the theme list reflects the custom themes loaded.
+ */
 export class ShikiSettingsTab extends PluginSettingTab {
 	private readonly store: SettingsTabStore;
 	private readonly source: ThemeLanguageSource;
-	private readonly reloader: HighlighterReloader;
+	private readonly reloads: ReloadScheduler;
 
-	constructor(plugin: Plugin, store: SettingsTabStore, source: ThemeLanguageSource, reloader: HighlighterReloader) {
+	constructor(plugin: Plugin, store: SettingsTabStore, source: ThemeLanguageSource, reloads: ReloadScheduler) {
 		super(plugin.app, plugin);
 
 		this.store = store;
 		this.source = source;
-		this.reloader = reloader;
+		this.reloads = reloads;
 	}
 
-	display(): void {
-		this.containerEl.empty();
+	getControlValue(key: string): unknown {
+		return this.store.persisted[key as keyof Settings];
+	}
 
+	async setControlValue(key: string, value: unknown): Promise<void> {
+		// keys come only from the control definitions below, which are typed against Settings
+		await this.save(key as keyof Settings, value as Settings[keyof Settings]);
+	}
+
+	getSettingDefinitions(): SettingDefinitionItem<keyof Settings>[] {
 		const customThemes = Object.fromEntries(this.source.getCustomThemes().map(theme => [theme.name, `${theme.displayName} (${theme.type})`]));
 		const builtInThemes = Object.fromEntries(bundledThemesInfo.map(theme => [theme.id, `${theme.displayName} (${theme.type})`]));
 		const themes = {
@@ -42,176 +62,133 @@ export class ShikiSettingsTab extends PluginSettingTab {
 			...customThemes,
 			...builtInThemes,
 		};
+		const excluded = this.store.persisted.disabledLanguages;
 
-		const generalItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
+		return [
+			{
+				name: 'Inline syntax highlighting',
+				desc: 'Enables syntax highlighting for inline code blocks via `{lang} code`.',
+				control: { type: 'toggle', key: 'inlineHighlighting' },
+			},
+			{
+				type: 'group',
+				heading: 'EC defaults',
+				items: [
+					{
+						name: 'Show line numbers',
+						desc: 'Controls whether line numbers are shown by default.',
+						control: { type: 'toggle', key: 'ecDefaultShowLineNumbers' },
+					},
+					{
+						name: 'Wrap',
+						desc: 'Controls whether code block lines wrap by default.',
+						control: { type: 'toggle', key: 'ecDefaultWrap' },
+					},
+					{
+						name: 'Frame',
+						desc: 'Controls the default frame type for code blocks.',
+						control: {
+							type: 'dropdown',
+							key: 'ecDefaultFrame',
+							options: {
+								[FrameType.Code]: 'Code',
+								[FrameType.Terminal]: 'Terminal',
+								[FrameType.None]: 'None',
+								[FrameType.Auto]: 'Auto',
+							},
+						},
+					},
+				],
+			},
+			{
+				type: 'group',
+				heading: 'Theme',
+				items: [
+					{
+						name: 'Dark theme',
+						desc: "The theme for code blocks when Obsidian's base color scheme is dark.",
+						control: { type: 'dropdown', key: 'darkTheme', options: themes },
+					},
+					{
+						name: 'Light theme',
+						desc: "The theme for code blocks when Obsidian's base color scheme is light.",
+						control: { type: 'dropdown', key: 'lightTheme', options: themes },
+					},
+					{
+						name: 'Custom themes folder location',
+						desc: 'Folder in your vault containing custom JSON theme files.',
+						control: { type: 'folder', key: 'customThemeFolder', includeRoot: true },
+					},
+					{
+						name: 'Open custom themes folder',
+						visible: Platform.isDesktopApp,
+						action: () => void this.openFolder(this.store.persisted.customThemeFolder, 'themes'),
+					},
+					{
+						name: 'Prefer theme colors',
+						desc: 'Prefer theme colors over CSS variables for things like the code block background.',
+						control: { type: 'toggle', key: 'preferThemeColors' },
+					},
+				],
+			},
+			{
+				type: 'group',
+				heading: 'Languages',
+				items: [
+					{
+						name: 'Custom languages folder location',
+						desc: 'Folder in your vault containing custom JSON language files.',
+						control: { type: 'folder', key: 'customLanguageFolder', includeRoot: true },
+					},
+					{
+						name: 'Open custom languages folder',
+						visible: Platform.isDesktopApp,
+						action: () => void this.openFolder(this.store.persisted.customLanguageFolder, 'languages'),
+					},
+				],
+			},
+			{
+				type: 'list',
+				heading: 'Excluded languages',
+				emptyState: 'No excluded languages.',
+				addItem: {
+					name: 'Exclude language',
+					action: (): void => {
+						new StringSelectModal(this.app, excludableLanguages(this.source.supportedLanguages, excluded), language => {
+							void this.excludeLanguage(language);
+						}).open();
+					},
+				},
+				onDelete: (index): void => {
+					void this.saveExcluded(excluded.filter((_, i) => i !== index));
+				},
+				items: excluded.map(language => ({ name: language })),
+			},
+		];
+	}
 
-		new Setting(generalItems).setName('Most changes require a reload of the highlighter').addButton(button => {
-			button
-				.setCta()
-				.setButtonText('Reload highlighter')
-				.onClick(async () => {
-					button.setDisabled(true);
-					await this.reloader.reload();
-					button.setDisabled(false);
-				});
-		});
+	/** Adds `language` to the excluded list; a language already there is left alone. */
+	async excludeLanguage(language: string): Promise<void> {
+		const excluded = this.store.persisted.disabledLanguages;
+		if (excluded.includes(language)) return;
+		await this.saveExcluded([...excluded, language]);
+	}
 
-		new Setting(generalItems)
-			.setName('Inline syntax highlighting')
-			.setDesc('Enables syntax highlighting for inline code blocks via `{lang} code`. Takes effect immediately.')
-			.addToggle(toggle => {
-				toggle.setValue(this.store.persisted.inlineHighlighting).onChange(async value => {
-					await this.store.update('inlineHighlighting', value);
-				});
-			});
+	private async saveExcluded(languages: string[]): Promise<void> {
+		await this.save('disabledLanguages', languages);
+		this.update();
+	}
 
-		new Setting(this.containerEl).setName('EC defaults').setHeading();
-		const ecDefaultsItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
+	private async save<K extends keyof Settings>(key: K, value: Settings[K]): Promise<void> {
+		if (await this.store.update(key, value)) this.reloads.scheduleReload();
+	}
 
-		new Setting(ecDefaultsItems)
-			.setName('Show line numbers')
-			.setDesc('Controls whether line numbers are shown by default.')
-			.addToggle(toggle => {
-				toggle.setValue(this.store.persisted.ecDefaultShowLineNumbers).onChange(async value => {
-					await this.store.update('ecDefaultShowLineNumbers', value);
-				});
-			});
-
-		new Setting(ecDefaultsItems)
-			.setName('Wrap')
-			.setDesc('Controls whether code block lines wrap by default.')
-			.addToggle(toggle => {
-				toggle.setValue(this.store.persisted.ecDefaultWrap).onChange(async value => {
-					await this.store.update('ecDefaultWrap', value);
-				});
-			});
-
-		new Setting(ecDefaultsItems)
-			.setName('Frame')
-			.setDesc('Controls the default frame type for code blocks.')
-			.addDropdown(dropdown => {
-				dropdown.addOptions({
-					[FrameType.Code]: 'Code',
-					[FrameType.Terminal]: 'Terminal',
-					[FrameType.None]: 'None',
-					[FrameType.Auto]: 'Auto',
-				});
-				dropdown.setValue(this.store.persisted.ecDefaultFrame).onChange(async value => {
-					await this.store.update('ecDefaultFrame', value as FrameType);
-				});
-			});
-
-		new Setting(this.containerEl).setName('Theme').setHeading();
-		const themeItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
-
-		new Setting(themeItems)
-			.setName('Dark theme')
-			.setDesc("The theme for code blocks when Obsidian's base color scheme is dark.")
-			.addDropdown(dropdown => {
-				dropdown.addOptions(themes);
-				dropdown.setValue(this.store.persisted.darkTheme).onChange(async value => {
-					await this.store.update('darkTheme', value);
-				});
-			});
-
-		new Setting(themeItems)
-			.setName('Light theme')
-			.setDesc("The theme for code blocks when Obsidian's base color scheme is light.")
-			.addDropdown(dropdown => {
-				dropdown.addOptions(themes);
-				dropdown.setValue(this.store.persisted.lightTheme).onChange(async value => {
-					await this.store.update('lightTheme', value);
-				});
-			});
-
-		const customThemeFolderSetting = new Setting(themeItems)
-			.setName('Custom themes folder location')
-			.setDesc('Folder relative to your vault where custom JSON theme files are located.')
-			.addText(textbox => {
-				textbox.setValue(this.store.persisted.customThemeFolder).onChange(async value => {
-					await this.store.update('customThemeFolder', value);
-				});
-				textbox.inputEl.addClass('shiki-custom-theme-folder');
-			});
-
-		new Setting(themeItems)
-			.setName('Prefer theme colors')
-			.setDesc('When enabled the plugin will prefer theme colors over CSS variables for things like the code block background.')
-			.addToggle(toggle => {
-				toggle.setValue(this.store.persisted.preferThemeColors).onChange(async value => {
-					await this.store.update('preferThemeColors', value);
-				});
-			});
-
-		new Setting(this.containerEl).setHeading().setName('Languages');
-		const languageItems = this.containerEl.createDiv('setting-group').createDiv('setting-items');
-
-		const customLanguageFolderSetting = new Setting(languageItems)
-			.setName('Custom languages folder location')
-			.setDesc('Folder relative to your vault where custom JSON language files are located.')
-			.addText(textbox => {
-				textbox.setValue(this.store.persisted.customLanguageFolder).onChange(async value => {
-					await this.store.update('customLanguageFolder', value);
-				});
-				textbox.inputEl.addClass('shiki-custom-language-folder');
-			});
-
-		new Setting(languageItems)
-			.setName('Excluded languages')
-			.setDesc('Configure language to exclude.')
-			.addButton(button => {
-				button.setButtonText('Add language rule').onClick(() => {
-					const modal = new StringSelectModal(this.app, this.source.supportedLanguages, language => {
-						void this.store.update('disabledLanguages', [...this.store.persisted.disabledLanguages, language]);
-						this.display();
-					});
-					modal.open();
-				});
-			});
-
-		for (const language of this.store.persisted.disabledLanguages) {
-			new Setting(languageItems).setName(language).addButton(button => {
-				button
-					.setIcon('trash')
-					.setWarning()
-					.onClick(() => {
-						void this.store.update(
-							'disabledLanguages',
-							this.store.persisted.disabledLanguages.filter(x => x !== language),
-						);
-						this.display();
-					});
-			});
-		}
-
-		if (Platform.isDesktopApp) {
-			customThemeFolderSetting.addExtraButton(button => {
-				button
-					.setIcon('folder-open')
-					.setTooltip('Open custom themes folder')
-					.onClick(async () => {
-						const themeFolder = normalizePath(this.store.persisted.customThemeFolder);
-						if (await this.app.vault.adapter.exists(themeFolder)) {
-							this.app.openWithDefaultApp(themeFolder);
-						} else {
-							new Notice(`Unable to open custom themes folder: ${themeFolder}`, 5000);
-						}
-					});
-			});
-
-			customLanguageFolderSetting.addExtraButton(button => {
-				button
-					.setIcon('folder-open')
-					.setTooltip('Open custom languages folder')
-					.onClick(async () => {
-						const languageFolder = normalizePath(this.store.persisted.customLanguageFolder);
-						if (await this.app.vault.adapter.exists(languageFolder)) {
-							this.app.openWithDefaultApp(languageFolder);
-						} else {
-							new Notice(`Unable to open custom languages folder: ${languageFolder}`, 5000);
-						}
-					});
-			});
+	private async openFolder(path: string, kind: string): Promise<void> {
+		const folder = normalizePath(path);
+		if (await this.app.vault.adapter.exists(folder)) {
+			this.app.openWithDefaultApp(folder);
+		} else {
+			new Notice(`Unable to open custom ${kind} folder: ${folder}`, 5000);
 		}
 	}
 }
