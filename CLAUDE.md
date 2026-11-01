@@ -28,7 +28,8 @@ Last reviewed: `5268557` (2026-10-27, upstream 0.8.0).
   `window.requestAnimationFrame` lint nits.
 - `38b2e6f`, `56c3d9c`, `1ffba9b`, `0560856`, `83231e7`, `6b0dc41` repo automation,
   CI and release tooling — skipped, the fork has its own toolchain.
-- `5268557` version bump to 0.8.0 — skipped.
+- `5268557` version bump to 0.8.0 — commit skipped; fork bumped its own version to 0.8.0
+  (same manifest id as upstream, so a lower version gets offered upstream's build as an update).
 
 ## Package structure
 
